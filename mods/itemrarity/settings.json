@@ -1,9 +1,20 @@
 {
   "version": 1,
   "settings": {
-    "multiplier": {
+    "magic": {
       "type": "number", "default": 10, "min": 1, "max": 100, "format": "multiplier",
-      "label": "Item rarity", "description": "How many times the chance of magic, rare and unique equipment from every kill."
+      "label": "Magic rarity",
+      "description": "How many times the chance of magic equipment from every kill."
+    },
+    "rare": {
+      "type": "number", "default": 10, "min": 1, "max": 100, "format": "multiplier",
+      "label": "Rare rarity",
+      "description": "How many times the chance of rare equipment from every kill."
+    },
+    "unique": {
+      "type": "number", "default": 10, "min": 1, "max": 100, "format": "multiplier",
+      "label": "Unique rarity",
+      "description": "How many times the chance of unique equipment from every kill."
     }
   }
 }

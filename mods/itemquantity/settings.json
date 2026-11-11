@@ -2,8 +2,18 @@
   "version": 1,
   "settings": {
     "multiplier": {
-      "type": "number", "default": 10, "min": 1, "max": 100, "format": "multiplier",
-      "label": "Item quantity", "description": "How many times as many items every kill drops."
+      "type": "choice",
+      "default": 10,
+      "options": [
+        { "value": 2, "label": "x2" },
+        { "value": 4, "label": "x4" },
+        { "value": 6, "label": "x6" },
+        { "value": 8, "label": "x8" },
+        { "value": 10, "label": "x10" }
+      ],
+      "format": "multiplier",
+      "label": "Item quantity",
+      "description": "How many times as many items every kill drops."
     }
   }
 }
