@@ -98,7 +98,18 @@ public sealed class PetLootMod : IMod
     static bool Visible(ClientState conn, uint id)
     {
         var origin = conn.Instance.Ground.Origin(id);
-        return conn.SeenGround.Contains(id) && (origin.Shared || ReferenceEquals(origin.By, conn));
+        bool seen;
+        // SeenGround 被区域首播、共享同步、自动吸金币在不同线程上改，服务端自己读写都要拿锁（Game.SeenOnGround）。
+        lock (conn.SeenGround) seen = conn.SeenGround.Contains(id);
+        return seen && (origin.Shared || ReferenceEquals(origin.By, conn));
+    }
+
+    /// <summary>玩家身边的金币由服务端自己收（Items.PickUpNearbyGold，world.db 的 gold_auto_loot_radius，本服 20 格），
+    /// 宠物走过去只会扑空：它到场前金币已经进仓库，目标于是从候选里消失。留给自动拾取，宠物专管更远的那部分。</summary>
+    static bool AutoLooted(WorldItemObject item, (int X, int Y) at)
+    {
+        double radius = SystemSettings.Default.GoldAutoLootRadius;
+        return radius > 0 && Game.IsGold(item) && Distance(at.X, at.Y, item.GridX, item.GridY) <= radius;
     }
 
     static Candidate[] Nearby(ClientState conn, Profile profile)
@@ -109,7 +120,7 @@ public sealed class PetLootMod : IMod
             var items = Game.ItemsFor(conn);
             var nearby = new List<Candidate>();
             foreach (var (id, item) in conn.Instance.Ground.Within(pos.X, pos.Y, Math.Clamp(profile.Radius, 1, 100), _ => true))
-                if (Visible(conn, id) && items.ByHash(item.Item.TypeHash) is { } type)
+                if (!AutoLooted(item, pos) && Visible(conn, id) && items.ByHash(item.Item.TypeHash) is { } type)
                     nearby.Add(new(id, item, type));
             return nearby.ToArray();
         }
@@ -165,8 +176,15 @@ public sealed class PetLootMod : IMod
                 state.RetryAfter.Remove(old);
             var at = conn.Walk.Position(conn.Clock.Elapsed.TotalSeconds);
             var candidates = Nearby(conn, profile).Where(i => Accept(i, profile) && !state.RetryAfter.ContainsKey(i.Id));
-            var drop = state.Item is uint target ? candidates.FirstOrDefault(i => i.Id == target)
-                : candidates.MinBy(i => Distance(at.X, at.Y, i.Item.GridX, i.Item.GridY));
+            Candidate? drop = null;
+            if (state.Item is uint target)
+            {
+                drop = candidates.FirstOrDefault(i => i.Id == target);
+                // 目标在宠物到场前就没了（服务端自动吸走金币、队友先拿、掉落过期）：换最近的一件接着捡。
+                // 以前这里直接 Release，整批当场放弃、宠物回去跟随，看起来就是「宠物不捡」。
+                if (drop is null) state.Item = null;
+            }
+            drop ??= candidates.MinBy(i => Distance(at.X, at.Y, i.Item.GridX, i.Item.GridY));
             if (drop is null) { await Release(conn, state); return; }
             var to = (X: drop.Item.GridX, Y: drop.Item.GridY);
             if (state.Item is null)
