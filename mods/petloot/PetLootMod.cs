@@ -126,11 +126,14 @@ public sealed class PetLootMod : IMod
             if (state.Item is null)
             {
                 double now = conn.Clock.Elapsed.TotalSeconds;
+                uint? previous = state.Pet;
                 lock (conn.Pets)
                 {
                     if (conn.Pets.Count == 0) return;
                     state.Pet = conn.Pets.MinBy(p => { var pos = p.Value.Walk.Position(now); return Distance(pos.X, pos.Y, to.X, to.Y); }).Key;
                 }
+                // 换了一只宠物：松开上一只的占用，否则它会永远停在不跟随的状态。
+                if (previous is uint old && old != state.Pet) CosmeticsFeature.SetPetBusy(conn, old, false);
                 state.Item = drop.Id; state.Started = state.Seconds;
                 // 占住这只宠物：这一批通货捡完之前它不跟随 —— 否则刚走到物品旁就会被「离玩家超过 12 格」
                 // 的跟随规则拉回去，来回抖（live 2026-11-13）。
@@ -157,9 +160,19 @@ public sealed class PetLootMod : IMod
                 }
             }
             if (pickup is not null)
+            {
                 await Game.SendPickup(conn.Wire.Remote, conn.Wire.Stream, conn.Wire.Ciphers, conn, drop.Id, pickup);
-            else state.RetryAfter[drop.Id] = state.Seconds + 2;
-            await Release(conn, state);
+                // 捡到了：这一件结束，但宠物继续被占用（不清 busy），下一个 tick 接着捡下一件。
+                state.Item = null;
+            }
+            else
+            {
+                // 这件拿不到（超时或被挡）：放弃它换下一件，占用同样保持。
+                state.RetryAfter[drop.Id] = state.Seconds + 2;
+                state.Item = null;
+            }
+            // 这里以前每 tick 都 Release —— 那会顺手把「占用」解掉，宠物下一个 tick 就被跟随逻辑拉走，
+            // 等于这批通货没捡完就跟着玩家跑了（live 2026-11-13）。释放只发生在没有可捡物品时（drop is null）。
         }
         finally { state.Gate.Release(); }
     }
