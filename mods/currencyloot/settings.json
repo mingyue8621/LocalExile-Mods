@@ -33,7 +33,7 @@
         "Hinekora's Lock": 0.005,
         "Mirror of Kalandra": 0.001
       },
-      "value": { "type": "number", "min": 0, "max": 1000, "step": 0.01 },
+      "value": { "type": "number", "min": 0, "max": 1000, "step": 0.001 },
       "label": "Items per kill",
       "description": "Item name or metadata id: how many every kill drops. A fraction is the chance of one more (0.05 is 5%, 2.5 is two and a half). 0 removes it."
     },
