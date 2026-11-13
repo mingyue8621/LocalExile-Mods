@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- A project mod: mods/<id>/<Name>.csproj, built by tools/build-release.ps1. Everything else is in
+       mods/Directory.Build.props. -->
+
+</Project>

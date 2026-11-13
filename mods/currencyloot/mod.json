@@ -1,0 +1,10 @@
+{
+  "id": "currencyloot",
+  "name": "Currency Loot",
+  "description": "Controls what currency every kill drops, item by item: how many, on which monsters, and whether the server's own drops stay.",
+  "author": "mingyue8621",
+  "version": "1.0.0",
+  "compatibleClientVersions": ["0.5.1-beta"],
+  "kind": "feature",
+  "depends": []
+}
