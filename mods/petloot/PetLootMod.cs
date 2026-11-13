@@ -85,7 +85,7 @@ public sealed class PetLootMod : IMod
         Profile profile;
         lock (choicesGate) profile = choices.Profiles.GetValueOrDefault(Key(conn)) ?? FromChoices(choices);
         // 老版本存下来的 profile 里半径字段叫 range，读成 radius 是 0；别让它被夹成 1 格。
-        return profile.Radius is >= 1 and <= 50 ? profile : profile with { Radius = 50 };
+        return profile.Radius is >= 1 and <= 100 ? profile : profile with { Radius = 50 };
     }
 
     sealed record Candidate(uint Id, WorldItemObject Item, ItemCatalog.BaseType Type);
@@ -108,7 +108,7 @@ public sealed class PetLootMod : IMod
             var pos = conn.Walk.Position(conn.Clock.Elapsed.TotalSeconds);
             var items = Game.ItemsFor(conn);
             var nearby = new List<Candidate>();
-            foreach (var (id, item) in conn.Instance.Ground.Within(pos.X, pos.Y, Math.Clamp(profile.Radius, 1, 50), _ => true))
+            foreach (var (id, item) in conn.Instance.Ground.Within(pos.X, pos.Y, Math.Clamp(profile.Radius, 1, 100), _ => true))
                 if (Visible(conn, id) && items.ByHash(item.Item.TypeHash) is { } type)
                     nearby.Add(new(id, item, type));
             return nearby.ToArray();
@@ -196,7 +196,7 @@ public sealed class PetLootMod : IMod
                     var current = ProfileOf(conn);
                     double now = conn.Clock.Elapsed.TotalSeconds;
                     var owner = conn.Walk.Position(now); var collector = pet.Walk.Position(now);
-                    if (Accept(drop, current) && Distance(owner.X, owner.Y, to.X, to.Y) <= Math.Clamp(current.Radius, 1, 50))
+                    if (Accept(drop, current) && Distance(owner.X, owner.Y, to.X, to.Y) <= Math.Clamp(current.Radius, 1, 100))
                     {
                         if (Distance(collector.X, collector.Y, to.X, to.Y) <= 2)
                             pickup = Game.TakeGroundStack(conn, drop.Id, drop.Item);
@@ -245,7 +245,7 @@ public sealed class PetLootMod : IMod
                 string rules = string.Join(", ", profile.Rules.OrderBy(r => r.Key).Select(r => $"{r.Key}: {(r.Value == 0 ? "屏蔽" : "最少 " + r.Value)}"));
                 await conn.Commands!.Reply($"宠物拾取：{(profile.Enabled ? "开" : "关")}；半径 {profile.Radius} 格；勾选 {Flags(profile)}。\n"
                     + $"单项覆盖：{(rules.Length == 0 ? "无" : rules)}\n"
-                    + "分类勾选在启动器的模组设置里改；这里是这个账号的临时改动：/petloot on|off|radius 1-50|allow <物品> [最少堆叠]|block|remove <物品>|nearby|reset");
+                    + "分类勾选在启动器的模组设置里改；这里是这个账号的临时改动：/petloot on|off|radius 1-100|allow <物品> [最少堆叠]|block|remove <物品>|nearby|reset");
                 return;
             }
             if (action == "nearby")
@@ -257,7 +257,7 @@ public sealed class PetLootMod : IMod
             }
             if (action is "on" or "off" or "toggle")
                 profile = profile with { Enabled = action == "on" || action == "toggle" && !profile.Enabled };
-            else if (action == "radius" && args.Length == 2 && int.TryParse(args[1], out int radius) && radius is >= 1 and <= 50)
+            else if (action == "radius" && args.Length == 2 && int.TryParse(args[1], out int radius) && radius is >= 1 and <= 100)
                 profile = profile with { Radius = radius };
             else if (action is "allow" or "block" or "remove" && args.Length > 1)
             {
