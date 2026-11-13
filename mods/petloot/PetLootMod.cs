@@ -99,7 +99,10 @@ public sealed class PetLootMod : IMod
     {
         uint? pet = state.Pet;
         state.Item = state.Pet = null;
-        if (pet is uint id && Active(conn))
+        if (pet is not uint id) return;
+        // 松开占用：跟随恢复。这一步必须无条件做，否则「暂停拾取」之后宠物会永远不跟随。
+        CosmeticsFeature.SetPetBusy(conn, id, false);
+        if (Active(conn))
             await CosmeticsFeature.WalkPetTo(conn, id, conn.Walk.Position(conn.Clock.Elapsed.TotalSeconds), () => Active(conn));
     }
 
@@ -129,6 +132,9 @@ public sealed class PetLootMod : IMod
                     state.Pet = conn.Pets.MinBy(p => { var pos = p.Value.Walk.Position(now); return Distance(pos.X, pos.Y, to.X, to.Y); }).Key;
                 }
                 state.Item = drop.Id; state.Started = state.Seconds;
+                // 占住这只宠物：这一批通货捡完之前它不跟随 —— 否则刚走到物品旁就会被「离玩家超过 12 格」
+                // 的跟随规则拉回去，来回抖（live 2026-11-13）。
+                CosmeticsFeature.SetPetBusy(conn, state.Pet.Value, true);
                 if (!await CosmeticsFeature.WalkPetTo(conn, state.Pet.Value, to, () => Active(conn)))
                 { await Release(conn, state); return; }
             }
