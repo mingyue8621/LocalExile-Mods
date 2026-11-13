@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "settings": {
+    "enabled": {
+      "type": "bool",
+      "default": true,
+      "label": "安装物品过滤器",
+      "description": "把模组自带的剑心过滤器放进客户端的过滤器目录。关掉就不动客户端。"
+    },
+    "profile": {
+      "type": "choice",
+      "default": "mapping",
+      "options": [
+        { "value": "campaign", "label": "剧情（1-70）" },
+        { "value": "mapping", "label": "异界（71-90）" },
+        { "value": "advanced", "label": "进阶" },
+        { "value": "speed", "label": "速刷" },
+        { "value": "magic", "label": "打宝" },
+        { "value": "ultimate", "label": "终极" },
+        { "value": "clean", "label": "纯净" }
+      ],
+      "label": "默认档位",
+      "description": "七套都会装进客户端，这里选的是进游戏时替你选中的那套；进了游戏也能自己换。"
+    },
+    "selectInGame": {
+      "type": "bool",
+      "default": true,
+      "label": "自动选中这一档",
+      "description": "改写客户端配置里的物品过滤器，进游戏直接生效（会先备份配置）。游戏开着的时候不改，免得被客户端写回去。"
+    },
+    "copySounds": {
+      "type": "bool",
+      "default": true,
+      "label": "同时安装音效",
+      "description": "过滤器里的提示音（27 MB）。缺了不影响过滤，只是没有声音。"
+    },
+    "soundSource": {
+      "type": "string",
+      "default": "G:\\POE1.1\\Poe1+-+剑心过滤+-+S31赛季+-+2026.11.13\\剑心音效",
+      "label": "音效来源目录",
+      "advanced": true,
+      "description": "剑心音效文件夹的路径，留空就只装过滤器不装音效。"
+    },
+    "targetFolder": {
+      "type": "string",
+      "default": "",
+      "label": "客户端过滤器目录",
+      "advanced": true,
+      "description": "留空 = 我的文档\\My Games\\Path of Exile，和客户端自己放过滤器的地方一致。"
+    }
+  }
+}

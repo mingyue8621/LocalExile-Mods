@@ -1,0 +1,10 @@
+{
+  "id": "lootfilter",
+  "name": "Loot Filter",
+  "description": "Installs the 剑心 item filter (7 tiers, with its sounds) into the client's filter folder and selects the tier you pick.",
+  "author": "mingyue8621",
+  "version": "1.0.0",
+  "compatibleClientVersions": ["0.5.1-beta"],
+  "kind": "feature",
+  "depends": []
+}
