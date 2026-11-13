@@ -15,18 +15,20 @@ namespace LocalExile.Mods.LootFilter;
 public sealed class LootFilterMod : IMod
 {
     /// <summary>settings.json 的键，按名字对上（大小写无关）。</summary>
-    public sealed record Options(bool Enabled, string Profile, bool SelectInGame, bool CopySounds, string? SoundSource, string? TargetFolder);
+    public sealed record Options(bool Enabled, string Profile, bool SelectInGame, bool CopySounds,
+        string? SoundSource, string? TargetFolder, string? FiltersSource);
 
-    /// <summary>七档过滤器：Key 存进设置，File 是 filters 目录里的文件名（作者不改名，方便跟版本）。</summary>
-    static readonly (string Key, string File)[] Tiers =
+    /// <summary>七档过滤器按文件名里的关键词认（剑心「异界」，别的作者「中期/71-90」也认）。
+    /// 键存进设置；装到客户端后按关键词找实际文件名，所以换一版包不用改代码。</summary>
+    static readonly (string Key, string[] Keywords)[] Tiers =
     [
-        ("campaign", "剑心过滤[1].剧情.filter"),
-        ("mapping", "剑心过滤[2].异界.filter"),
-        ("advanced", "剑心过滤[3].进阶.filter"),
-        ("speed", "剑心过滤[4].速刷.filter"),
-        ("magic", "剑心过滤[5].打宝.filter"),
-        ("ultimate", "剑心过滤[6].终极.filter"),
-        ("clean", "剑心过滤[7].纯净.filter"),
+        ("campaign", ["剧情", "开荒", "1-70"]),
+        ("mapping", ["异界", "中期", "71-90"]),
+        ("advanced", ["进阶"]),
+        ("speed", ["速刷", "92+"]),
+        ("magic", ["打宝", "96+"]),
+        ("ultimate", ["终极"]),
+        ("clean", ["纯净"]),
     ];
 
     /// <summary>音效目录：filter 里的 CustomAlertSound 写的就是这个相对路径，所以要放在过滤器旁边。</summary>
@@ -86,15 +88,15 @@ public sealed class LootFilterMod : IMod
     {
         if (!options.Enabled) return "已关闭（设置里重新打开后 /lootfilter install）";
         string target = TargetFolder();
-        string file = FileOf(options.Profile);
         int present = CountFilters(target);
+        string file = Installed(target, options.Profile) ?? "（目录里没找到这一档）";
         string sounds = Directory.Exists(Path.Combine(target, SoundFolder)) ? "有音效" : "没有音效";
-        return $"目录 {target}；{present} / {Tiers.Length} 套过滤文件，{sounds}；默认档位 {file}";
+        return $"目录 {target}；{present} 个过滤文件，{sounds}；默认档位 {file}";
     }
 
     static int CountFilters(string target)
     {
-        try { return Tiers.Count(t => File.Exists(Path.Combine(target, t.File))); }
+        try { return Directory.Exists(target) ? Directory.GetFiles(target, "*.filter").Length : 0; }
         catch (IOException) { return 0; }
     }
 
@@ -119,11 +121,12 @@ public sealed class LootFilterMod : IMod
         return fallback.Length > 0 ? fallback : Path.Combine(home, "Documents", "My Games", "Path of Exile");
     }
 
-    /// <summary>七套都放过去，客户端才能在游戏里自由切换；内容没变的不重写。</summary>
+    /// <summary>七套都放过去，客户端才能在游戏里自由切换；内容没变的不重写。
+    /// 源目录优先用设置里指定的（换一版过滤器只改设置），否则用模组自带的 filters。</summary>
     int CopyFilters(string target)
     {
-        string source = Path.Combine(mod.Folder, "filters");
-        if (!Directory.Exists(source)) return 0;
+        string source = FiltersFrom();
+        if (source.Length == 0 || !Directory.Exists(source)) return 0;
         int copied = 0;
         foreach (string file in Directory.GetFiles(source, "*.filter"))
         {
@@ -133,6 +136,14 @@ public sealed class LootFilterMod : IMod
             copied++;
         }
         return copied;
+    }
+
+    /// <summary>过滤器文件从哪来：设置里的「过滤器来源目录」，没设就用模组自带的 filters。</summary>
+    string FiltersFrom()
+    {
+        string configured = (options.FiltersSource ?? "").Trim();
+        if (configured.Length > 0 && Directory.Exists(configured)) return configured;
+        return Path.Combine(mod.Folder, "filters");
     }
 
     /// <summary>音效按需补齐：27 MB，只在缺失或大小不同时复制。</summary>
@@ -163,17 +174,31 @@ public sealed class LootFilterMod : IMod
         catch (IOException) { return false; }
     }
 
-    static string FileOf(string profile)
+    /// <summary>客户端过滤器目录里，属于这一档的那个文件（按文件名关键词认，兼容不同作者的命名）。</summary>
+    string? Installed(string target, string profile)
     {
-        foreach (var (key, file) in Tiers)
-            if (string.Equals(key, profile, StringComparison.OrdinalIgnoreCase)) return file;
-        return Tiers[1].File;
+        if (!Directory.Exists(target)) return null;
+        (string Key, string[] Keywords) tier = Tiers[1];
+        foreach (var candidate in Tiers)
+            if (string.Equals(candidate.Key, profile, StringComparison.OrdinalIgnoreCase)) tier = candidate;
+        foreach (string file in Directory.GetFiles(target, "*.filter"))
+        {
+            string name = Path.GetFileName(file);
+            foreach (string keyword in tier.Keywords)
+                if (name.Contains(keyword, StringComparison.Ordinal)) return name;
+        }
+        return null;
     }
 
     /// <summary>把 ini 里的 item_filter 改成这一档；游戏在跑、或者客户端还没生成配置时不写。</summary>
     string? Select(string target)
     {
-        string file = FileOf(options.Profile);
+        string? file = Installed(target, options.Profile);
+        if (file is null)
+        {
+            mod.Log($"loot filter: no filter in {target} matches the {options.Profile} tier, selection left alone");
+            return null;
+        }
         if (GameRunning())
         {
             mod.Log("loot filter: the game is running, leaving the client's selection alone");
