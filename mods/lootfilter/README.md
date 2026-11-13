@@ -2,6 +2,22 @@
 
 Installs the 剑心 item filter into the client's own filter folder and selects the tier you pick.
 
+## Converted to 3.29
+
+The upstream pack is S31, which is written for 3.30 (the item classes and some item names changed). The copies in
+`filters/` are converted to this server's `3.29.3c` client data by `tools/adapt-lootfilter.py`:
+
+- every `Class` is mapped to a name that exists in 3.29's `ItemClasses` (`Flasks` → `Life/Mana/Hybrid/Utility
+  Flasks`, `Support Gem` → `Support Gems`, `Atlas Upgrade Item` → `Atlas Upgrade Items`, …);
+- the author's "wildcard" spellings (`" of Rage"`, `"Essence of"`, `"Awakened "`, `"Vaal "`, `"Talisman"`, …) are
+  expanded into the concrete item names of 3.29, so those blocks actually match something;
+- names that do not exist in 3.29 (the Thread currency, Soul Cores, Mycelium Core, Royal Visage, Cursed Poppet, …)
+  are dropped, and a block left with nothing to match is removed — otherwise its bare `Class` would highlight
+  every item of that class.
+
+Result: 1369 `BaseType` names and 65 `Class` names, **none** missing from the 3.29 client (before: 35 items and 11
+classes missing, i.e. 3.30-only content and 3.30 class names).
+
 ## What it does
 
 Path of Exile reads `.filter` files from `Documents\My Games\Path of Exile\` (the same folder it keeps

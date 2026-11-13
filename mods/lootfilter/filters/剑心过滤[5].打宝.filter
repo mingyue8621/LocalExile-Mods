@@ -1,3 +1,6 @@
+# 由 lootfilter 模组按 3.29 客户端数据适配（Class 名、通配展开、3.30 新物品剔除）。
+# 原作者：剑影流心  https://www.jxpoe.cn   —— 内容未改，只做版本换算。
+
 # 作者：剑影流心
 # 剑心官网：https://www.jxpoe.cn
 # B站主页：https://space.bilibili.com/315476573
@@ -5,77 +8,6 @@
 # 必看教程：https://www.bilibili.com/video/BV1km786eEup
 
 # -------------------------- 黑影巫会 -------------------------- #
-
-Show # 丝线
-    Class "Map Fragments"
-    BaseType "Expedition Thread" "Abyss Thread" "Breach Thread" "Ritual Thread" "Ultimatum Thread" "Legion Thread" "Blight Thread" "Bestiary Thread" "Betrayal Thread" "Incursion Thread"
-    SetTextColor 255 255 255
-    SetBorderColor 135 28 226
-    SetBackgroundColor 135 28 226
-    SetFontSize 40
-    MinimapIcon 1 Purple Star
-    PlayEffect Purple
-    CustomAlertSound "剑心音效/丝线.mp3" 300
-    DisableDropSound
-
-Show # 磨损丝线
-    Class "Stackable Currency"
-    BaseType "Frayed Thread"
-    SetTextColor 255 255 255
-    SetBorderColor 135 28 226
-    SetBackgroundColor 135 28 226
-    SetFontSize 40
-    MinimapIcon 1 Purple Star
-    PlayEffect Purple
-    CustomAlertSound "剑心音效/磨损丝线.mp3" 300
-    DisableDropSound
-    
-Show # 灵魂核心
-    Class "Stackable Currency"
-    BaseType "Soul Core of Instability" "Soul Core of Might" "Soul Core of Finesse" "Soul Core of Intellect" 
-    SetTextColor 255 255 255
-    SetBorderColor 135 28 226
-    SetBackgroundColor 135 28 226
-    SetFontSize 40
-    MinimapIcon 1 Purple Star
-    PlayEffect Purple
-    CustomAlertSound "剑心音效/灵魂核心.mp3" 300
-    DisableDropSound
-
-Show # 皇家尊容
-    Class "Stackable Currency"
-    BaseType "Royal Visage"
-    SetTextColor 255 255 255
-    SetBorderColor 135 28 226
-    SetBackgroundColor 135 28 226
-    SetFontSize 40
-    MinimapIcon 1 Purple Star
-    PlayEffect Purple
-    CustomAlertSound "剑心音效/皇家尊容.mp3" 300
-    DisableDropSound
-
-Show # 被诅咒的布偶
-    Class "Map Fragments"
-    BaseType "Cursed Poppet"
-    SetTextColor 255 255 255
-    SetBorderColor 218 8 98
-    SetBackgroundColor 218 8 98
-    SetFontSize 40
-    MinimapIcon 1 Red Star
-    PlayEffect Red
-    CustomAlertSound "剑心音效/地图碎片.mp3" 300
-    DisableDropSound
-
-Show # 内脏
-    Class "Viscera"
-    SetTextColor 247 107 138
-    SetBorderColor 247 107 138
-    SetBackgroundColor 0 0 0
-    SetFontSize 40
-    MinimapIcon 1 Red Star 
-    PlayEffect Red
-    
-# -------------------------- 永火之咒 -------------------------- #
 
 Show # 占卜球
     Class "Stackable Currency"
@@ -91,7 +23,7 @@ Show # 占卜球
 
 Show # 雾隐水晶
     Class "Stackable Currency"
-    BaseType "Enshrouding Crystal"
+    BaseType "Karui Enshrouding Crystal" "Imperial Enshrouding Crystal" "Vaal Enshrouding Crystal" "Templar Enshrouding Crystal" "Maraketh Enshrouding Crystal"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -103,7 +35,7 @@ Show # 雾隐水晶
 
 Show # 诅咒纪念币
     Class "Cursed Ducat"
-    BaseType "Ducat of "
+    BaseType "Ducat of the Grasping Deep" "Ducat of the Foul Kin" "Ducat of Tsoatha's Gift" "Ducat of the Undead Sea" "Ducat of the Eucarid Isle" "Ducat of the Fallen Stars"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -115,7 +47,7 @@ Show # 诅咒纪念币
     
 Show # 纪念币
     Class "Stackable Currency"
-    BaseType "'s Ducat"
+    BaseType "Merrick's Ducat" "Cyaxan's Ducat" "The Changeling's Ducat" "The Genteel's Ducat" "Kishara's Ducat" "Telesia's Ducat" "Rotmother's Ducat" "Brinehook's Ducat" "Katakohi's Ducat" "Tzamoto's Ducat" "Ukatoa's Ducat"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -201,7 +133,7 @@ Show # 无常瓦尔宝珠
 
 Show # 星盘
     Class "Stackable Currency"
-    BaseType " Astrolabe"
+    BaseType "Luminous Astrolabe" "Templar Astrolabe" "Fruiting Astrolabe" "Lightless Astrolabe" "Grasping Astrolabe" "Nameless Astrolabe" "Fungal Astrolabe" "Chaotic Astrolabe" "Deceptive Astrolabe" "Timeless Astrolabe" "Runic Astrolabe" "Prospecting Astrolabe"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -262,8 +194,8 @@ Show # 创伤、敬仰、孤寂回忆
 # -------------------------- 污秽通货 -------------------------- #
 
 Show # 污染神泪
-    Class "Stackable Currency" 
-    BaseType "Tainted Divine Teardrop" 
+    Class "Stackable Currency"
+    BaseType "Tainted Divine Teardrop"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -274,8 +206,8 @@ Show # 污染神泪
     DisableDropSound 
 
 Show # 污秽崇高石
-    Class "Stackable Currency" 
-    BaseType "Tainted Exalted Orb" 
+    Class "Stackable Currency"
+    BaseType "Tainted Exalted Orb"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -286,8 +218,8 @@ Show # 污秽崇高石
     DisableDropSound 
 
 Show # 污秽混沌石
-    Class "Stackable Currency" 
-    BaseType "Tainted Chaos Orb" 
+    Class "Stackable Currency"
+    BaseType "Tainted Chaos Orb"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -298,8 +230,8 @@ Show # 污秽混沌石
     DisableDropSound 
 
 Show # 污秽神秘石
-    Class "Stackable Currency" 
-    BaseType "Tainted Mythic Orb" 
+    Class "Stackable Currency"
+    BaseType "Tainted Mythic Orb"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -310,8 +242,8 @@ Show # 污秽神秘石
     DisableDropSound 
 
 Show # 污秽链结石
-    Class "Stackable Currency" 
-    BaseType "Tainted Orb of Fusing" 
+    Class "Stackable Currency"
+    BaseType "Tainted Orb of Fusing"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -322,8 +254,8 @@ Show # 污秽链结石
     DisableDropSound 
 
 Show # 污秽幻色石
-    Class "Stackable Currency" 
-    BaseType "Tainted Chromatic Orb" 
+    Class "Stackable Currency"
+    BaseType "Tainted Chromatic Orb"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -334,8 +266,8 @@ Show # 污秽幻色石
     DisableDropSound 
 
 Show # 污秽护甲片
-    Class "Stackable Currency" 
-    BaseType "Tainted Armourer's Scrap" 
+    Class "Stackable Currency"
+    BaseType "Tainted Armourer's Scrap"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -346,8 +278,8 @@ Show # 污秽护甲片
     DisableDropSound 
 
 Show # 污秽工匠石
-    Class "Stackable Currency" 
-    BaseType "Tainted Jeweller's Orb" 
+    Class "Stackable Currency"
+    BaseType "Tainted Jeweller's Orb"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -358,8 +290,8 @@ Show # 污秽工匠石
     DisableDropSound 
 
 Show # 污秽磨刀石
-    Class "Stackable Currency" 
-    BaseType "Tainted Blacksmith's Whetstone" 
+    Class "Stackable Currency"
+    BaseType "Tainted Blacksmith's Whetstone"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -372,7 +304,7 @@ Show # 污秽磨刀石
 # -------------------------- 秽生通货 -------------------------- #
 
 Show # 秽生崇高石
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Foulborn Exalted Orb"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
@@ -384,8 +316,8 @@ Show # 秽生崇高石
     DisableDropSound 
     
 Show # 秽生富豪石
-    Class "Stackable Currency" 
-    BaseType "Foulborn Regal Orb" 
+    Class "Stackable Currency"
+    BaseType "Foulborn Regal Orb"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -396,8 +328,8 @@ Show # 秽生富豪石
     DisableDropSound 
 
 Show # 秽生增幅石
-    Class "Stackable Currency" 
-    BaseType "Foulborn Orb of Augmentation" 
+    Class "Stackable Currency"
+    BaseType "Foulborn Orb of Augmentation"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -410,8 +342,8 @@ Show # 秽生增幅石
 # -------------------------- 影响通货 -------------------------- #
 
 Show # 铭记石
-    Class "Stackable Currency" 
-    BaseType "Orb of Remembrance" 
+    Class "Stackable Currency"
+    BaseType "Orb of Remembrance"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -422,8 +354,8 @@ Show # 铭记石
     DisableDropSound 
 
 Show # 解析石
-    Class "Stackable Currency" 
-    BaseType "Orb of Unravelling" 
+    Class "Stackable Currency"
+    BaseType "Orb of Unravelling"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -434,8 +366,8 @@ Show # 解析石
     DisableDropSound 
 
 Show # 意念石
-    Class "Stackable Currency" 
-    BaseType "Orb of Intention" 
+    Class "Stackable Currency"
+    BaseType "Orb of Intention"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -446,8 +378,8 @@ Show # 意念石
     DisableDropSound
 
 Show # 统御宝珠
-    Class "Stackable Currency" 
-    BaseType "Orb of Dominance" 
+    Class "Stackable Currency"
+    BaseType "Orb of Dominance"
     SetTextColor 255 236 43
     SetBorderColor 217 4 31
     SetBackgroundColor 217 4 31
@@ -458,8 +390,8 @@ Show # 统御宝珠
     DisableDropSound 
 
 Show # 觉醒者之石
-    Class "Stackable Currency" 
-    BaseType "Awakener's Orb" 
+    Class "Stackable Currency"
+    BaseType "Awakener's Orb"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -470,8 +402,8 @@ Show # 觉醒者之石
     DisableDropSound 
 
 Show # 势力崇高石
-    Class "Stackable Currency" 
-    BaseType "Elder's Exalted Orb" "Shaper's Exalted Orb" "Warlord's Exalted Orb" "Hunter's Exalted Orb" "Redeemer's Exalted Orb" "Crusader's Exalted Orb" 
+    Class "Stackable Currency"
+    BaseType "Elder's Exalted Orb" "Shaper's Exalted Orb" "Warlord's Exalted Orb" "Hunter's Exalted Orb" "Redeemer's Exalted Orb" "Crusader's Exalted Orb"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -484,8 +416,8 @@ Show # 势力崇高石
 # -------------------------- 古灵通货 -------------------------- #
 
 Show # 冲突石
-    Class "Stackable Currency" 
-    BaseType "Orb of Conflict" 
+    Class "Stackable Currency"
+    BaseType "Orb of Conflict"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -496,8 +428,8 @@ Show # 冲突石
     DisableDropSound 
 
 Show # 古灵崇高石
-    Class "Stackable Currency" 
-    BaseType "Eldritch Exalted Orb" 
+    Class "Stackable Currency"
+    BaseType "Eldritch Exalted Orb"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -508,8 +440,8 @@ Show # 古灵崇高石
     DisableDropSound 
 
 Show # 古灵混沌石
-    Class "Stackable Currency" 
-    BaseType "Eldritch Chaos Orb" 
+    Class "Stackable Currency"
+    BaseType "Eldritch Chaos Orb"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -520,8 +452,8 @@ Show # 古灵混沌石
     DisableDropSound 
 
 Show # 古灵剥离石
-    Class "Stackable Currency" 
-    BaseType "Eldritch Orb of Annulment" 
+    Class "Stackable Currency"
+    BaseType "Eldritch Orb of Annulment"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -532,8 +464,8 @@ Show # 古灵剥离石
     DisableDropSound 
 
 Show # 卓越古灵溶液
-    Class "Stackable Currency" 
-    BaseType "Exceptional Eldritch Ichor" 
+    Class "Stackable Currency"
+    BaseType "Exceptional Eldritch Ichor"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -544,8 +476,8 @@ Show # 卓越古灵溶液
     DisableDropSound 
 
 Show # 上级古灵溶液
-    Class "Stackable Currency" 
-    BaseType "Grand Eldritch Ichor" 
+    Class "Stackable Currency"
+    BaseType "Grand Eldritch Ichor"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -556,8 +488,8 @@ Show # 上级古灵溶液
     DisableDropSound 
 
 Hide # 高级古灵溶液
-    Class "Stackable Currency" 
-    BaseType "Greater Eldritch Ichor" 
+    Class "Stackable Currency"
+    BaseType "Greater Eldritch Ichor"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -568,8 +500,8 @@ Hide # 高级古灵溶液
     DisableDropSound 
 
 Hide # 次级古灵溶液
-    Class "Stackable Currency" 
-    BaseType "Lesser Eldritch Ichor" 
+    Class "Stackable Currency"
+    BaseType "Lesser Eldritch Ichor"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -580,8 +512,8 @@ Hide # 次级古灵溶液
     DisableDropSound 
 
 Show # 卓越古灵余烬
-    Class "Stackable Currency" 
-    BaseType "Exceptional Eldritch Ember" 
+    Class "Stackable Currency"
+    BaseType "Exceptional Eldritch Ember"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -592,8 +524,8 @@ Show # 卓越古灵余烬
     DisableDropSound 
 
 Show # 上级古灵余烬
-    Class "Stackable Currency" 
-    BaseType "Grand Eldritch Ember" 
+    Class "Stackable Currency"
+    BaseType "Grand Eldritch Ember"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -604,8 +536,8 @@ Show # 上级古灵余烬
     DisableDropSound 
 
 Hide # 高级古灵余烬
-    Class "Stackable Currency" 
-    BaseType "Greater Eldritch Ember" 
+    Class "Stackable Currency"
+    BaseType "Greater Eldritch Ember"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -616,8 +548,8 @@ Hide # 高级古灵余烬
     DisableDropSound 
 
 Hide # 次级古灵余烬
-    Class "Stackable Currency" 
-    BaseType "Lesser Eldritch Ember" 
+    Class "Stackable Currency"
+    BaseType "Lesser Eldritch Ember"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -666,8 +598,8 @@ Show # 倒映薄雾
     DisableDropSound
 
 Show # 破溃宝珠
-    Class "Stackable Currency" 
-    BaseType "Fracturing Orb" 
+    Class "Stackable Currency"
+    BaseType "Fracturing Orb"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -678,8 +610,8 @@ Show # 破溃宝珠
     DisableDropSound
 
 Show # 裁剪石
-    Class "Stackable Currency" 
-    BaseType "Tailoring Orb" 
+    Class "Stackable Currency"
+    BaseType "Tailoring Orb"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -690,8 +622,8 @@ Show # 裁剪石
     DisableDropSound
 
 Show # 回火石
-    Class "Stackable Currency" 
-    BaseType "Tempering Orb" 
+    Class "Stackable Currency"
+    BaseType "Tempering Orb"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -714,8 +646,8 @@ Show # 神圣石
     DisableDropSound
 
 Show # 加密混沌石
-    Class "Stackable Currency" 
-    BaseType "Veiled Chaos Orb" 
+    Class "Stackable Currency"
+    BaseType "Veiled Chaos Orb"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -726,8 +658,8 @@ Show # 加密混沌石
     DisableDropSound
 
 Show # 加密崇高石
-    Class "Stackable Currency" 
-    BaseType "Veiled Exalted Orb" 
+    Class "Stackable Currency"
+    BaseType "Veiled Exalted Orb"
     SetTextColor 255 236 43
     SetBorderColor 217 4 31
     SetBackgroundColor 217 4 31
@@ -738,8 +670,8 @@ Show # 加密崇高石
     DisableDropSound 
 
 Show # 费斯特的透镜
-    Class "Stackable Currency" 
-    BaseType "Facetor's Lens" 
+    Class "Stackable Currency"
+    BaseType "Facetor's Lens"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -750,8 +682,8 @@ Show # 费斯特的透镜
     DisableDropSound 
 
 Show # 崇高石
-    Class "Stackable Currency" 
-    BaseType "Exalted Orb" 
+    Class "Stackable Currency"
+    BaseType "Exalted Orb"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -762,8 +694,8 @@ Show # 崇高石
     DisableDropSound 
 
 Show # 崇神石
-    Class "Stackable Currency" 
-    BaseType "Sacred Orb" 
+    Class "Stackable Currency"
+    BaseType "Sacred Orb"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -774,8 +706,8 @@ Show # 崇神石
     DisableDropSound 
 
 Show # 瓦尔多的谜之匣
-    Class "Stackable Currency" 
-    BaseType "Valdo's Puzzle Box" 
+    Class "Stackable Currency"
+    BaseType "Valdo's Puzzle Box"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -786,8 +718,8 @@ Show # 瓦尔多的谜之匣
     DisableDropSound 
 
 Show # 剥离石
-    Class "Stackable Currency" 
-    BaseType "Orb of Annulment" 
+    Class "Stackable Currency"
+    BaseType "Orb of Annulment"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -798,8 +730,8 @@ Show # 剥离石
     DisableDropSound 
 
 Show # 远古石
-    Class "Stackable Currency" 
-    BaseType "Ancient Orb" 
+    Class "Stackable Currency"
+    BaseType "Ancient Orb"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -810,8 +742,8 @@ Show # 远古石
     DisableDropSound 
 
 Show # 高级制图钉
-    Class "Stackable Currency" 
-    BaseType "Maven's Chisel of Procurement" "Maven's Chisel of Proliferation" "Maven's Chisel of Divination" "Maven's Chisel of Threads" "Maven's Chisel of Avarice" 
+    Class "Stackable Currency"
+    BaseType "Maven's Chisel of Procurement" "Maven's Chisel of Proliferation" "Maven's Chisel of Divination" "Maven's Chisel of Avarice"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -822,8 +754,8 @@ Show # 高级制图钉
     DisableDropSound 
 
 Show # 未知命运卡
-    Class "Stackable Currency" 
-    BaseType "Stacked Deck" 
+    Class "Stackable Currency"
+    BaseType "Stacked Deck"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -834,8 +766,8 @@ Show # 未知命运卡
     DisableDropSound
     
 Show # 混沌石
-    Class "Stackable Currency" 
-    BaseType "Chaos Orb" 
+    Class "Stackable Currency"
+    BaseType "Chaos Orb"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -846,8 +778,8 @@ Show # 混沌石
     DisableDropSound 
 
 Hide # 灌顶石
-    Class "Stackable Currency" 
-    BaseType "Instilling Orb" 
+    Class "Stackable Currency"
+    BaseType "Instilling Orb"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -858,8 +790,8 @@ Hide # 灌顶石
     DisableDropSound 
 
 Show # 宝石匠的棱镜
-    Class "Stackable Currency" 
-    BaseType "Gemcutter's Prism" 
+    Class "Stackable Currency"
+    BaseType "Gemcutter's Prism"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -870,8 +802,8 @@ Show # 宝石匠的棱镜
     DisableDropSound 
 
 Hide # 瓦尔宝珠
-    Class "Stackable Currency" 
-    BaseType "Vaal Orb" 
+    Class "Stackable Currency"
+    BaseType "Vaal Orb"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -882,8 +814,8 @@ Hide # 瓦尔宝珠
     DisableDropSound 
 
 Show # 启明石
-    Class "Stackable Currency" 
-    BaseType "Enkindling Orb" 
+    Class "Stackable Currency"
+    BaseType "Enkindling Orb"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -894,8 +826,8 @@ Show # 启明石
     DisableDropSound 
 
 Hide # 重铸石
-    Class "Stackable Currency" 
-    BaseType "Orb of Scouring" 
+    Class "Stackable Currency"
+    BaseType "Orb of Scouring"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -906,8 +838,8 @@ Hide # 重铸石
     DisableDropSound 
 
 Hide # 后悔石
-    Class "Stackable Currency" 
-    BaseType "Orb of Regret" 
+    Class "Stackable Currency"
+    BaseType "Orb of Regret"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -918,8 +850,8 @@ Hide # 后悔石
     DisableDropSound 
 
 Hide # 富豪石
-    Class "Stackable Currency" 
-    BaseType "Regal Orb" 
+    Class "Stackable Currency"
+    BaseType "Regal Orb"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -930,8 +862,8 @@ Hide # 富豪石
     DisableDropSound 
 
 Hide # 粉碎石
-    Class "Stackable Currency" 
-    BaseType "Orb of Unmaking" 
+    Class "Stackable Currency"
+    BaseType "Orb of Unmaking"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -942,8 +874,8 @@ Hide # 粉碎石
     DisableDropSound 
 
 Hide # 祝福石
-    Class "Stackable Currency" 
-    BaseType "Blessed Orb" 
+    Class "Stackable Currency"
+    BaseType "Blessed Orb"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -954,8 +886,8 @@ Hide # 祝福石
     DisableDropSound 
 
 Hide # 链结石
-    Class "Stackable Currency" 
-    BaseType "Orb of Fusing" 
+    Class "Stackable Currency"
+    BaseType "Orb of Fusing"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -966,8 +898,8 @@ Hide # 链结石
     DisableDropSound 
 
 Hide # 改造石
-    Class "Stackable Currency" 
-    BaseType "Orb of Alteration" 
+    Class "Stackable Currency"
+    BaseType "Orb of Alteration"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -978,8 +910,8 @@ Hide # 改造石
     DisableDropSound 
 
 Show # 机会石
-    Class "Stackable Currency" 
-    BaseType "Orb of Chance" 
+    Class "Stackable Currency"
+    BaseType "Orb of Chance"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -990,8 +922,8 @@ Show # 机会石
     DisableDropSound
 
 Hide # 玻璃弹珠
-    Class "Stackable Currency" 
-    BaseType "Glassblower's Bauble" 
+    Class "Stackable Currency"
+    BaseType "Glassblower's Bauble"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -1002,8 +934,8 @@ Hide # 玻璃弹珠
     DisableDropSound 
 
 Hide # 工匠石
-    Class "Stackable Currency" 
-    BaseType "Jeweller's Orb" 
+    Class "Stackable Currency"
+    BaseType "Jeweller's Orb"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -1014,8 +946,8 @@ Hide # 工匠石
     DisableDropSound
 
 Hide # 点金石
-    Class "Stackable Currency" 
-    BaseType "Orb of Alchemy" 
+    Class "Stackable Currency"
+    BaseType "Orb of Alchemy"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -1026,8 +958,8 @@ Hide # 点金石
     DisableDropSound
 
 Hide # 幻色石
-    Class "Stackable Currency" 
-    BaseType "Chromatic Orb" 
+    Class "Stackable Currency"
+    BaseType "Chromatic Orb"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -1038,7 +970,7 @@ Hide # 幻色石
     DisableDropSound
 
 Hide # 磨刀石
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Blacksmith's Whetstone"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
@@ -1050,7 +982,7 @@ Hide # 磨刀石
     DisableDropSound
 
 Hide # 护甲片
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Armourer's Scrap"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
@@ -1062,8 +994,8 @@ Hide # 护甲片
     DisableDropSound
 
 Hide # 增幅石
-    Class "Stackable Currency" 
-    BaseType "Orb of Augmentation" 
+    Class "Stackable Currency"
+    BaseType "Orb of Augmentation"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
     SetBackgroundColor 23 171 91
@@ -1074,7 +1006,7 @@ Hide # 增幅石
     DisableDropSound
 
 Hide # 蜕变石
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Orb of Transmutation"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
@@ -1086,7 +1018,7 @@ Hide # 蜕变石
     DisableDropSound
 
 Hide # 卷轴
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Portal Scroll" "Scroll of Wisdom"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
@@ -1096,7 +1028,7 @@ Hide # 卷轴
 
 Hide # 金币堆叠
     StackSize >= 100
-    Class "Gold" 
+    Class "Gold"
     SetTextColor 166 237 142
     SetBorderColor 166 237 142
     SetBackgroundColor 0 0 0
@@ -1104,7 +1036,7 @@ Hide # 金币堆叠
     DisableDropSound 
 
 Hide # 金币
-    Class "Gold" 
+    Class "Gold"
     SetTextColor 166 237 142
     SetBorderColor 166 237 142
     SetBackgroundColor 0 0 0
@@ -1112,8 +1044,8 @@ Hide # 金币
     DisableDropSound 
 
 Show # 魔镜碎片
-    Class "Stackable Currency" 
-    BaseType "Mirror Shard" 
+    Class "Stackable Currency"
+    BaseType "Mirror Shard"
     SetTextColor 255 236 43
     SetBorderColor 217 4 31
     SetBackgroundColor 217 4 31
@@ -1124,7 +1056,7 @@ Show # 魔镜碎片
     DisableDropSound 
 
 Show # 通货碎片(中价值)
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Fracturing Shard" "Exalted Shard" "Annulment Shard"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
@@ -1135,7 +1067,7 @@ Show # 通货碎片(中价值)
     DisableDropSound 
 
 Hide # 通货碎片(低价值)
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Chaos Shard" "Alchemy Shard" "Regal Shard" "Alteration Shard" "Transmutation Shard" "Scroll Fragment"
     SetTextColor 255 255 255
     SetBorderColor 23 171 91
@@ -1178,7 +1110,7 @@ Show # T1命运卡
     DisableDropSound
 
 Show # T2命运卡
-    Class "Divination Cards" 
+    Class "Divination Cards"
     BaseType "The Shieldbearer" "Divine Justice" "The Endless Darkness" "The Nurse" "Seven Years Bad Luck" "Lonely Warrior" "Wealth and Power" "I See Brothers" "Friendship" "The Soul" "One Last Score" "The Damned" "The Pact" "The Sephirot" "The Dragon's Heart" "Divine Beauty" "Lethean Temptation" "The Enlightened" "Succor of the Sinless" "The Samurai's Eye" "Last Stand" "Luminous Trove" "Matryoshka" "The Sacrifice" "Choking Guilt" "The Journey" "Desecrated Virtue" "The Gulf"
     SetTextColor 255 255 255
     SetBorderColor 206 63 216
@@ -1190,8 +1122,8 @@ Show # T2命运卡
     DisableDropSound 
 
 Show # T3命运卡
-    Class "Divination Cards" 
-    BaseType "The Mayor" "Squandered Prosperity" "Home" "The Greatest Intentions" "The Destination" "Broken Promises" "Gemcutter's Mercy" "Darker Half" "The Forbidden Fruit" "The Patient" "The World Eater" "Imperfect Memories" "Auspicious Ambitions" "The Garish Power" "The Fortunate" "Monochrome" "Doryani's Epiphany" "Judging Voices" "Apocalypse" "The Artist" "The Eternal War" "The Last One Standing" "The Price of Loyalty" "The Leviathan" "The Strategist" "The Long Con" "The Mad King" "The Eye of the Dragon" "Magnum Opus" "The Shortcut" "Azyran's Reward" "The Hook" "Prometheus' Armoury" "The Eldritch Decay" "The Vast" "Further Invention" "Tranquillity" "Akil's Prophecy" "The Last Supper" "Assassin's Gift" "Lachrymal Necrosis" "Something Dark" "Hunter's Reward" "Remembrance" "The Aspirant" "Avian Pursuit" "The Catch" "Beauty Through Death" "The Everlasting" "A Modest Request" "Peaceful Moments" "The Chosen" "The Old Man" "Mawr Blaidd" "The Wedding Gift" "The Offspring" "The Astromancer" "Rebirth" "Merciless Armament" "Keeper's Corruption" "The Blessing of Moosh"  "The Shepherd's Sandals" "The Forgotten Treasure" "A Stone Perfected" "Temperance" "The Dungeon Master" "Misery in Darkness" "The Academic" "Duality" "Silence and Frost" "Altered Perception" "Reckless Ambition" "The Queen" "The Side Quest" "Bijoux" "The Brawny Battle Mage" "Brush, Paint and Palette" "The Formless Sea" "Brotherhood in Exile" "The Breach" "Deadly Joy" "The Fishmonger" "The Last Laugh" "The Hale Heart" "Void of the Elements" "The Void" "The Undisputed" "The Spoiled Prince" "Anarchy's Price" "Gift of Asenath" "The Dreamer" "Winter's Embrace" "The Deep Ones" "A Dusty Memory" "Unchained" "Chaotic Disposition" "The Enthusiasts" "Brother's Stash" "Eternal Bonds" "Fateful Meeting" "The Primordial" "Terrible Secret of Space" "A Fate Worse Than Death" "The Professor" "Etched in Blood" "Rebirth and Renewal" "The Life Thief" "The Celestial Stone" "The Bitter Blossom" "The One That Got Away" "Chasing Risk" "The Forward Gaze" "The Long Watch" "The Craving" "Burning Blood" "Costly Curio" "Deathly Designs" "Dementophobia" "A Note in the Wind" "Arrogance of the Vaal" "Dying Anguish" "Endless Night" "The Jester" "The King's Heart" "Underground Forest" "Demigod's Wager" "The Seeker" "Lucky Deck" "The Union" "Divine Shard" "Energy Sword" "The One With All" "The Heroic Shot"
+    Class "Divination Cards"
+    BaseType "The Mayor" "Squandered Prosperity" "Home" "The Greatest Intentions" "The Destination" "Broken Promises" "Gemcutter's Mercy" "Darker Half" "The Forbidden Fruit" "The Patient" "The World Eater" "Imperfect Memories" "Auspicious Ambitions" "The Garish Power" "The Fortunate" "Monochrome" "Doryani's Epiphany" "Judging Voices" "Apocalypse" "The Artist" "The Eternal War" "The Last One Standing" "The Price of Loyalty" "The Leviathan" "The Strategist" "The Long Con" "The Mad King" "The Eye of the Dragon" "Magnum Opus" "The Shortcut" "Azyran's Reward" "The Hook" "Prometheus' Armoury" "The Eldritch Decay" "The Vast" "Further Invention" "Tranquillity" "Akil's Prophecy" "The Last Supper" "Assassin's Gift" "Lachrymal Necrosis" "Something Dark" "Hunter's Reward" "Remembrance" "The Aspirant" "Avian Pursuit" "The Catch" "Beauty Through Death" "The Everlasting" "A Modest Request" "Peaceful Moments" "The Chosen" "The Old Man" "Mawr Blaidd" "The Wedding Gift" "The Offspring" "The Astromancer" "Rebirth" "Merciless Armament" "Keeper's Corruption" "The Blessing of Moosh" "The Shepherd's Sandals" "The Forgotten Treasure" "A Stone Perfected" "Temperance" "The Dungeon Master" "Misery in Darkness" "The Academic" "Duality" "Silence and Frost" "Altered Perception" "Reckless Ambition" "The Queen" "The Side Quest" "Bijoux" "The Brawny Battle Mage" "Brush, Paint and Palette" "The Formless Sea" "Brotherhood in Exile" "The Breach" "Deadly Joy" "The Fishmonger" "The Last Laugh" "The Hale Heart" "Void of the Elements" "The Void" "The Undisputed" "The Spoiled Prince" "Anarchy's Price" "Gift of Asenath" "The Dreamer" "Winter's Embrace" "The Deep Ones" "A Dusty Memory" "Unchained" "Chaotic Disposition" "The Enthusiasts" "Brother's Stash" "Eternal Bonds" "Fateful Meeting" "The Primordial" "Terrible Secret of Space" "A Fate Worse Than Death" "The Professor" "Etched in Blood" "Rebirth and Renewal" "The Life Thief" "The Celestial Stone" "The Bitter Blossom" "The One That Got Away" "Chasing Risk" "The Forward Gaze" "The Long Watch" "The Craving" "Burning Blood" "Costly Curio" "Deathly Designs" "Dementophobia" "A Note in the Wind" "Arrogance of the Vaal" "Dying Anguish" "Endless Night" "The Jester" "The King's Heart" "Underground Forest" "Demigod's Wager" "The Seeker" "Lucky Deck" "The Union" "Divine Shard" "Energy Sword" "The One With All" "The Heroic Shot"
     SetTextColor 218 250 84
     SetBorderColor 218 250 84
     SetBackgroundColor 0 0 0
@@ -1202,7 +1134,7 @@ Show # T3命运卡
     DisableDropSound 
 
 Hide # T4命运卡
-    Class "Divination Cards" 
+    Class "Divination Cards"
     BaseType "Perfection" "The Hive of Knowledge" "The Wolf's Legacy" "Boon of the First Ones" "Ambitious Obsession" "Council of Cats" "Bound by Flame" "Blessing of God" "Soul Quenched" "A Chilling Wind" "Eldritch Perfection" "Guardian's Challenge" "Haunting Shadows" "A Familiar Call" "A Mother's Parting Gift" "Dying Light" "Justified Ambition" "Parasitic Passengers" "The Innocent" "The Price of Prescience" "The Prince of Darkness" "Baited Expectations" "Dialla's Subjugation" "The Magma Crab" "The Avenger" "Checkmate" "Harmony of Souls" "Lingering Remnants" "The Cacophony" "The Finishing Touch" "The Lord of Celebration" "The Offering" "The Rite of Elements" "The Tinkerer's Table" "The Undaunted" "The Valkyrie" "The Wilted Rose" "Prejudice" "A Dab of Ink" "Emperor's Luck" "The Price of Protection" "The Fathomless Depths" "The Drunken Aristocrat" "The Surgeon" "The Tyrant" "The Wolven King's Bite" "The Scavenger" "The Road to Power" "The Feast" "The Encroaching Darkness" "The Bear Woman" "The Archmage's Right Hand" "Forbidden Power" "The Fox in the Brambles" "The Mind's Eyes" "Runic Luck" "Astral Protection" "Pride of the First Ones" "Pride Before the Fall" "The Lord in Black" "Azure Rage" "From Bone to Ashes" "The Tumbleweed" "Desperate Crusade" "The Transformation" "The Twilight Moon" "The Unexpected Prize" "Treasure Hunter" "Heterochromia" "The Darkest Dream" "Echoes of Love" "Who Asked" "The Rusted Bard" "Poisoned Faith" "The Awakened" "The Polymath" "The Escape" "Nook's Crown" "The Spark and the Flame" "The Enforcer" "The Admirer" "Dark Dreams" "Toxic Tidings" "When Currents Blaze"
     SetTextColor 104 208 249
     SetBorderColor 104 208 249
@@ -1214,7 +1146,7 @@ Hide # T4命运卡
     DisableDropSound
 
 Hide # 崇高命运卡
-    Class "Divination Cards" 
+    Class "Divination Cards"
     BaseType "Abandoned Wealth" "Alluring Bounty" "The Scout"
     SetTextColor 104 208 249
     SetBorderColor 104 208 249
@@ -1226,7 +1158,7 @@ Hide # 崇高命运卡
     DisableDropSound
 
 Hide # 6L命运卡
-    Class "Divination Cards" 
+    Class "Divination Cards"
     BaseType "The Ethereal" "Vanity" "Sambodhi's Wisdom" "Humility" "Bowyer's Dream" "Emperor of Purity" "The Celestial Justicar" "The Porcupine" "The Dapper Prodigy" "Draped in Dreams" "Immortal Resolve" "Imperial Legacy" "The Chains that Bind" "The Dark Mage" "The Warlord" "The White Knight"
     SetTextColor 104 208 249
     SetBorderColor 104 208 249
@@ -1238,7 +1170,7 @@ Hide # 6L命运卡
     DisableDropSound
 
 Hide # 命运卡
-    Class "Divination Cards" 
+    Class "Divination Cards"
     SetTextColor 220 250 202
     SetBorderColor 220 250 202
     SetBackgroundColor 0 0 0
@@ -1249,8 +1181,8 @@ Hide # 命运卡
 # -------------------------- 精华 -------------------------- #
 
 Show # 8级精华
-    Class "Stackable Currency" 
-    BaseType "Essence of Delirium" "Essence of Horror" "Essence of Hysteria" "Essence of Insanity" "Essence of Desolation" "Essence of Trickery"
+    Class "Stackable Currency"
+    BaseType "Essence of Delirium" "Essence of Horror" "Essence of Hysteria" "Essence of Insanity" "Essence of Desolation"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -1261,8 +1193,8 @@ Show # 8级精华
     DisableDropSound 
 
 Show # 6.7阶精华
-    Class "Stackable Currency" 
-    BaseType "Deafening Essence of" "Shrieking Essence of"
+    Class "Stackable Currency"
+    BaseType "Deafening Essence of Hatred" "Deafening Essence of Woe" "Deafening Essence of Greed" "Deafening Essence of Contempt" "Deafening Essence of Sorrow" "Deafening Essence of Anger" "Deafening Essence of Torment" "Deafening Essence of Fear" "Deafening Essence of Suffering" "Deafening Essence of Rage" "Deafening Essence of Wrath" "Deafening Essence of Doubt" "Deafening Essence of Anguish" "Deafening Essence of Loathing" "Deafening Essence of Spite" "Deafening Essence of Zeal" "Deafening Essence of Misery" "Deafening Essence of Dread" "Deafening Essence of Scorn" "Deafening Essence of Envy" "Shrieking Essence of Hatred" "Shrieking Essence of Woe" "Shrieking Essence of Greed" "Shrieking Essence of Contempt" "Shrieking Essence of Sorrow" "Shrieking Essence of Anger" "Shrieking Essence of Torment" "Shrieking Essence of Fear" "Shrieking Essence of Suffering" "Shrieking Essence of Rage" "Shrieking Essence of Wrath" "Shrieking Essence of Doubt" "Shrieking Essence of Anguish" "Shrieking Essence of Loathing" "Shrieking Essence of Spite" "Shrieking Essence of Zeal" "Shrieking Essence of Misery" "Shrieking Essence of Dread" "Shrieking Essence of Scorn" "Shrieking Essence of Envy"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -1273,8 +1205,8 @@ Show # 6.7阶精华
     DisableDropSound 
 
 Show # 力量、闪避精华
-    Class "Stackable Currency" 
-    BaseType " of Rage" " of Doubt"
+    Class "Stackable Currency"
+    BaseType "Weeping Essence of Rage" "Wailing Essence of Rage" "Screaming Essence of Rage" "Shrieking Essence of Rage" "Deafening Essence of Rage" "Weeping Essence of Doubt" "Wailing Essence of Doubt" "Screaming Essence of Doubt" "Shrieking Essence of Doubt" "Deafening Essence of Doubt"
     SetTextColor 114 194 132
     SetBorderColor 114 194 132
     SetBackgroundColor 0 0 0
@@ -1284,8 +1216,8 @@ Show # 力量、闪避精华
     DisableDropSound
     
 Hide # 低级精华
-    Class "Stackable Currency" 
-    BaseType "Essence of"
+    Class "Stackable Currency"
+    BaseType "Essence of Hysteria" "Essence of Insanity" "Essence of Horror" "Essence of Delirium" "Essence of Desolation"
     SetTextColor 114 194 132
     SetBorderColor 114 194 132
     SetBackgroundColor 0 0 0
@@ -1297,7 +1229,7 @@ Hide # 低级精华
 # -------------------------- 地心探索 -------------------------- #
 
 Show # 4孔共振器
-    Class "Delve Stackable Socketable Currency" 
+    Class "Delve Stackable Socketable Currency"
     BaseType "Prime Chaotic Resonator"
     SetTextColor 242 234 47
     SetBorderColor 242 234 47
@@ -1309,7 +1241,7 @@ Show # 4孔共振器
     DisableDropSound 
 
 Show # 3孔共振器
-    Class "Delve Stackable Socketable Currency" 
+    Class "Delve Stackable Socketable Currency"
     BaseType "Powerful Chaotic Resonator"
     SetTextColor 242 234 47
     SetBorderColor 242 234 47
@@ -1321,7 +1253,7 @@ Show # 3孔共振器
     DisableDropSound 
 
 Hide # 1.2孔共振器
-    Class "Delve Stackable Socketable Currency" 
+    Class "Delve Stackable Socketable Currency"
     BaseType "Potent Chaotic Resonator" "Primitive Chaotic Resonator"
     SetTextColor 242 234 47
     SetBorderColor 242 234 47
@@ -1333,8 +1265,8 @@ Hide # 1.2孔共振器
     DisableDropSound 
 
 Show # 高级化石
-    Class "Stackable Currency" 
-    BaseType "Fractured Fossil" "Hollow Fossil" "Faceted Fossil" "Glyphic Fossil" 
+    Class "Stackable Currency"
+    BaseType "Fractured Fossil" "Hollow Fossil" "Faceted Fossil" "Glyphic Fossil"
     SetTextColor 242 234 47
     SetBorderColor 242 234 47
     SetBackgroundColor 0 0 0
@@ -1345,8 +1277,8 @@ Show # 高级化石
     DisableDropSound 
 
 Show # 普通化石
-    Class "Stackable Currency" 
-    BaseType "Scorched Fossil" "Frigid Fossil" "Metallic Fossil" "Lucent Fossil" "Aberrant Fossil" "Gilded Fossil" "Jagged Fossil" "Pristine Fossil" "Fundamental Fossil" "Dense Fossil" "Tangled Fossil" "Deft Fossil" "Bound Fossil" "Bloodstained Fossil" "Aetheric Fossil" "Serrated Fossil" "Prismatic Fossil" "Corroded Fossil" "Shuddering Fossil" "Sanctified Fossil" "Opulent Fossil" 
+    Class "Stackable Currency"
+    BaseType "Scorched Fossil" "Frigid Fossil" "Metallic Fossil" "Lucent Fossil" "Aberrant Fossil" "Gilded Fossil" "Jagged Fossil" "Pristine Fossil" "Fundamental Fossil" "Dense Fossil" "Tangled Fossil" "Deft Fossil" "Bound Fossil" "Bloodstained Fossil" "Aetheric Fossil" "Serrated Fossil" "Prismatic Fossil" "Corroded Fossil" "Shuddering Fossil" "Sanctified Fossil" "Opulent Fossil"
     SetTextColor 242 234 47
     SetBorderColor 242 234 47
     SetBackgroundColor 0 0 0
@@ -1357,7 +1289,7 @@ Show # 普通化石
 # -------------------------- 符文嵌板 -------------------------- #
 
 Show # 超级符文
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Runegraft of the Fortress" "Runegraft of Gemcraft" "Runegraft of the Warp" "Runegraft of the Angler"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
@@ -1369,7 +1301,7 @@ Show # 超级符文
     DisableDropSound
 
 Show # 高级符文
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Runegraft of Stability" "Runegraft of Rotblood" "Runegraft of the Soulwick" "Runegraft of Treachery" "Runegraft of the Witchmark"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1381,7 +1313,7 @@ Show # 高级符文
     DisableDropSound
 
 Show # 符文
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Runegraft of Bellows" "Runegraft of Blasphemy" "Runegraft of Connection" "Runegraft of Consecration" "Runegraft of Fury" "Runegraft of Loyalty" "Runegraft of Quaffing" "Runegraft of Rallying" "Runegraft of Refraction" "Runegraft of Restitching" "Runegraft of Resurgence" "Runegraft of Suffering" "Runegraft of the Agile" "Runegraft of the Bound" "Runegraft of the Combatant" "Runegraft of the Imbued" "Runegraft of the Jeweller" "Runegraft of the Novamark" "Runegraft of the River" "Runegraft of the Sinistral" "Runegraft of the Spellbound" "Runegraft of Time"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
@@ -1395,7 +1327,7 @@ Show # 符文
 # -------------------------- 文身 -------------------------- #
 
 Show # 超级文身
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Journey Tattoo of the Body" "Journey Tattoo of the Mind" "Journey Tattoo of the Soul" "Tattoo of the Valako Shieldbearer" "Tattoo of the Arohongui Shaman" "Tattoo of the Ramako Fleetfoot"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
@@ -1407,7 +1339,7 @@ Show # 超级文身
     DisableDropSound 
 
 Show # 稀有文身
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Tattoo of the Ngamahu Firewalker" "Tattoo of the Tukohama Shaman" "Tattoo of the Rongokurai Turtle" "Tattoo of the Ramako Shaman" "Tattoo of the Hinekora Warrior"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1419,7 +1351,7 @@ Show # 稀有文身
     DisableDropSound 
 
 Show # 高级文身
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Tattoo of the Ngamahu Shaman" "Tattoo of the Ngamahu Warrior" "Tattoo of the Ngamahu Warmonger" "Tattoo of the Ngamahu Woodcarver" "Tattoo of the Kitava Rebel" "Tattoo of the Kitava Heart Eater" "Tattoo of the Kitava Shaman" "Tattoo of the Tukohama Warmonger" "Tattoo of the Tukohama Warcaller" "Tattoo of the Tasalio Warrior" "Tattoo of the Tasalio Scout" "Tattoo of the Arohongui Moonwarden" "Tattoo of the Arohongui Scout" "Tattoo of the Arohongui Warrior" "Tattoo of the Arohongui Warmonger" "Tattoo of the Ramako Scout" "Tattoo of the Ramako Archer" "Tattoo of the Ramako Sniper" "Tattoo of the Hinekora Storyteller" "Tattoo of the Valako Stormrider" "Tattoo of the Valako Scout" "Tattoo of the Valako Warrior" "Tattoo of the Valako Shaman" "Tattoo of the Tawhoa Herbalist"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1431,7 +1363,7 @@ Show # 高级文身
     DisableDropSound
     
 Hide # 文身
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Tattoo of the Kitava Blood Drinker" "Tattoo of the Kitava Warrior" "Tattoo of the Tukohama Warrior" "Tattoo of the Tukohama Brawler" "Tattoo of the Rongokurai Warrior" "Tattoo of the Rongokurai Brute" "Tattoo of the Rongokurai Goliath" "Tattoo of the Rongokurai Guard" "Tattoo of the Tasalio Bladedancer" "Tattoo of the Tasalio Tideshifter" "Tattoo of the Tasalio Shaman" "Tattoo of the Hinekora Deathwarden" "Tattoo of the Hinekora Shaman" "Tattoo of the Hinekora Warmonger" "Tattoo of the Tawhoa Naturalist" "Tattoo of the Tawhoa Scout" "Tattoo of the Tawhoa Warrior" "Tattoo of the Tawhoa Shaman"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
@@ -1445,7 +1377,7 @@ Hide # 文身
 # -------------------------- 催化剂 -------------------------- #
 
 Show # 高级催化剂
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Tainted Catalyst" "Fertile Catalyst" "Unstable Catalyst" "Sinistral Catalyst" "Dextral Catalyst" "Prismatic Catalyst"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1457,7 +1389,7 @@ Show # 高级催化剂
     DisableDropSound 
 
 Hide # 催化剂
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Accelerating Catalyst" "Tempering Catalyst" "Turbulent Catalyst" "Imbued Catalyst" "Abrasive Catalyst" "Intrinsic Catalyst" "Noxious Catalyst"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
@@ -1471,7 +1403,7 @@ Hide # 催化剂
 # -------------------------- 预兆 -------------------------- #
 
 Show # 超级预兆
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Omen of Fortune" "Omen of Connections"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
@@ -1483,7 +1415,7 @@ Show # 超级预兆
     DisableDropSound
 
 Show # 高级预兆
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Omen of the Jeweller" "Omen of Amelioration" "Omen of Brilliance" "Omen of Return"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1495,8 +1427,8 @@ Show # 高级预兆
     DisableDropSound
 
 Hide # 预兆
-    Class "Stackable Currency" 
-    BaseType "Omen of " 
+    Class "Stackable Currency"
+    BaseType "Omen of Amelioration" "Omen of Return" "Omen of Death-dancing" "Omen of Refreshment" "Omen of the Soul Devourer" "Omen of Acceleration" "Omen of Fortune" "Omen of the Jeweller" "Omen of Connections" "Omen of Trichromatism" "Omen of Revenge" "Omen of Bequeathal" "Omen of Resurgence" "Omen of Adrenaline" "Omen of Death's Door" "Omen of Brilliance"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -1509,7 +1441,7 @@ Hide # 预兆
 # -------------------------- 圣油 -------------------------- #
 
 Show # 超级圣油
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Tainted Oil" "Golden Oil" "Silver Oil"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
@@ -1521,7 +1453,7 @@ Show # 超级圣油
     DisableDropSound
 
 Show # 高级圣油
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Prismatic Oil" "Opalescent Oil" "Reflective Oil" "Black Oil" "Crimson Oil"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1533,8 +1465,8 @@ Show # 高级圣油
     DisableDropSound
 
 Hide # 6-8圣油
-    Class "Stackable Currency" 
-    BaseType "Violet Oil" "Indigo Oil" "Azure Oil" 
+    Class "Stackable Currency"
+    BaseType "Violet Oil" "Indigo Oil" "Azure Oil"
     SetTextColor 237 141 141
     SetBorderColor 237 141 141
     SetBackgroundColor 0 0 0
@@ -1543,7 +1475,7 @@ Hide # 6-8圣油
     DisableDropSound 
 
 Hide # 3-5圣油
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Teal Oil" "Verdant Oil" "Amber Oil"
     SetTextColor 237 141 141
     SetBorderColor 237 141 141
@@ -1553,7 +1485,7 @@ Hide # 3-5圣油
     DisableDropSound 
 
 Hide # 1.2圣油
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Sepia Oil" "Clear Oil"
     SetTextColor 237 141 141
     SetBorderColor 237 141 141
@@ -1565,8 +1497,8 @@ Hide # 1.2圣油
 # -------------------------- 禁域研究 -------------------------- #
 
 Hide # 禁域典籍
-    Class "Sanctum Research" 
-    BaseType "Forbidden Tome" 
+    Class "Sanctum Research"
+    BaseType "Forbidden Tome"
     SetTextColor 239 155 86
     SetBorderColor 239 155 86
     SetBackgroundColor 0 0 0
@@ -1577,8 +1509,8 @@ Hide # 禁域典籍
     DisableDropSound 
 
 Show # 禁域研究
-    Class "Sanctum Research" 
-    BaseType "Sanctum Archives Research" "Sanctum Vaults Research" "Sanctum Cathedral Research" "Sanctum Necropolis Research" 
+    Class "Sanctum Research"
+    BaseType "Sanctum Archives Research" "Sanctum Vaults Research" "Sanctum Cathedral Research" "Sanctum Necropolis Research"
     SetTextColor 239 155 86
     SetBorderColor 239 155 86
     SetBackgroundColor 0 0 0
@@ -1591,8 +1523,8 @@ Show # 禁域研究
 # -------------------------- 庄园 -------------------------- #
 
 Show # 神圣之花
-    Class "Map Fragments" 
-    BaseType "Sacred Blossom" 
+    Class "Map Fragments"
+    BaseType "Sacred Blossom"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -1603,7 +1535,7 @@ Show # 神圣之花
     DisableDropSound
 
 Show # 神圣白晶命能
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Sacred Crystallised Lifeforce"
     SetTextColor 25 25 25
     SetBorderColor 235 235 235
@@ -1614,7 +1546,7 @@ Show # 神圣白晶命能
     DisableDropSound 
 
 Show # 活性黄晶命能
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Vivid Crystallised Lifeforce"
     SetTextColor 250 226 60
     SetBorderColor 250 226 60
@@ -1625,7 +1557,7 @@ Show # 活性黄晶命能
     DisableDropSound 
 
 Show # 原始蓝晶命能
-    Class "Stackable Currency" 
+    Class "Stackable Currency"
     BaseType "Primal Crystallised Lifeforce"
     SetTextColor 31 175 239
     SetBorderColor 31 175 239
@@ -1636,8 +1568,8 @@ Show # 原始蓝晶命能
     DisableDropSound 
 
 Show # 狂野紫晶命能
-    Class "Stackable Currency" 
-    BaseType "Wild Crystallised Lifeforce" 
+    Class "Stackable Currency"
+    BaseType "Wild Crystallised Lifeforce"
     SetTextColor 211 48 186
     SetBorderColor 211 48 186
     SetBackgroundColor 0 0 0
@@ -1650,8 +1582,8 @@ Show # 狂野紫晶命能
 
 Hide # 赏金猎人印记
     StackSize >= 100
-    Class "Stackable Currency" 
-    BaseType "Rogue's Marker" 
+    Class "Stackable Currency"
+    BaseType "Rogue's Marker"
     SetTextColor 166 237 142
     SetBorderColor 166 237 142
     SetBackgroundColor 0 0 0
@@ -1659,8 +1591,8 @@ Hide # 赏金猎人印记
     DisableDropSound 
 
 Hide # 赏金猎人印记
-    Class "Stackable Currency" 
-    BaseType "Rogue's Marker" 
+    Class "Stackable Currency"
+    BaseType "Rogue's Marker"
     SetTextColor 166 237 142
     SetBorderColor 166 237 142
     SetBackgroundColor 0 0 0
@@ -1669,8 +1601,8 @@ Hide # 赏金猎人印记
 
 Show # 附魔蓝图
     AnyEnchantment True
-    Class "Blueprints" 
-    BaseType "Blueprint: Bunker" "Blueprint: Smuggler's Den" "Blueprint: Laboratory" "Blueprint: Repository" "Blueprint: Prohibited Library" "Blueprint: Tunnels" "Blueprint: Underbelly" "Blueprint: Records Office" "Blueprint: Mansion" 
+    Class "Blueprints"
+    BaseType "Blueprint: Bunker" "Blueprint: Smuggler's Den" "Blueprint: Laboratory" "Blueprint: Repository" "Blueprint: Prohibited Library" "Blueprint: Tunnels" "Blueprint: Underbelly" "Blueprint: Records Office" "Blueprint: Mansion"
     SetTextColor 255 255 255
     SetBorderColor 0 173 181
     SetBackgroundColor 0 173 181
@@ -1681,8 +1613,8 @@ Show # 附魔蓝图
     DisableDropSound 
 
 Hide # 蓝图
-    Class "Blueprints" 
-    BaseType "Blueprint: Bunker" "Blueprint: Smuggler's Den" "Blueprint: Laboratory" "Blueprint: Repository" "Blueprint: Prohibited Library" "Blueprint: Tunnels" "Blueprint: Underbelly" "Blueprint: Records Office" "Blueprint: Mansion" 
+    Class "Blueprints"
+    BaseType "Blueprint: Bunker" "Blueprint: Smuggler's Den" "Blueprint: Laboratory" "Blueprint: Repository" "Blueprint: Prohibited Library" "Blueprint: Tunnels" "Blueprint: Underbelly" "Blueprint: Records Office" "Blueprint: Mansion"
     SetTextColor 128 204 255
     SetBorderColor 128 204 255
     SetBackgroundColor 0 0 0
@@ -1694,7 +1626,7 @@ Hide # 蓝图
 
 Show # 高价值传奇契约
     Rarity Unique
-    Class "Contracts" 
+    Class "Contracts"
     BaseType "Vengeful Contract"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
@@ -1707,8 +1639,8 @@ Show # 高价值传奇契约
 
 Hide # 传奇契约
     Rarity Unique
-    Class "Contracts" 
-    BaseType "Naval Contract" "Forbidden Contract" "Familial Contract" "Vigilante Contract" "Preventative Contract" 
+    Class "Contracts"
+    BaseType "Naval Contract" "Forbidden Contract" "Familial Contract" "Vigilante Contract" "Preventative Contract"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -1720,8 +1652,8 @@ Hide # 传奇契约
 
 Show # 附魔契约
     AnyEnchantment True
-    Class "Contracts" 
-    BaseType "Contract: Bunker" "Contract: Smuggler's Den" "Contract: Laboratory" "Contract: Repository" "Contract: Prohibited Library" "Contract: Tunnels" "Contract: Underbelly" "Contract: Records Office" "Contract: Mansion" 
+    Class "Contracts"
+    BaseType "Contract: Bunker" "Contract: Smuggler's Den" "Contract: Laboratory" "Contract: Repository" "Contract: Prohibited Library" "Contract: Tunnels" "Contract: Underbelly" "Contract: Records Office" "Contract: Mansion"
     SetTextColor 239 155 86
     SetBorderColor 239 155 86
     SetBackgroundColor 0 0 0
@@ -1732,8 +1664,8 @@ Show # 附魔契约
     DisableDropSound
     
 Hide # 契约
-    Class "Contracts" 
-    BaseType "Contract: Bunker" "Contract: Smuggler's Den" "Contract: Laboratory" "Contract: Repository" "Contract: Prohibited Library" "Contract: Tunnels" "Contract: Underbelly" "Contract: Records Office" "Contract: Mansion" 
+    Class "Contracts"
+    BaseType "Contract: Bunker" "Contract: Smuggler's Den" "Contract: Laboratory" "Contract: Repository" "Contract: Prohibited Library" "Contract: Tunnels" "Contract: Underbelly" "Contract: Records Office" "Contract: Mansion"
     SetTextColor 239 155 86
     SetBorderColor 239 155 86
     SetBackgroundColor 0 0 0
@@ -1744,7 +1676,7 @@ Hide # 契约
     DisableDropSound 
 
 Show # 赏金猎人装备
-    Class "Heist Gear" 
+    Class "Heist Gear"
     SetTextColor 26 215 241
     SetBorderColor 26 215 241
     SetBackgroundColor 0 0 0
@@ -1755,8 +1687,8 @@ Show # 赏金猎人装备
     DisableDropSound 
 
 Show # 赏金猎人饰品
-    Class "Trinket" 
-    BaseType "Thief's Trinket" 
+    Class "Trinkets"
+    BaseType "Thief's Trinket"
     SetTextColor 26 215 241
     SetBorderColor 26 215 241
     SetBackgroundColor 0 0 0
@@ -1770,8 +1702,8 @@ Show # 赏金猎人饰品
 
 Show # 驱灵裂片堆叠
     StackSize >= 5
-    Class "Stackable Currency" 
-    BaseType "Ritual Splinter" 
+    Class "Stackable Currency"
+    BaseType "Ritual Splinter"
     SetTextColor 220 203 181
     SetBorderColor 220 203 181
     SetBackgroundColor 0 0 0
@@ -1780,8 +1712,8 @@ Show # 驱灵裂片堆叠
     DisableDropSound 
 
 Hide # 驱灵裂片
-    Class "Stackable Currency" 
-    BaseType "Ritual Splinter" 
+    Class "Stackable Currency"
+    BaseType "Ritual Splinter"
     SetTextColor 220 203 181
     SetBorderColor 220 203 181
     SetBackgroundColor 0 0 0
@@ -1790,8 +1722,8 @@ Hide # 驱灵裂片
     DisableDropSound 
 
 Show # 驱灵法器
-    Class "Stackable Currency" 
-    BaseType "Ritual Vessel" 
+    Class "Stackable Currency"
+    BaseType "Ritual Vessel"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -1802,8 +1734,8 @@ Show # 驱灵法器
     DisableDropSound 
 
 Show # 浸血法器
-    Class "Map Fragments" 
-    BaseType "Blood-filled Vessel" 
+    Class "Map Fragments"
+    BaseType "Blood-filled Vessel"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -1816,8 +1748,8 @@ Show # 浸血法器
 # -------------------------- 先祖秘藏 -------------------------- #
 
 Show # 先祖秘藏日志
-    Class "Expedition Logbooks" 
-    BaseType "Expedition Logbook" 
+    Class "Expedition Logbooks"
+    BaseType "Expedition Logbook"
     SetTextColor 42 185 216
     SetBorderColor 42 185 216
     SetBackgroundColor 0 0 0
@@ -1828,8 +1760,8 @@ Show # 先祖秘藏日志
     DisableDropSound
     
 Show # 神器
-    Class "Stackable Currency" 
-    BaseType "Exotic Coinage" "Scrap Metal" "Astragali" "Burial Medallion" 
+    Class "Stackable Currency"
+    BaseType "Exotic Coinage" "Scrap Metal" "Astragali" "Burial Medallion"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -1842,8 +1774,8 @@ Show # 神器
 # -------------------------- 雾魇宝珠 -------------------------- #
 
 Show # 雾魇宝珠
-    Class "Stackable Currency" 
-    BaseType "Delirium Orb" 
+    Class "Stackable Currency"
+    BaseType "Delirium Orb"
     SetTextColor 247 207 162
     SetBorderColor 247 207 162
     SetBackgroundColor 0 0 0
@@ -1855,8 +1787,8 @@ Show # 雾魇宝珠
 
 Show # 拟像裂片堆叠
     StackSize >= 15
-    Class "Stackable Currency" 
-    BaseType "Simulacrum Splinter" 
+    Class "Stackable Currency"
+    BaseType "Simulacrum Splinter"
     SetTextColor 220 203 181
     SetBorderColor 220 203 181
     SetBackgroundColor 0 0 0
@@ -1867,8 +1799,8 @@ Show # 拟像裂片堆叠
     DisableDropSound
 
 Hide # 拟像裂片
-    Class "Stackable Currency" 
-    BaseType "Simulacrum Splinter" 
+    Class "Stackable Currency"
+    BaseType "Simulacrum Splinter"
     SetTextColor 220 203 181
     SetBorderColor 220 203 181
     SetBackgroundColor 0 0 0
@@ -1877,8 +1809,8 @@ Hide # 拟像裂片
     DisableDropSound
 
 Show # 梦魇拟像
-    Class "Map Fragments" 
-    BaseType "Simulacrum" 
+    Class "Map Fragments"
+    BaseType "Simulacrum"
     SetTextColor 243 22 133
     SetBorderColor 243 22 133
     SetBackgroundColor 0 0 0
@@ -1892,8 +1824,8 @@ Show # 梦魇拟像
 
 Show # 永恒裂片堆叠
     StackSize >= 5
-    Class "Stackable Currency" 
-    BaseType "Timeless Maraketh Splinter" "Timeless Templar Splinter" "Timeless Vaal Splinter"  "Timeless Karui Splinter" "Timeless Eternal Empire Splinter"
+    Class "Stackable Currency"
+    BaseType "Timeless Maraketh Splinter" "Timeless Templar Splinter" "Timeless Vaal Splinter" "Timeless Karui Splinter" "Timeless Eternal Empire Splinter"
     SetTextColor 220 203 181
     SetBorderColor 220 203 181
     SetBackgroundColor 0 0 0
@@ -1902,8 +1834,8 @@ Show # 永恒裂片堆叠
     DisableDropSound 
 
 Hide # 永恒裂片
-    Class "Stackable Currency" 
-    BaseType "Timeless Maraketh Splinter" "Timeless Templar Splinter" "Timeless Vaal Splinter"  "Timeless Karui Splinter" "Timeless Eternal Empire Splinter"
+    Class "Stackable Currency"
+    BaseType "Timeless Maraketh Splinter" "Timeless Templar Splinter" "Timeless Vaal Splinter" "Timeless Karui Splinter" "Timeless Eternal Empire Splinter"
     SetTextColor 220 203 181
     SetBorderColor 220 203 181
     SetBackgroundColor 0 0 0
@@ -1912,8 +1844,8 @@ Hide # 永恒裂片
     DisableDropSound 
 
 Show # 永恒印记
-    Class "Map Fragments" 
-    BaseType "Timeless Maraketh Emblem" "Timeless Templar Emblem" "Timeless Vaal Emblem" "Timeless Karui Emblem" "Timeless Eternal Emblem" 
+    Class "Map Fragments"
+    BaseType "Timeless Maraketh Emblem" "Timeless Templar Emblem" "Timeless Vaal Emblem" "Timeless Karui Emblem" "Timeless Eternal Emblem"
     SetTextColor 243 22 133
     SetBorderColor 243 22 133
     SetBackgroundColor 0 0 0
@@ -1938,7 +1870,7 @@ Show # 漆黑巴雅
     DisableDropSound 
 
 Show # 觉醒者碎片
-    Class "Map Fragments" 
+    Class "Map Fragments"
     BaseType "Veritania's Crest" "Al-Hezmin's Crest" "Drox's Crest" "Baran's Crest"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1950,7 +1882,7 @@ Show # 觉醒者碎片
     DisableDropSound
 
 Show # 至高裂界者碎片
-    Class "Map Fragments" 
+    Class "Map Fragments"
     BaseType "Fragment of Knowledge" "Fragment of Terror" "Fragment of Shape" "Fragment of Emptiness"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1962,7 +1894,7 @@ Show # 至高裂界者碎片
     DisableDropSound 
 
 Show # 塑界者碎片
-    Class "Map Fragments" 
+    Class "Map Fragments"
     BaseType "Fragment of the Hydra" "Fragment of the Phoenix" "Fragment of the Chimera" "Fragment of the Minotaur"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1974,7 +1906,7 @@ Show # 塑界者碎片
     DisableDropSound 
 
 Show # 裂界者碎片
-    Class "Map Fragments" 
+    Class "Map Fragments"
     BaseType "Fragment of Purification" "Fragment of Enslavement" "Fragment of Constriction" "Fragment of Eradication"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -1986,8 +1918,8 @@ Show # 裂界者碎片
     DisableDropSound 
 
 Hide # 新月裂片
-    Class "Stackable Currency" 
-    BaseType "Crescent Splinter" 
+    Class "Stackable Currency"
+    BaseType "Crescent Splinter"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -2000,7 +1932,7 @@ Hide # 新月裂片
 # -------------------------- 地图 -------------------------- #
 
 Show # 虚空石
-    Class "Atlas Upgrade Item"
+    Class "Atlas Upgrade Items"
     BaseType "Ceremonial Voidstone" "Decayed Voidstone" "Eldritch Voidstone" "Originator Voidstone"
     SetTextColor 247 251 97
     SetBorderColor 55 156 101
@@ -2013,7 +1945,7 @@ Show # 虚空石
 
 Show # 超级枯疫地图
     UberBlightedMap True
-    Class "Maps" 
+    Class "Maps"
     SetTextColor 246 230 47
     SetBorderColor 246 230 47
     SetBackgroundColor 0 0 0
@@ -2025,7 +1957,7 @@ Show # 超级枯疫地图
 
 Show # 枯疫地图
     BlightedMap True
-    Class "Maps" 
+    Class "Maps"
     SetTextColor 246 230 47
     SetBorderColor 246 230 47
     SetBackgroundColor 0 0 0
@@ -2037,7 +1969,7 @@ Show # 枯疫地图
     
 Show # 传奇地图
     Rarity Unique
-    Class "Maps" 
+    Class "Maps"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -2142,7 +2074,7 @@ Show # 瓦尔密殿地图
 
 Show # 异界地图(16+)
     MapTier >= 16
-    Class "Maps" 
+    Class "Maps"
     SetTextColor 226 62 87
     SetBorderColor 226 62 87
     SetBackgroundColor 0 0 0
@@ -2153,7 +2085,7 @@ Show # 异界地图(16+)
     DisableDropSound 
 
 Hide # 异界地图
-    Class "Maps" 
+    Class "Maps"
     SetTextColor 226 62 87
     SetBorderColor 226 62 87
     SetBackgroundColor 0 0 0
@@ -2189,7 +2121,7 @@ Show # 高级不灭余烬
 
 Hide # 不灭余烬
     Class "Map Fragments"
-    BaseType "Allflame Ember of Resplendence" "Allflame Ember of Flesh" "Allflame Ember of the Wildwood" "Allflame Ember of Toads" "Allflame Ember of "
+    BaseType "Allflame Ember of Resplendence" "Allflame Ember of Flesh" "Allflame Ember of the Wildwood" "Allflame Ember of Toads" "Allflame Ember of Frogs" "Allflame Ember of Rats" "Allflame Ember of Xoph" "Allflame Ember of Tul" "Allflame Ember of Esh" "Allflame Ember of Uul-Netol" "Allflame Ember of Chayula" "Allflame Ember of Sulphite" "Allflame Ember of Valako" "Allflame Ember of Tukohama" "Allflame Ember of Tawhoa" "Allflame Ember of Tasalio" "Allflame Ember of Rongokurai" "Allflame Ember of Ramako" "Allflame Ember of Ngamahu" "Allflame Ember of Kitava" "Allflame Ember of Hinekora" "Allflame Ember of Arohongui" "Allflame Ember of Abyss" "Allflame Ember of Beidat" "Allflame Ember of Ghorr" "Allflame Ember of K'Tash" "Allflame Ember of Brawling Gemlings" "Allflame Ember of Berserking Gemlings" "Allflame Ember of Frostmage Gemlings" "Allflame Ember of Artillery Gemlings" "Allflame Ember of Corpsemage Gemlings" "Allflame Ember of The Broken Circle" "Allflame Ember of The Order of the Chalice" "Allflame Ember of The Black Scythe" "Allflame Ember of The Knights of the Sun" "Allflame Ember of Meatsacks" "Allflame Ember of Untainted Beasts" "Allflame Ember of Untainted Apes" "Allflame Ember of Untainted Rhoas" "Allflame Ember of Untainted Spitters" "Allflame Ember of Untainted Maws" "Allflame Ember of Untainted Chimerals" "Allflame Ember of Untainted Devourers" "Allflame Ember of Wildwood Cultists" "Allflame Ember of Wildwood Treants" "Allflame Ember of Wildwood Beasts" "Allflame Ember of The Karui Legion" "Allflame Ember of The Eternal Legion" "Allflame Ember of The Maraketh Legion" "Allflame Ember of The Templar Legion" "Allflame Ember of The Vaal Legion" "Allflame Ember of The Shaper" "Allflame Ember of The Elder" "Allflame Ember of The Warlord" "Allflame Ember of The Redeemer" "Allflame Ember of The Crusader" "Allflame Ember of The Hunter" "Allflame Ember of Trial Cores" "Allflame Ember of Trial Guards" "Allflame Ember of Manifested Wealth" "Allflame Ember of the False God" "Allflame Ember of Anarchy" "Allflame Ember of Syndicate Guards" "Allflame Ember of Syndicate Escorts" "Allflame Ember of Syndicate Assassins" "Allflame Ember of Syndicate Researchers" "Allflame Ember of Synthetic Fury" "Allflame Ember of Kulemak" "Allflame Ember of Propagation" "Allflame Ember of the Ethereal" "Allflame Ember of the Gilded"
     SetTextColor 220 203 181
     SetBorderColor 220 203 181
     SetBackgroundColor 0 0 0
@@ -2198,7 +2130,7 @@ Hide # 不灭余烬
     DisableDropSound
 
 Show # 圣物厅钥匙
-    Class "Vault Keys" 
+    Class "Vault Keys"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -2209,7 +2141,7 @@ Show # 圣物厅钥匙
     DisableDropSound 
 
 Show # 炽焰、咆哮邀请
-    Class "Misc Map Items" 
+    Class "Misc Map Items"
     BaseType "Incandescent Invitation" "Screaming Invitation"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
@@ -2221,7 +2153,7 @@ Show # 炽焰、咆哮邀请
     DisableDropSound 
 
 Hide # 极星、蠕动邀请
-    Class "Misc Map Items" 
+    Class "Misc Map Items"
     BaseType "Polaric Invitation" "Writhing Invitation"
     SetTextColor 42 185 216
     SetBorderColor 42 185 216
@@ -2233,8 +2165,8 @@ Hide # 极星、蠕动邀请
     DisableDropSound
 
 Show # 贤主敕令
-    Class "Map Fragments" 
-    BaseType "The Maven's Writ" 
+    Class "Map Fragments"
+    BaseType "The Maven's Writ"
     SetTextColor 243 22 133
     SetBorderColor 243 22 133
     SetBackgroundColor 0 0 0
@@ -2245,7 +2177,7 @@ Show # 贤主敕令
     DisableDropSound 
 
 Show # 创伤、敬仰、孤寂回响
-    BaseType "Echo of Trauma" "Echo of Reverence" "Echo of Loneliness" 
+    BaseType "Echo of Trauma" "Echo of Reverence" "Echo of Loneliness"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -2267,7 +2199,7 @@ Show # 85碎片
     DisableDropSound 
 
 Show # 辛迪加徽章
-    BaseType "Syndicate Medallion" 
+    BaseType "Syndicate Medallion"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -2278,7 +2210,7 @@ Show # 辛迪加徽章
     DisableDropSound 
 
 Show # 谒王之约
-    BaseType "An Audience With The King" 
+    BaseType "An Audience With The King"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -2289,7 +2221,7 @@ Show # 谒王之约
     DisableDropSound
 
 Hide # 禁灵之瓶
-    BaseType "Divine Vessel" 
+    BaseType "Divine Vessel"
     SetTextColor 255 255 255
     SetBorderColor 63 149 222
     SetBackgroundColor 63 149 222
@@ -2300,7 +2232,7 @@ Hide # 禁灵之瓶
     DisableDropSound 
 
 Hide # 虫脑腺体
-    Class "Map Fragments" 
+    Class "Map Fragments"
     BaseType "Hivebrain Gland"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -2312,7 +2244,7 @@ Hide # 虫脑腺体
     DisableDropSound
 
 Show # 贪婪战书
-    BaseType "Inscribed Ultimatum" 
+    BaseType "Inscribed Ultimatum"
     SetTextColor 249 210 104
     SetBorderColor 249 210 104
     SetBackgroundColor 0 0 0
@@ -2323,8 +2255,8 @@ Show # 贪婪战书
     DisableDropSound   
 
 Show # 高级女神祭品
-    Class "Map Fragments" 
-    BaseType "Gift to the Goddess" "Dedication to the Goddess" "Tribute to the Goddess" 
+    Class "Map Fragments"
+    BaseType "Gift to the Goddess" "Dedication to the Goddess" "Tribute to the Goddess"
     SetTextColor 18 204 148
     SetBorderColor 18 204 148
     SetBackgroundColor 0 0 0
@@ -2335,8 +2267,8 @@ Show # 高级女神祭品
     DisableDropSound 
 
 Hide # 女神祭品
-    Class "Map Fragments" 
-    BaseType "Offering to the Goddess" 
+    Class "Map Fragments"
+    BaseType "Offering to the Goddess"
     SetTextColor 18 204 148
     SetBorderColor 18 204 148
     SetBackgroundColor 0 0 0
@@ -2345,8 +2277,8 @@ Hide # 女神祭品
     DisableDropSound 
 
 Show # 阿佐亚特编年史
-    Class "Misc Map Items" 
-    BaseType "Chronicle of Atzoatl" 
+    Class "Misc Map Items"
+    BaseType "Chronicle of Atzoatl"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -2360,7 +2292,7 @@ Show # 阿佐亚特编年史
 
 Show # 传奇大中型星团珠宝
     Rarity Unique
-    Class "Jewels" 
+    Class "Jewels"
     BaseType "Large Cluster Jewel" "Medium Cluster Jewel"
     SetTextColor 175 95 28
     SetBorderColor 255 255 255
@@ -2373,7 +2305,7 @@ Show # 传奇大中型星团珠宝
 
 Show # 传奇小型星团珠宝
     Rarity Unique
-    Class "Jewels" 
+    Class "Jewels"
     BaseType "Small Cluster Jewel"
     SetTextColor 175 95 28
     SetBorderColor 255 255 255
@@ -2388,7 +2320,7 @@ Show # 大星团珠宝(9-11天赋)
     ItemLevel >= 84
     EnchantmentPassiveNum >= 9 
     EnchantmentPassiveNum <= 11
-    Class "Jewels" 
+    Class "Jewels"
     BaseType "Large Cluster Jewel"
     SetTextColor 240 74 75
     SetBorderColor 253 233 201
@@ -2401,7 +2333,7 @@ Show # 大星团珠宝(9-11天赋)
 
 Show # 星团珠宝
     ItemLevel >= 84
-    Class "Jewels" 
+    Class "Jewels"
     BaseType "Large Cluster Jewel" "Medium Cluster Jewel" "Small Cluster Jewel"
     SetTextColor 240 74 75
     SetBorderColor 253 233 201
@@ -2414,7 +2346,7 @@ Show # 星团珠宝
 
 Show # 星团珠宝(83、8天赋)
     ItemLevel = 83
-    Class "Jewels" 
+    Class "Jewels"
     BaseType "Large Cluster Jewel"
     EnchantmentPassiveNum = 8
     EnchantmentPassiveNode "Chaos Damage" "Holding A Shield"
@@ -2428,8 +2360,8 @@ Show # 星团珠宝(83、8天赋)
     DisableDropSound
 
 Hide # 星团珠宝
-    Class "Jewels" 
-    BaseType "Large Cluster Jewel" "Medium Cluster Jewel" "Small Cluster Jewel" 
+    Class "Jewels"
+    BaseType "Large Cluster Jewel" "Medium Cluster Jewel" "Small Cluster Jewel"
     SetTextColor 240 74 75
     SetBorderColor 253 233 201
     SetBackgroundColor 253 233 201
@@ -2441,8 +2373,8 @@ Hide # 星团珠宝
 
 Show # 传奇永恒珠宝
     Rarity Unique
-    Class "Jewels" 
-    BaseType "Timeless Jewel" 
+    Class "Jewels"
+    BaseType "Timeless Jewel"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -2454,7 +2386,7 @@ Show # 传奇永恒珠宝
 
 Show # 忆境珠宝
     SynthesisedItem True
-    Class "Jewels" 
+    Class "Jewels"
     SetTextColor 50 222 109
     SetBorderColor 50 222 109
     SetBackgroundColor 0 0 0
@@ -2466,7 +2398,7 @@ Show # 忆境珠宝
 
 Show # 珠宝(高价值词条)
     FracturedItem True
-    Class "Jewels" 
+    Class "Jewels"
     HasExplicitMod "Vivid" "Shimmering" "Infernal" "Arctic" "Surging" "Piercing" "Rupturing" "Puncturing" "Infernal" "Arctic" "Surging" "of Unmaking" "of the Elements" "of Potency" "of Demolishing" 
     SetTextColor 50 222 109
     SetBorderColor 50 222 109
@@ -2481,7 +2413,7 @@ Show # 腐化双基底珠宝
     HasImplicitMod True
     CorruptedMods >= 2
     Rarity Rare
-    Class "Jewels" 
+    Class "Jewels"
     SetTextColor 50 222 109
     SetBorderColor 50 222 109
     SetBackgroundColor 0 0 0
@@ -2494,7 +2426,7 @@ Show # 腐化双基底珠宝
 Hide # 基底珠宝 
     HasImplicitMod True
     Rarity Rare
-    Class "Jewels" 
+    Class "Jewels"
     SetTextColor 50 222 109
     SetBorderColor 50 222 109
     SetBackgroundColor 0 0 0
@@ -2506,7 +2438,7 @@ Hide # 基底珠宝
 
 Show # 传奇深渊珠宝
     Rarity Unique
-    Class "Abyss Jewels" 
+    Class "Abyss Jewels"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -2518,7 +2450,7 @@ Show # 传奇深渊珠宝
 
 Hide # 深渊珠宝(稀有)
     Rarity Rare
-    Class "Abyss Jewels" 
+    Class "Abyss Jewels"
     BaseType "Murderous Eye Jewel" "Searching Eye Jewel" "Hypnotic Eye Jewel" "Ghastly Eye Jewel"
     SetTextColor 50 222 109
     SetBorderColor 50 222 109
@@ -2529,7 +2461,7 @@ Hide # 深渊珠宝(稀有)
 
 Hide # 深渊珠宝(普通、魔法)
     Rarity Normal Magic
-    Class "Abyss Jewels" 
+    Class "Abyss Jewels"
     BaseType "Murderous Eye Jewel" "Searching Eye Jewel" "Hypnotic Eye Jewel" "Ghastly Eye Jewel"
     SetTextColor 50 222 109
     SetBorderColor 50 222 109
@@ -2540,8 +2472,8 @@ Hide # 深渊珠宝(普通、魔法)
 
 Show # 传奇三相珠宝
     Rarity Unique
-    Class "Jewels" 
-    BaseType "Prismatic Jewel" 
+    Class "Jewels"
+    BaseType "Prismatic Jewel"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -2552,8 +2484,8 @@ Show # 传奇三相珠宝
     DisableDropSound 
 
 Show # 三相珠宝
-    Class "Jewels" 
-    BaseType "Prismatic Jewel" 
+    Class "Jewels"
+    BaseType "Prismatic Jewel"
     SetTextColor 50 222 109
     SetBorderColor 50 222 109
     SetBackgroundColor 0 0 0
@@ -2565,8 +2497,8 @@ Show # 三相珠宝
 
 Show # 传奇珠宝
     Rarity Unique
-    Class "Jewels" 
-    BaseType "Cobalt Jewel" "Viridian Jewel" "Crimson Jewel" "Mycelium Core"
+    Class "Jewels"
+    BaseType "Cobalt Jewel" "Viridian Jewel" "Crimson Jewel"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -2576,22 +2508,11 @@ Show # 传奇珠宝
     CustomAlertSound "剑心音效/传奇珠宝.mp3" 300
     DisableDropSound 
 
-Show # 珠宝(菌丝核心)
-    AnyEnchantment False
-    Class "Jewels" 
-    BaseType "Mycelium Core"
-    SetTextColor 50 222 109
-    SetBorderColor 50 222 109
-    SetBackgroundColor 0 0 0
-    SetFontSize 38
-    CustomAlertSound "剑心音效/珠宝.mp3" 300
-    DisableDropSound
-
 Hide # 珠宝(稀有)
     AnyEnchantment False
     Rarity Rare
-    Class "Jewels" 
-    BaseType "Cobalt Jewel" "Viridian Jewel" "Crimson Jewel" 
+    Class "Jewels"
+    BaseType "Cobalt Jewel" "Viridian Jewel" "Crimson Jewel"
     SetTextColor 50 222 109
     SetBorderColor 50 222 109
     SetBackgroundColor 0 0 0
@@ -2602,8 +2523,8 @@ Hide # 珠宝(稀有)
 Hide # 珠宝(普通、魔法)
     AnyEnchantment False
     Rarity Normal Magic
-    Class "Jewels" 
-    BaseType "Cobalt Jewel" "Viridian Jewel" "Crimson Jewel" 
+    Class "Jewels"
+    BaseType "Cobalt Jewel" "Viridian Jewel" "Crimson Jewel"
     SetTextColor 50 222 109
     SetBorderColor 50 222 109
     SetBackgroundColor 0 0 0
@@ -2615,7 +2536,7 @@ Hide # 珠宝(普通、魔法)
 
 Show # 传奇药剂(D+)
     Rarity Unique
-    Class "Flasks" 
+    Class "Life Flasks" "Mana Flasks" "Hybrid Flasks" "Utility Flasks"
     BaseType "Iron Flask" "Amethyst Flask" "Ruby Flask" "Sulphur Flask" "Silver Flask" "Bismuth Flask" "Gold Flask" "Topaz Flask" "Basalt Flask"
     SetTextColor 175 95 28
     SetBorderColor 255 255 255
@@ -2628,7 +2549,7 @@ Show # 传奇药剂(D+)
 
 Hide # 传奇药剂(50-100c)
     Rarity Unique
-    Class "Flasks" 
+    Class "Life Flasks" "Mana Flasks" "Hybrid Flasks" "Utility Flasks"
     BaseType "Granite Flask" "Grand Mana Flask" "Stibnite Flask"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
@@ -2641,7 +2562,7 @@ Hide # 传奇药剂(50-100c)
 
 Hide # 传奇药剂(5-10c)
     Rarity Unique
-    Class "Flasks" 
+    Class "Life Flasks" "Mana Flasks" "Hybrid Flasks" "Utility Flasks"
     BaseType "Colossal Mana Flask" "Hallowed Hybrid Flask" "Sapphire Flask" "Sanctified Mana Flask" "Greater Mana Flask" "Large Hybrid Flask" "Quartz Flask"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
@@ -2654,7 +2575,7 @@ Hide # 传奇药剂(5-10c)
 
 Hide # 传奇药剂
     Rarity Unique
-    Class "Flasks" 
+    Class "Life Flasks" "Mana Flasks" "Hybrid Flasks" "Utility Flasks"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -2667,7 +2588,7 @@ Hide # 传奇药剂
 Hide # 破碎药剂
     FracturedItem True
     Rarity Normal Magic
-    BaseType "Quicksilver Flask" "Diamond Flask" "Divine Mana Flask" "Eternal Mana Flask" "Divine Life Flask" "Eternal Life Flask" "Basalt Flask" "Sulphur Flask" "Silver Flask" "Quartz Flask" "Bismuth Flask" "Stibnite Flask" "Jade Flask" "Granite Flask" "Topaz Flask" "Sapphire Flask" "Ruby Flask" 
+    BaseType "Quicksilver Flask" "Diamond Flask" "Divine Mana Flask" "Eternal Mana Flask" "Divine Life Flask" "Eternal Life Flask" "Basalt Flask" "Sulphur Flask" "Silver Flask" "Quartz Flask" "Bismuth Flask" "Stibnite Flask" "Jade Flask" "Granite Flask" "Topaz Flask" "Sapphire Flask" "Ruby Flask"
     SetTextColor 255 255 255
     SetBorderColor 180 38 172
     SetBackgroundColor 180 38 172
@@ -2680,7 +2601,7 @@ Hide # 破碎药剂
 Hide # 剩余破碎药剂
     FracturedItem True
     Rarity Normal Magic
-    Class "Flasks" 
+    Class "Life Flasks" "Mana Flasks" "Hybrid Flasks" "Utility Flasks"
     SetTextColor 138 233 192
     SetBorderColor 138 233 192
     SetBackgroundColor 0 0 0
@@ -2691,7 +2612,7 @@ Show # 高品质药剂
     Corrupted False
     Quality >= 28
     Rarity Normal Magic
-    Class "Flasks" 
+    Class "Life Flasks" "Mana Flasks" "Hybrid Flasks" "Utility Flasks"
     SetTextColor 255 255 255
     SetBorderColor 180 38 172
     SetBackgroundColor 180 38 172
@@ -2703,7 +2624,7 @@ Show # 高品质药剂
 
 Hide # 传奇酊剂
     Rarity Unique
-    Class "Tincture" 
+    Class "Tinctures"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -2714,7 +2635,7 @@ Hide # 传奇酊剂
     DisableDropSound 
 
 Hide # 酊剂
-    Class "Tincture" 
+    Class "Tinctures"
     SetTextColor 138 233 192
     SetBorderColor 138 233 192
     SetBackgroundColor 0 0 0
@@ -2726,7 +2647,7 @@ Hide # 酊剂
 
 Show # 坚铁药剂
     Rarity Normal Magic
-    BaseType "Iron Flask" 
+    BaseType "Iron Flask"
     SetTextColor 255 255 255
     SetBorderColor 180 38 172
     SetBackgroundColor 180 38 172
@@ -2738,7 +2659,7 @@ Show # 坚铁药剂
 
 Show # 功能药剂(高价值)
     ItemLevel >= 85
-    Class "Utility Flasks" 
+    Class "Utility Flasks"
     BaseType "Quicksilver Flask" "Silver Flask" "Diamond Flask" "Granite Flask" "Sulphur Flask" "Basalt Flask" "Jade Flask"
     SetTextColor 138 233 192
     SetBorderColor 138 233 192
@@ -2750,7 +2671,7 @@ Show # 功能药剂(高价值)
     DisableDropSound
 
 Hide # 功能药剂
-    Class "Utility Flasks" 
+    Class "Utility Flasks"
     SetTextColor 138 233 192
     SetBorderColor 138 233 192
     SetBackgroundColor 0 0 0
@@ -2762,7 +2683,7 @@ Hide # 功能药剂
 
 Hide # 生命药剂
     ItemLevel >= 60
-    Class "Life Flasks" 
+    Class "Life Flasks"
     BaseType "Divine Life Flask" "Eternal Life Flask"
     SetTextColor 251 244 193
     SetBorderColor 251 244 193
@@ -2772,7 +2693,7 @@ Hide # 生命药剂
 
 Hide # 魔力药剂
     ItemLevel >= 60
-    Class "Mana Flasks" 
+    Class "Mana Flasks"
     BaseType "Divine Mana Flask" "Eternal Mana Flask"
     SetTextColor 251 244 193
     SetBorderColor 251 244 193
@@ -2782,7 +2703,7 @@ Hide # 魔力药剂
 
 Hide # 剩余生命/魔力药剂
     ItemLevel >= 60
-    Class "Flasks" 
+    Class "Life Flasks" "Mana Flasks" "Hybrid Flasks" "Utility Flasks"
     SetTextColor 251 244 193
     SetBorderColor 0 0 0
     SetBackgroundColor 0 0 0
@@ -2790,7 +2711,7 @@ Hide # 剩余生命/魔力药剂
     DisableDropSound 
 
 Hide # 剩余药剂
-    Class "Flasks" 
+    Class "Life Flasks" "Mana Flasks" "Hybrid Flasks" "Utility Flasks"
     SetTextColor 251 244 193
     SetBorderColor 0 0 0
     SetBackgroundColor 0 0 0
@@ -2800,7 +2721,7 @@ Hide # 剩余药剂
 # -------------------------- 技能宝石 -------------------------- #
 
 Show # 超级强辅
-    BaseType "Awakened Empower Support" "Awakened Enlighten Support" "Awakened Enhance Support" "Awakened Multistrike Support" "Awakened Greater Multiple Projectiles Support" 
+    BaseType "Awakened Empower Support" "Awakened Enlighten Support" "Awakened Enhance Support" "Awakened Multistrike Support" "Awakened Greater Multiple Projectiles Support"
     SetTextColor 255 236 43
     SetBorderColor 217 4 31
     SetBackgroundColor 217 4 31
@@ -2811,7 +2732,7 @@ Show # 超级强辅
     DisableDropSound 
 
 Show # 高级强辅
-    BaseType "Awakened Spell Echo Support" "Awakened Elemental Damage with Attacks Support" "Awakened Fork Support" "Awakened Chain Support" "Awakened Unleash Support" "Awakened Cast On Critical Strike Support" "Awakened Unbound Ailments Support" "Awakened Burning Damage Support" 
+    BaseType "Awakened Spell Echo Support" "Awakened Elemental Damage with Attacks Support" "Awakened Fork Support" "Awakened Chain Support" "Awakened Unleash Support" "Awakened Cast On Critical Strike Support" "Awakened Unbound Ailments Support" "Awakened Burning Damage Support"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
     SetBackgroundColor 218 8 98
@@ -2822,8 +2743,8 @@ Show # 高级强辅
     DisableDropSound 
 
 Show # 强辅技能
-    Class "Support Gem" 
-    BaseType "Awakened " 
+    Class "Support Gems"
+    BaseType "Awakened Sextant" "Awakened Added Fire Damage Support" "Awakened Ancestral Call Support" "Awakened Brutality Support" "Awakened Burning Damage Support" "Awakened Elemental Damage with Attacks Support" "Awakened Fire Penetration Support" "Awakened Generosity Support" "Awakened Melee Physical Damage Support" "Awakened Melee Splash Support" "Awakened Multistrike Support" "Awakened Added Cold Damage Support" "Awakened Arrow Nova Support" "Awakened Cast On Critical Strike Support" "Awakened Chain Support" "Awakened Cold Penetration Support" "Awakened Deadly Ailments Support" "Awakened Fork Support" "Awakened Greater Multiple Projectiles Support" "Awakened Swift Affliction Support" "Awakened Void Manipulation Support" "Awakened Vicious Projectiles Support" "Awakened Added Chaos Damage Support" "Awakened Added Lightning Damage Support" "Awakened Blasphemy Support" "Awakened Cast While Channelling Support" "Awakened Controlled Destruction Support" "Awakened Hextouch Support" "Awakened Elemental Focus Support" "Awakened Increased Area of Effect Support" "Awakened Lightning Penetration Support" "Awakened Minion Damage Support" "Awakened Spell Cascade Support" "Awakened Spell Echo Support" "Awakened Unbound Ailments Support" "Awakened Unleash Support" "Awakened Empower Support" "Awakened Enlighten Support" "Awakened Enhance Support"
     SetTextColor 230 106 163
     SetBorderColor 230 106 163
     SetBackgroundColor 0 0 0
@@ -2835,7 +2756,7 @@ Show # 强辅技能
 
 Show # 灌注技能石
     Imbued True
-    Class "Gems"
+    Class "Skill Gems" "Support Gems"
     SetTextColor 255 255 255
     SetBorderColor 230 106 163
     SetBackgroundColor 230 106 163
@@ -2846,7 +2767,7 @@ Show # 灌注技能石
     DisableDropSound 
 
 Show # 超级卓越宝石
-    Class "Gems"
+    Class "Skill Gems" "Support Gems"
     BaseType "Greater Multistrike Support" "Greater Spell Echo Support" "Congregation Support" "Invert the Rules Support" "Cooldown Recovery Support" "Greater Fork Support" "Greater Ancestral Call Support" "Eclipse Support" "Pact of Beidat" "Pact of K'Tash" "Pact of Lycia"
     SetTextColor 255 255 255
     SetBorderColor 218 8 98
@@ -2858,7 +2779,7 @@ Show # 超级卓越宝石
     DisableDropSound
 
 Show # 高级卓越宝石
-    Class "Gems"
+    Class "Skill Gems" "Support Gems"
     BaseType "Companionship Support" "Pacifism Support" "Greater Chain Support" "Machinations Support" "Unholy Trinity Support" "Annihilation Support" "Greater Unleash Support" "Elemental Penetration Support" "Vaal Temptation Support" "Bloodsoaked Banner Support" "Cast on Ward Break Support" "Void Shockwave Support" "Frostmage Support" "Greater Spell Cascade Support" "Greater Devour Support"
     SetTextColor 255 255 255
     SetBorderColor 247 107 138
@@ -2870,7 +2791,7 @@ Show # 高级卓越宝石
     DisableDropSound
 
 Show # 卓越宝石
-    Class "Gems"
+    Class "Skill Gems" "Support Gems"
     BaseType "Vaal Sacrifice Support" "Pyre Support" "Bonespire Support" "Foulgrasp Support" "Hiveborn Support" "Scornful Herald Support" "Cull the Weak Support" "Fissure Support" "Hextoad Support" "Hexpass Support" "Lethal Dose Support" "Divine Sentinel Support" "Invention Support" "Greater Kinetic Instability Support" "Voidstorm Support" "Eldritch Blasphemy Support" "Gluttony Support" "Overheat Support" "Overloaded Intensity Support" "Transfusion Support" "Pact of Ghorr" "Crystalfall Support" "Communion Support" "Coursing Current Support"
     SetTextColor 255 255 255
     SetBorderColor 247 107 138
@@ -2883,7 +2804,7 @@ Show # 卓越宝石
 
 Hide # 改造技能
     TransfiguredGem True
-    Class "Skill Gem" 
+    Class "Skill Gems"
     SetTextColor 255 255 255
     SetBorderColor 230 106 163
     SetBackgroundColor 230 106 163
@@ -2919,7 +2840,7 @@ Show # 赋予、启蒙、增幅、瓦尔裂隙
 Show # 21级20品质
     GemLevel >= 21
     Quality >= 20
-    Class "Skill Gem" "Support Gem" 
+    Class "Skill Gems" "Support Gems"
     SetTextColor 255 255 255
     SetBorderColor 230 106 163
     SetBackgroundColor 230 106 163
@@ -2932,7 +2853,7 @@ Show # 21级20品质
 Show # 20级20品质
     Quality >= 20
     GemLevel >= 20
-    Class "Skill Gem" "Support Gem" 
+    Class "Skill Gems" "Support Gems"
     SetTextColor 255 255 255
     SetBorderColor 230 106 163
     SetBackgroundColor 230 106 163
@@ -2943,8 +2864,8 @@ Show # 20级20品质
     DisableDropSound 
 
 Hide # 瓦尔宝石
-    Class "Skill Gem" "Support Gem" 
-    BaseType "Vaal " 
+    Class "Skill Gems" "Support Gems"
+    BaseType "Vaal Orb" "Vaal Claw" "Vaal Hatchet" "Vaal Blade" "Vaal Rapier" "Vaal Sceptre" "Vaal Axe" "Vaal Greatsword" "Vaal Buckler" "Vaal Spirit Shield" "Vaal Mask" "Vaal Regalia" "Vaal Greaves" "Vaal Gauntlets" "Vaal Arctic Armour" "Vaal Impurity of Fire" "Vaal Impurity of Ice" "Vaal Impurity of Lightning" "Vaal Fireball" "Vaal Arc" "Vaal Spark" "Vaal Burning Arrow" "Vaal Molten Shell" "Vaal Lightning Warp" "Vaal Immortal Call" "Vaal Power Siphon" "Vaal Cyclone" "Vaal Ice Nova" "Vaal Detonate Dead" "Vaal Ground Slam" "Vaal Rain of Arrows" "Vaal Cold Snap" "Vaal Spectral Throw" "Vaal Lightning Strike" "Vaal Heavy Strike" "Vaal Double Strike" "Vaal Glacial Hammer" "Vaal Summon Skeletons" "Vaal Storm Call" "Vaal Reave" "Vaal Clarity" "Vaal Grace" "Vaal Discipline" "Vaal Haste" "Vaal FireTrap" "Vaal Sweep" "Vaal Righteous Fire" "Vaal Breach" "Vaal Flameblast" "Vaal Lightning Trap" "Vaal Blade Vortex" "Vaal Soul Harvesting" "Vaal Flesh Offering" "Vaal Earthquake" "Vaal Blight" "Vaal Ancestral Warchief" "Vaal Flicker Strike" "Vaal Molten Strike" "Vaal Cleave" "Vaal Volcanic Fissure" "Vaal Caustic Arrow" "Vaal Venom Gyre" "Vaal Smite" "Vaal Blade Flurry" "Vaal Reap" "Vaal Animate Weapon" "Vaal Lightning Arrow" "Vaal Absolution" "Vaal Domination" "Vaal Ice Shot" "Vaal Firestorm" "Vaal Rejuvenation Totem" "Vaal Split Arrow" "Vaal Sacrifice Support" "Vaal Temptation Support" "Vaal Pyramid Map" "Vaal Temple Map" "Vaal Reliquary Key" "Vaal Aspect" "Vaal Scouting Report" "Vaal Enshrouding Crystal"
     SetTextColor 255 255 255
     SetBorderColor 230 106 163
     SetBackgroundColor 230 106 163
@@ -2956,7 +2877,7 @@ Hide # 瓦尔宝石
 
 Hide # 品质宝石
     Quality >= 20
-    Class "Skill Gem" "Support Gem" 
+    Class "Skill Gems" "Support Gems"
     SetTextColor 33 171 165
     SetBorderColor 33 171 165
     SetBackgroundColor 0 0 0
@@ -2964,7 +2885,7 @@ Hide # 品质宝石
     DisableDropSound 
 
 Hide # 剩余宝石
-    Class "Skill Gem" "Support Gem" 
+    Class "Skill Gems" "Support Gems"
     SetTextColor 33 171 165
     SetBorderColor 33 171 165
     SetBackgroundColor 0 0 0
@@ -2990,7 +2911,7 @@ Show # 腐化手套
     Corrupted True
     CorruptedMods >= 1
     Rarity Unique
-    Class "Gloves" 
+    Class "Gloves"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -3088,7 +3009,7 @@ Show # 裂界传奇
 Show # 卡兰德之触
     Mirrored True
     Rarity Unique
-    BaseType "Ring" 
+    BaseType "Ring"
     SetTextColor 175 95 28
     SetBorderColor 255 255 255
     SetBackgroundColor 255 255 255
@@ -3101,7 +3022,7 @@ Show # 卡兰德之触
 Show # 侍从
     Sockets "WWW" 
     Rarity Unique
-    BaseType "Elegant Round Shield" 
+    BaseType "Elegant Round Shield"
     SetTextColor 175 95 28
     SetBorderColor 255 255 255
     SetBackgroundColor 255 255 255
@@ -3113,7 +3034,7 @@ Show # 侍从
 
 Show # 乌尔尼多之誓
     Rarity Unique
-    BaseType "Unset Amulet" 
+    BaseType "Unset Amulet"
     SetTextColor 175 95 28
     SetBorderColor 255 255 255
     SetBackgroundColor 255 255 255
@@ -3126,7 +3047,7 @@ Show # 乌尔尼多之誓
 Show # 简易之袍
     LinkedSockets = 6
     Rarity Unique
-    BaseType "Simple Robe" 
+    BaseType "Simple Robe"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -3211,7 +3132,7 @@ Hide # 传奇装备(5c+)
 Hide # 6连传奇
     LinkedSockets = 6
     Rarity Unique
-    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields" 
+    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -3223,7 +3144,7 @@ Hide # 6连传奇
 
 Hide # 传奇装备
     Rarity Unique
-    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields" 
+    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -3236,7 +3157,7 @@ Hide # 传奇装备
 # -------------------------- 其余物品 -------------------------- #
 
 Show # 孕育赠礼
-    Class "Wombgifts" 
+    Class "Wombgifts"
     BaseType "Ancient Wombgift" "Lavish Wombgift" "Mysterious Wombgift"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -3248,7 +3169,7 @@ Show # 孕育赠礼
     DisableDropSound  
 
 Hide # 供养孕育赠礼
-    Class "Wombgifts" 
+    Class "Wombgifts"
     BaseType "Provisioning Wombgift"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
@@ -3260,7 +3181,7 @@ Hide # 供养孕育赠礼
     DisableDropSound 
 
 Show # 灵柩
-    Class "Corpses" 
+    Class "Corpses"
     SetTextColor 186 120 69
     SetBorderColor 186 120 69
     SetBackgroundColor 0 0 0
@@ -3270,7 +3191,7 @@ Show # 灵柩
 
 Show # 传奇遗物
     Rarity Unique
-    Class "Relic" 
+    Class "Relics" "Large Relics" "Medium Relics" "Small Relics" "Sanctified Relics"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -3281,8 +3202,8 @@ Show # 传奇遗物
     DisableDropSound 
 
 Show # 普通遗物
-    Class "Relic" 
-    BaseType "Urn Relic" "Tome Relic" "Coffer Relic" "Censer Relic" "Papyrus Relic" "Candlestick Relic" "Processional Relic" 
+    Class "Relics" "Large Relics" "Medium Relics" "Small Relics" "Sanctified Relics"
+    BaseType "Urn Relic" "Tome Relic" "Coffer Relic" "Censer Relic" "Papyrus Relic" "Candlestick Relic" "Processional Relic"
     SetTextColor 26 215 241
     SetBorderColor 26 215 241
     SetBackgroundColor 0 0 0
@@ -3294,7 +3215,7 @@ Show # 普通遗物
 
 Show # 传奇护卫
     Rarity Unique
-    Class "Sentinels" 
+    Class "Sentinels"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -3305,7 +3226,7 @@ Show # 传奇护卫
     DisableDropSound 
 
 Hide # 追猎护卫
-    Class "Sentinels" 
+    Class "Sentinels"
     SetTextColor 26 215 241
     SetBorderColor 26 215 241
     SetBackgroundColor 0 0 0
@@ -3316,8 +3237,8 @@ Hide # 追猎护卫
     DisableDropSound 
 
 Show # 瓦尔之相
-    Class "Pieces" 
-    BaseType "Vaal Aspect" 
+    Class "Pieces"
+    BaseType "Vaal Aspect"
     SetTextColor 186 120 69
     SetBorderColor 186 120 69
     SetBackgroundColor 0 0 0
@@ -3326,8 +3247,8 @@ Show # 瓦尔之相
     DisableDropSound 
 
 Show # 始源碎片
-    Class "Pieces" 
-    BaseType "Primordial Fragment" 
+    Class "Pieces"
+    BaseType "Primordial Fragment"
     SetTextColor 255 255 255
     SetBorderColor 135 28 226
     SetBackgroundColor 135 28 226
@@ -3338,7 +3259,7 @@ Show # 始源碎片
     DisableDropSound 
 
 Show # 任务道具
-    Class "Quest Items" 
+    Class "Quest Items"
     SetTextColor 73 111 24
     SetBorderColor 236 252 203
     SetBackgroundColor 236 252 203
@@ -3349,7 +3270,7 @@ Show # 任务道具
     DisableDropSound 
 
 Show # 赏金目标
-    Class "Heist Target" 
+    Class "Heist Targets"
     SetTextColor 247 107 138
     SetBorderColor 247 107 138
     SetBackgroundColor 0 0 0
@@ -3360,8 +3281,8 @@ Show # 赏金目标
     DisableDropSound 
 
 Show # 通路灵石
-    Class "Incursion Item" 
-    BaseType "Stone of Passage" 
+    Class "Incursion Items"
+    BaseType "Stone of Passage"
     SetTextColor 247 107 138
     SetBorderColor 247 107 138
     SetBackgroundColor 0 0 0
@@ -3372,8 +3293,8 @@ Show # 通路灵石
     DisableDropSound 
 
 Show # 闪光粉桶
-    Class "Incursion Item" 
-    BaseType "Flashpowder Keg" 
+    Class "Incursion Items"
+    BaseType "Flashpowder Keg"
     SetTextColor 247 107 138
     SetBorderColor 247 107 138
     SetBackgroundColor 0 0 0
@@ -3395,8 +3316,8 @@ Show # 迷宫钥匙
     DisableDropSound 
 
 Show # 魔物拓印
-    Class "Stackable Currency" 
-    BaseType "Imprinted Bestiary Orb" 
+    Class "Stackable Currency"
+    BaseType "Imprinted Bestiary Orb"
     SetTextColor 247 107 138
     SetBorderColor 247 107 138
     SetBackgroundColor 0 0 0
@@ -3407,8 +3328,8 @@ Show # 魔物拓印
     DisableDropSound 
 
 Hide # 活动通货
-    Class "Currency" 
-    BaseType "Coin"
+    Class "Currency"
+    BaseType "Coin of Restoration" "Coin of Desecration" "Coin of Knowledge" "Coin of Power" "Coin of Skill"
     SetTextColor 205 205 205
     SetBorderColor 205 205 205
     SetBackgroundColor 0 0 0
@@ -3417,7 +3338,7 @@ Hide # 活动通货
 
 Show # 传奇雕像
     Rarity Unique
-    Class "Idols" 
+    Class "Idols"
     SetTextColor 220 110 59
     SetBorderColor 220 110 59
     SetBackgroundColor 0 0 0
@@ -3428,7 +3349,7 @@ Show # 传奇雕像
     DisableDropSound 
 
 Show # 雕像
-    Class "Idols" 
+    Class "Idols"
     SetTextColor 30 30 30
     SetBorderColor 243 190 17
     SetBackgroundColor 243 190 17
@@ -3694,7 +3615,7 @@ Show # 宽矢箭袋(76物等)
     DisableDropSound
 
 Show # 超级魔符
-    Class "Amulets" 
+    Class "Amulets"
     BaseType "Croaker Talisman" "Great Maw Talisman" "Carrion Queen Talisman" "Gargantuan Talisman" "Rhex Talisman"
     SetTextColor 247 107 138
     SetBorderColor 247 107 138
@@ -3706,8 +3627,8 @@ Show # 超级魔符
     DisableDropSound
 
 Hide # 魔符
-    Class "Amulets" 
-    BaseType " Talisman"
+    Class "Amulets"
+    BaseType "Black Maw Talisman" "Bonespire Talisman" "Ashscale Talisman" "Lone Antler Talisman" "Deep One Talisman" "Breakrib Talisman" "Deadhand Talisman" "Undying Flesh Talisman" "Rot Head Talisman" "Mandible Talisman" "Chrysalis Talisman" "Writhing Talisman" "Hexclaw Talisman" "Primal Skull Talisman" "Wereclaw Talisman" "Splitnewt Talisman" "Clutching Talisman" "Avian Twins Talisman" "Fangjaw Talisman" "Horned Talisman" "Spinefuse Talisman" "Three Rat Talisman" "Monkey Twins Talisman" "Longtooth Talisman" "Rotfeather Talisman" "Monkey Paw Talisman" "Three Hands Talisman" "Greatwolf Talisman" "Chieftain Talisman" "Gargantuan Talisman" "Goliath Talisman" "Rhoa Talisman" "Blood Viper Talisman" "Chimeral Talisman" "Squid Talisman" "Sand Spitter Talisman" "Shield Crab Talisman" "Goatman Talisman" "Devourer Talisman" "Plagued Arachnid Talisman" "Watcher Talisman" "Savage Crab Talisman" "Flame Hellion Talisman" "Frost Hellion Talisman" "Lynx Talisman" "Ape Talisman" "Wolf Alpha Talisman" "Magma Hound Talisman" "Pitbull Talisman" "Ursa Talisman" "Taurus Talisman" "Retch Talisman" "Cobra Talisman" "Carrion Queen Talisman" "Scrabbler Talisman" "Black Widow Talisman" "Scorpion Talisman" "Tiger Talisman" "Vulture Talisman" "Rhex Talisman" "Hybrid Arachnid Talisman" "Octopus Talisman" "Spider Crab Talisman" "Great Maw Talisman" "Croaker Talisman" "Craicic Talisman" "Fenumal Talisman" "Saqawine Talisman" "Farric Talisman"
     SetTextColor 250 204 47
     SetBorderColor 250 204 47
     SetBackgroundColor 0 0 0
@@ -3725,7 +3646,7 @@ Hide # 附魔装备
     DisableDropSound 
 
 Show # 鱼竿
-    Class "Fishing Rods" 
+    Class "Fishing Rods"
     SetTextColor 255 236 43
     SetBorderColor 217 4 31
     SetBackgroundColor 217 4 31
@@ -3738,7 +3659,7 @@ Show # 鱼竿
 Hide # 结界装备(84物等)
     Corrupted False
     ItemLevel >= 84
-    BaseType "Runic Helm" "Runic Crest" "Runic Crown" "Runic Greaves" "Runic Sollerets" "Runic Sabatons" "Runic Gloves" "Runic Gages" "Runic Gauntlets" 
+    BaseType "Runic Helm" "Runic Crest" "Runic Crown" "Runic Greaves" "Runic Sollerets" "Runic Sabatons" "Runic Gloves" "Runic Gages" "Runic Gauntlets"
     SetTextColor 91 206 157
     SetBorderColor 91 206 157
     SetBackgroundColor 0 0 0
@@ -3748,7 +3669,7 @@ Hide # 结界装备(84物等)
 Hide # 结界装备
     Corrupted False
     ItemLevel < 84
-    BaseType "Runic Helm" "Runic Crest" "Runic Crown" "Runic Greaves" "Runic Sollerets" "Runic Sabatons" "Runic Gloves" "Runic Gages" "Runic Gauntlets" 
+    BaseType "Runic Helm" "Runic Crest" "Runic Crown" "Runic Greaves" "Runic Sollerets" "Runic Sabatons" "Runic Gloves" "Runic Gages" "Runic Gauntlets"
     SetTextColor 91 206 157
     SetBorderColor 91 206 157
     SetBackgroundColor 0 0 0
@@ -3824,7 +3745,7 @@ Hide # 混沌石配方(装备)
     ItemLevel >= 60
     ItemLevel <= 74
     Rarity Rare
-    Class "Body Armours" "Amulets" "Rings" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields" 
+    Class "Body Armours" "Amulets" "Rings" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields"
     SetTextColor 255 230 80
     SetBorderColor 255 230 80 
     SetBackgroundColor 0 0 0
@@ -3904,7 +3825,7 @@ Hide # 筛选装备(普通)
 
 Hide # 稀有装备
     Rarity Rare
-    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields" 
+    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields"
     SetTextColor 255 244 62
     SetBorderColor 0 0 0
     SetBackgroundColor 0 0 0
@@ -3914,7 +3835,7 @@ Hide # 稀有装备
 Hide # 魔法装备(等级40)
     AreaLevel < 40
     Rarity Magic
-    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields" 
+    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields"
     SetTextColor 62 163 255
     SetBorderColor 0 0 0
     SetBackgroundColor 0 0 0
@@ -3923,7 +3844,7 @@ Hide # 魔法装备(等级40)
 
 Hide # 魔法装备
     Rarity Magic
-    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields" 
+    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields"
     SetTextColor 62 163 255
     SetBorderColor 0 0 0
     SetBackgroundColor 0 0 0
@@ -3933,7 +3854,7 @@ Hide # 魔法装备
 Hide # 普通装备(等级20)
     AreaLevel < 20
     Rarity Normal
-    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields" 
+    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields"
     SetTextColor 255 255 255
     SetBorderColor 0 0 0
     SetBackgroundColor 0 0 0
@@ -3942,7 +3863,7 @@ Hide # 普通装备(等级20)
 
 Hide # 普通装备
     Rarity Normal
-    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields" 
+    Class "Body Armours" "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields"
     SetTextColor 255 255 255
     SetBorderColor 0 0 0
     SetBackgroundColor 0 0 0
