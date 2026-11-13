@@ -3,7 +3,7 @@
   "name": "Loot Filter",
   "description": "Installs the 剑心 item filter (7 tiers, with its sounds), converted to this server's 3.29 client data, and selects the tier you pick.",
   "author": "mingyue8621",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "compatibleClientVersions": ["0.5.1-beta"],
   "kind": "feature",
   "depends": []

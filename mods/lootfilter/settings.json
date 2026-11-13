@@ -35,21 +35,21 @@
       "description": "过滤器里的提示音（27 MB）。缺了不影响过滤，只是没有声音。"
     },
     "filtersSource": {
-      "type": "string",
+      "type": "text",
       "default": "",
       "label": "过滤器来源目录",
       "advanced": true,
       "description": "换一版过滤器时填它所在的文件夹（该目录下所有 .filter 都会被装进去）；留空用模组自带的 7 套（剑心 S31）。"
     },
     "soundSource": {
-      "type": "string",
+      "type": "text",
       "default": "G:\\POE1.1\\Poe1+-+剑心过滤+-+S31赛季+-+2026.11.13\\剑心音效",
       "label": "音效来源目录",
       "advanced": true,
       "description": "剑心音效文件夹的路径，留空就只装过滤器不装音效。"
     },
     "targetFolder": {
-      "type": "string",
+      "type": "text",
       "default": "",
       "label": "客户端过滤器目录",
       "advanced": true,
