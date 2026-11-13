@@ -4,84 +4,88 @@
     "enabled": {
       "type": "bool",
       "default": true,
-      "label": "Pickup enabled",
-      "description": "Default for characters without a saved profile."
+      "label": "启用自动拾取",
+      "description": "关闭后宠物什么也不捡。"
+    },
+    "radius": {
+      "type": "integer",
+      "default": 50,
+      "min": 1,
+      "max": 50,
+      "label": "拾取半径",
+      "unit": "格",
+      "description": "宠物只捡这个范围内的掉落，可设 1 - 50 格。"
     },
     "gold": {
       "type": "bool",
       "default": true,
-      "label": "Pet gold pickup"
+      "label": "金币"
     },
-    "range": {
-      "type": "integer",
-      "default": 60,
-      "min": 5,
-      "max": 80,
-      "label": "Pickup radius",
-      "unit": "cells"
-    },
-    "commonCurrency": {
+    "currency": {
       "type": "bool",
       "default": true,
-      "label": "Common currency preset",
-      "description": "Only the 20 currencies listed in the README; explicit rules override it."
+      "label": "通货"
+    },
+    "divinationCard": {
+      "type": "bool",
+      "default": false,
+      "label": "命运卡"
+    },
+    "mapFragment": {
+      "type": "bool",
+      "default": false,
+      "label": "地图 / 碎片"
+    },
+    "gem": {
+      "type": "bool",
+      "default": false,
+      "label": "技能石"
+    },
+    "flask": {
+      "type": "bool",
+      "default": false,
+      "label": "药剂"
+    },
+    "questItem": {
+      "type": "bool",
+      "default": true,
+      "label": "任务物品"
+    },
+    "normal": {
+      "type": "bool",
+      "default": false,
+      "label": "普通装备"
+    },
+    "magic": {
+      "type": "bool",
+      "default": false,
+      "label": "魔法装备"
+    },
+    "rare": {
+      "type": "bool",
+      "default": false,
+      "label": "稀有装备"
+    },
+    "unique": {
+      "type": "bool",
+      "default": true,
+      "label": "传奇装备"
+    },
+    "other": {
+      "type": "bool",
+      "default": false,
+      "label": "其他"
     },
     "rules": {
       "type": "map",
       "default": {},
-      "label": "Item overrides",
-      "description": "Exact item name or metadata id: 0 blocks, 1-65535 is the minimum ground stack.",
+      "label": "单项覆盖",
+      "advanced": true,
+      "description": "精确物品名或 metadata：0 屏蔽，1-65535 是最少地面堆叠数。优先于上面的分类勾选。",
       "value": {
         "type": "integer",
         "min": 0,
         "max": 65535
-      }
-    },
-    "profiles": {
-      "type": "map",
-      "default": {},
-      "label": "Character profiles",
-      "advanced": true,
-      "value": {
-        "type": "group",
-        "settings": {
-          "enabled": {
-            "type": "bool",
-            "default": true,
-            "label": "Pickup enabled",
-            "description": "Default for characters without a saved profile."
-          },
-          "gold": {
-            "type": "bool",
-            "default": true,
-            "label": "Pet gold pickup"
-          },
-          "range": {
-            "type": "integer",
-            "default": 60,
-            "min": 5,
-            "max": 80,
-            "label": "Pickup radius",
-            "unit": "cells"
-          },
-          "commonCurrency": {
-            "type": "bool",
-            "default": true,
-            "label": "Common currency preset",
-            "description": "Only the 20 currencies listed in the README; explicit rules override it."
-          },
-          "rules": {
-            "type": "map",
-            "default": {},
-            "label": "Item overrides",
-            "description": "Exact item name or metadata id: 0 blocks, 1-65535 is the minimum ground stack.",
-            "value": {
-              "type": "integer",
-              "min": 0,
-              "max": 65535
-            }
-          }
-        }
       }
     }
   }
