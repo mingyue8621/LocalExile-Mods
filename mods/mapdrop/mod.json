@@ -1,0 +1,10 @@
+{
+  "id": "mapdrop",
+  "name": "Map Drop",
+  "description": "Controls the maps every kill drops: a chance by monster rarity, of the open map's tier (or a fixed one), bosses always.",
+  "author": "mingyue8621",
+  "version": "1.0.0",
+  "compatibleClientVersions": ["0.5.1-beta"],
+  "kind": "feature",
+  "depends": []
+}
