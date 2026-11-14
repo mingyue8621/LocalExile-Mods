@@ -1,24 +1,23 @@
-# Map Drop
+# 地图掉落
 
-Controls how often a kill leaves a map, as Currency Loot does for currency.
+控制每次击杀掉多少地图，做法和控制通货的那个模组一样。
 
-The server rolls a map drop of its own on every kill, but a map area of this port spawns far fewer monsters than the
-game's, so that roll alone leaves a character without maps to keep running. This mod adds its own roll: a chance by
-monster rarity, of the tier the open map is played at (or a fixed tier outside a map), with a map's boss always
-leaving one.
+服务端本来自己会滚一次地图掉落，但这个端的每个地图区域刷出来的怪比正式服少得多，
+只靠那一次滚动，玩家经常打到没图可打。这个模组额外滚一次：按怪物稀有度给概率，
+掉落与当前地图同阶（地图外按固定阶数），地图首领必掉一张。
 
-Off by default. Enable it with `/mod_enable mapdrop`; `/mod_settings mapdrop` shows what it is doing.
+默认启用。`/mod_disable mapdrop` 可以关掉，`/mod_settings mapdrop` 看当前设置。
 
-## Settings
+## 设置
 
-| Setting | Default | Meaning |
+| 设置项 | 默认值 | 说明 |
 | --- | --- | --- |
-| Chance per normal kill | 0.03 | A normal monster's kill drops a map three times in a hundred |
-| Chance per magic kill | 0.07 | Magic (blue) monsters |
-| Chance per rare kill | 0.15 | Rare (yellow) monsters |
-| Chance per unique kill | 1 | Unique monsters, a map's boss among them |
-| Drop the open map's tier | on | The map dropped matches the tier of the map the kill happened in |
-| Tier outside a map | 1 | The campaign, hideouts, and maps when the setting above is off |
-| Only these monsters | empty | Every monster; otherwise the variety id or name must contain one of these |
+| 普通怪掉图率 | 0.03 | 普通怪物每次击杀掉一张地图的概率，0.03 就是百分之三 |
+| 魔法怪掉图率 | 0.07 | 魔法（蓝色）怪物 |
+| 稀有怪掉图率 | 0.15 | 稀有（黄色）怪物 |
+| 传奇怪掉图率 | 1 | 传奇怪物，包括地图首领 |
+| 跟随当前地图阶数 | 开 | 掉的地图与击杀所在的地图同阶 |
+| 地图外的掉落阶数 | 1 | 剧情、藏身处，以及关闭上面那项时的阶数 |
+| 仅限这些怪物 | 空 | 留空表示全部；否则种类 id 或名字要包含其中一项 |
 
-Values are per kill, on top of the server's own map roll.
+这些是每只怪的额外概率，叠加在服务端自己那次地图滚动之上。

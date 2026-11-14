@@ -7,8 +7,8 @@
       "min": 0,
       "max": 1,
       "step": 0.001,
-      "label": "Chance per normal kill",
-      "description": "How often a normal monster's kill drops a map. 0.03 is three in a hundred; 1 drops one every kill."
+      "label": "普通怪掉图率",
+      "description": "普通怪物每次击杀掉一张地图的概率。0.03 就是百分之三，1 表示每次必掉。"
     },
     "magic": {
       "type": "number",
@@ -16,8 +16,8 @@
       "min": 0,
       "max": 1,
       "step": 0.001,
-      "label": "Chance per magic kill",
-      "description": "Magic (blue) monsters."
+      "label": "魔法怪掉图率",
+      "description": "魔法（蓝色）怪物。"
     },
     "rare": {
       "type": "number",
@@ -25,8 +25,8 @@
       "min": 0,
       "max": 1,
       "step": 0.001,
-      "label": "Chance per rare kill",
-      "description": "Rare (yellow) monsters."
+      "label": "稀有怪掉图率",
+      "description": "稀有（黄色）怪物。"
     },
     "unique": {
       "type": "number",
@@ -34,30 +34,30 @@
       "min": 0,
       "max": 1,
       "step": 0.01,
-      "label": "Chance per unique kill",
-      "description": "Unique monsters, a map's boss among them. 1 means every boss leaves a map."
+      "label": "传奇怪掉图率",
+      "description": "传奇怪物，包括地图首领。1 表示每个首领必掉一张。"
     },
     "followMap": {
       "type": "bool",
       "default": true,
-      "label": "Drop the open map's tier",
-      "description": "On: a kill in a map drops a map of that map's tier (the same tier the server's own roll uses). Off: the tier below, everywhere."
+      "label": "跟随当前地图阶数",
+      "description": "开启：在地图里击杀，掉的是该地图同阶的地图（和服务端自己那套滚动的阶数一致）。关闭：一律掉下面设定的阶数。"
     },
     "tier": {
       "type": "integer",
       "default": 1,
       "min": 1,
       "max": 16,
-      "label": "Tier outside a map",
-      "description": "The tier dropped in the campaign and in hideouts, and in maps when \"Drop the open map's tier\" is off."
+      "label": "地图外的掉落阶数",
+      "description": "剧情和藏身处掉落的地图阶数；关闭「跟随当前地图阶数」时，地图里也用这个阶数。"
     },
     "monsters": {
       "type": "list",
       "default": [],
       "maxItems": 64,
       "item": { "type": "text", "maxLength": 120 },
-      "label": "Only these monsters",
-      "description": "Leave empty for every monster. Otherwise the variety id or the name must contain one of these (case does not matter)."
+      "label": "仅限这些怪物",
+      "description": "留空表示所有怪物。否则怪物的种类 id 或名字里要包含其中一项（不区分大小写）。"
     }
   }
 }
