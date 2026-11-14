@@ -1,9 +1,9 @@
 {
   "id": "lootfilter",
   "name": "物品过滤器",
-  "description": "安装剑心过滤器（七档，含 230 个提示音），已换算成本服 3.29 的客户端数据，并按你选的档位在客户端里选中。",
+  "description": "安装剑心过滤器（七档，含 231 个提示音，关键音效为原版），已换算成本服 3.29 的客户端数据，并按你选的档位在客户端里选中。",
   "author": "mingyue8621",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "compatibleClientVersions": ["0.5.1-beta"],
   "kind": "feature",
   "depends": []
