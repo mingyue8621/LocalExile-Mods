@@ -1,9 +1,9 @@
 {
   "id": "currencyloot",
-  "name": "Currency Loot",
-  "description": "Controls what currency every kill drops, item by item: how many, on which monsters, and whether the server's own drops stay.",
+  "name": "控制通货",
+  "description": "控制每次击杀掉什么通货：逐项设定数量、对哪些怪物生效，以及是否保留服务端自己的掉落。",
   "author": "mingyue8621",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibleClientVersions": ["0.5.1-beta"],
   "kind": "feature",
   "depends": []

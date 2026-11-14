@@ -1,21 +1,20 @@
-# Currency Loot
+# 控制通货
 
-Controls what currency a kill drops, item by item. It starts with **Chaos Orb and everything above it** — the ones a
-player actually cares about — and each entry is **how many** every kill drops. A fraction is the chance of one more, so
-`0.05` is a 5% chance of one and `2.5` is two plus a half.
+逐项控制每次击杀掉什么通货。默认从**混沌石往上**开始 —— 也就是玩家真正在乎的那些 ——
+每一项填的是**每只怪掉几个**。小数表示再多掉一个的概率：`0.05` 是 5% 掉一个，`2.5` 是两个再加半个。
 
-| Setting | Default | |
+| 设置项 | 默认值 | 说明 |
 |---|---|---|
-| `mode` | `extra` | `extra` keeps the server's own drops and adds these beside them; `only` cancels the server's drops (equipment, gems, flasks and its own currency), so only these drop |
-| `rarities` | rare, unique | which kills drop them; none chosen means every monster |
-| `items` | Chaos 1, the rest small fractions | item name or metadata id → how many per kill (0 to 1000, fractions allowed) |
-| `monsters` | empty | empty for every monster; otherwise the variety id or the name must contain one of these (case does not matter) |
+| `mode`（掉落模式） | `extra` | `extra`：保留服务端自己的掉落，这些额外再掉；`only`：取消服务端掉落（装备、宝石、药剂以及它自己那套通货），只掉下面这些 |
+| `rarities`（怪物稀有度） | 稀有、传奇 | 哪些击杀会掉；一个都不勾表示所有怪物 |
+| `items`（每次击杀掉落数） | 混沌 1，其余是很小的概率 | 物品名或 metadata id → 每次击杀掉几个（0 到 1000，可以带小数） |
+| `monsters`（仅限这些怪物） | 空 | 留空表示所有怪物；否则种类 id 或名字要包含其中一项（不区分大小写） |
 
-Off by default: `/mod_enable currencyloot` in game, or Waypoint's Mods section.
+默认关闭：游戏里 `/mod_enable currencyloot`，或启动器的模组页面打开。
 
-## The defaults, from Chaos up
+## 默认配置（从混沌石往上）
 
-| Item | Every kill | 中文 |
+| 物品 | 每只怪 | 中文名 |
 |---|---|---|
 | `Chaos Orb` | 1 | 混沌石 |
 | `Orb of Annulment` | 0.05 | 剥离石 |
@@ -29,20 +28,20 @@ Off by default: `/mod_enable currencyloot` in game, or Waypoint's Mods section.
 | `Hinekora's Lock` | 0.005 | 希内科拉之锁 |
 | `Mirror of Kalandra` | 0.001 | 卡兰德魔镜 |
 
-Any other item works too: the client's own name (`Orb of Alchemy`, `Gemcutter's Prism`, …) or a `BaseItemTypes` id
-(`Metadata/Items/Currency/CurrencyDuplicate`). A wrong name is logged while loading:
-`[mods] a mod's drop "…" is no item type or unique the server can create`.
+别的物品也能填：客户端里的英文名（`Orb of Alchemy`、`Gemcutter's Prism` ……）或者 `BaseItemTypes` 的 id
+（`Metadata/Items/Currency/CurrencyDuplicate`）。名字写错时加载日志会有一行：
+`[mods] a mod's drop "…" is no item type or unique the server can create`。
 
-## Examples
+## 例子
 
-Only rare and unique monsters, and an Exalted Orb every second kill, nothing else:
+只要稀有和传奇怪，每两只有一只掉一个崇高石，别的都不掉：
 
 ```json
 "rarities": ["rare", "unique"],
 "items": { "Exalted Orb": 0.5 }
 ```
 
-Every monster drops a Chaos Orb, and nothing else drops at all:
+每只怪都掉一个混沌石，其余完全不掉：
 
 ```json
 "mode": "only",
@@ -50,10 +49,9 @@ Every monster drops a Chaos Orb, and nothing else drops at all:
 "items": { "Chaos Orb": 1 }
 ```
 
-## What it cannot do
+## 它做不到的事
 
-It adds the items you list (or, with `mode: only`, replaces the whole roll with them). It does **not** re-weight the
-server's own currency roll: to change how often the server itself picks each of its 24 core currencies, edit
-`drop_currency_weights` in `world.db`.
+它只是额外塞入你列出的物品（`mode: only` 时则整轮替换成这些）。它**不会**改服务端自己那套通货权重的比例：
+要让服务端自己的 24 种核心通货掉得更频繁或更少，得改 `world.db` 里的 `drop_currency_weights`。
 
-Works with: LocalExile 0.8.83 and later (the `GameEvents.Drops` hook with `Items`, `Cancel` and the monster's rarity).
+适用版本：LocalExile 0.8.83 及以后（`GameEvents.Drops` 钩子，带 `Items`、`Cancel` 和怪物稀有度）。

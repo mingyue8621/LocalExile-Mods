@@ -5,18 +5,23 @@
       "type": "choice",
       "default": "extra",
       "options": [
-        { "value": "extra", "label": "Besides the server's drops" },
-        { "value": "only", "label": "Instead of the server's drops" }
+        { "value": "extra", "label": "在服务端掉落之外额外掉" },
+        { "value": "only", "label": "取代服务端的掉落" }
       ],
-      "label": "Drop mode",
-      "description": "\"only\" cancels the server's own drops (equipment, gems, flasks and its own currency), so only the items below drop."
+      "label": "掉落模式",
+      "description": "选「取代」会取消服务端自己的掉落（装备、宝石、药剂，以及它自己那套通货），只掉下面列的东西。"
     },
     "rarities": {
       "type": "choices",
       "default": ["rare", "unique"],
-      "options": ["normal", "magic", "rare", "unique"],
-      "label": "Monster rarities",
-      "description": "Which kills drop the items below. None chosen means every monster."
+      "options": [
+        { "value": "normal", "label": "普通" },
+        { "value": "magic", "label": "魔法" },
+        { "value": "rare", "label": "稀有" },
+        { "value": "unique", "label": "传奇" }
+      ],
+      "label": "怪物稀有度",
+      "description": "哪些击杀会掉下面列的物品。一个都不勾表示所有怪物。"
     },
     "items": {
       "type": "map",
@@ -34,16 +39,16 @@
         "Mirror of Kalandra": 0.001
       },
       "value": { "type": "number", "min": 0, "max": 1000, "step": 0.001 },
-      "label": "Items per kill",
-      "description": "Item name or metadata id: how many every kill drops. A fraction is the chance of one more (0.05 is 5%, 2.5 is two and a half). 0 removes it."
+      "label": "每次击杀掉落数",
+      "description": "填物品名或 metadata id：每次击杀掉几个。小数表示再多掉一个的概率（0.05 是 5%，2.5 是两个半）。0 表示不掉。"
     },
     "monsters": {
       "type": "list",
       "default": [],
       "maxItems": 64,
       "item": { "type": "text", "maxLength": 120 },
-      "label": "Only these monsters",
-      "description": "Leave empty for every monster. Otherwise the variety id or the name must contain one of these (case does not matter), e.g. Doedre or AtlasBosses."
+      "label": "仅限这些怪物",
+      "description": "留空表示所有怪物。否则怪物的种类 id 或名字要包含其中一项（不区分大小写），例如 Doedre 或 AtlasBosses。"
     }
   }
 }
