@@ -1,9 +1,9 @@
 {
   "id": "lootfilter",
-  "name": "Loot Filter",
-  "description": "Installs the 剑心 item filter (7 tiers, with its sounds), converted to this server's 3.29 client data, and selects the tier you pick.",
+  "name": "物品过滤器",
+  "description": "安装剑心过滤器（七档，含提示音），已换算成本服 3.29 的客户端数据，并按你选的档位在客户端里选中。",
   "author": "mingyue8621",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "compatibleClientVersions": ["0.5.1-beta"],
   "kind": "feature",
   "depends": []

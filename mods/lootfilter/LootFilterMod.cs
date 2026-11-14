@@ -43,7 +43,7 @@ public sealed class LootFilterMod : IMod
         options = mod.Settings<Options>();
         GameEvents.Command(mod.Manifest.Id, "lootfilter", "/lootfilter [status|install] — 物品过滤器的安装状态与重装", Command);
         string summary = Install("启动");
-        mod.Log("loot filter: " + summary);
+        mod.Log("物品过滤器：" + summary);
     }
 
     async Task Command(ClientState conn, string[] args)
@@ -196,18 +196,18 @@ public sealed class LootFilterMod : IMod
         string? file = Installed(target, options.Profile);
         if (file is null)
         {
-            mod.Log($"loot filter: no filter in {target} matches the {options.Profile} tier, selection left alone");
+            mod.Log($"物品过滤器：{target} 里没有匹配「{options.Profile}」这一档的过滤文件，选中项没动");
             return null;
         }
         if (GameRunning())
         {
-            mod.Log("loot filter: the game is running, leaving the client's selection alone");
+            mod.Log("物品过滤器：游戏正在运行，改写会被客户端退出时覆盖，这次不改选中项");
             return null;
         }
         string ini = Path.Combine(target, "production_Config.ini");
         if (!File.Exists(ini))
         {
-            mod.Log("loot filter: production_Config.ini is not there yet, start the client once and run /lootfilter install");
+            mod.Log("物品过滤器：还没找到 production_Config.ini，先启动一次客户端，再 /lootfilter install");
             return null;
         }
         string text = File.ReadAllText(ini, Encoding.UTF8).Replace("\r\n", "\n");

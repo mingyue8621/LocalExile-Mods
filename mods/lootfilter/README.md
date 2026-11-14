@@ -1,76 +1,59 @@
-# Loot Filter
+# 物品过滤器
 
-Installs the 剑心 item filter into the client's own filter folder and selects the tier you pick.
+把剑心过滤器装进客户端自己的过滤器目录，并选中你挑的那一档。
 
-## Converted to 3.29
+## 已换算到 3.29
 
-The upstream pack is S31, which is written for 3.30 (the item classes and some item names changed). The copies in
-`filters/` are converted to this server's `3.29.3c` client data by `tools/adapt-lootfilter.py`:
+上游那套是 S31，按 3.30 写的（物品类别和一些物品名都变了）。`filters/` 里的副本已由
+`tools/adapt-lootfilter.py` 换算成本服 `3.29.3c` 的客户端数据：
 
-- every `Class` is mapped to a name that exists in 3.29's `ItemClasses` (`Flasks` → `Life/Mana/Hybrid/Utility
-  Flasks`, `Support Gem` → `Support Gems`, `Atlas Upgrade Item` → `Atlas Upgrade Items`, …);
-- the author's "wildcard" spellings (`" of Rage"`, `"Essence of"`, `"Awakened "`, `"Vaal "`, `"Talisman"`, …) are
-  expanded into the concrete item names of 3.29, so those blocks actually match something;
-- names that do not exist in 3.29 (the Thread currency, Soul Cores, Mycelium Core, Royal Visage, Cursed Poppet, …)
-  are dropped, and a block left with nothing to match is removed — otherwise its bare `Class` would highlight
-  every item of that class.
+- 每个 `Class` 都映射到 3.29 `ItemClasses` 里真实存在的名字（`Flasks` → `生命/魔力/复合/功能药剂`、
+  `Support Gem` → `辅助宝石`、`Atlas Upgrade Item` → `异界升级物品`，……）；
+- 作者用的「通配」写法（`" of Rage"`、`"Essence of"`、`"Awakened "`、`"Vaal "`、`"Talisman"` 等）
+  展开成 3.29 的具体物品名，让那些块真的能匹配到东西；
+- 3.29 里不存在的名字（丝线通货、灵魂核心、菌丝核心、皇家面甲、咒术傀儡等）删掉；一个块被删空了
+  就整块移除，否则剩下那个光秃秃的 `Class` 会把这一类的物品全部高亮。
 
-Result: 1369 `BaseType` names and 65 `Class` names, **none** missing from the 3.29 client (before: 35 items and 11
-classes missing, i.e. 3.30-only content and 3.30 class names).
+结果：1369 个 `BaseType` 名、65 个 `Class` 名，**没有一个**在 3.29 客户端里查不到
+（换算前缺 35 个物品、11 个类别，都是 3.30 才有的内容和 3.30 的类名）。
 
-## What it does
+## 它做什么
 
-Path of Exile reads `.filter` files from `Documents\My Games\Path of Exile\` (the same folder it keeps
-`production_Config.ini` in). The seven tiers travel with this mod under `filters/`, and its sounds under a
-`剑心音效` folder next to them (the filter's `CustomAlertSound` lines use that relative path).
+流放之路从 `文档\My Games\Path of Exile\` 读取 `.filter` 文件（客户端自己也把 `production_Config.ini`
+放在这个文件夹）。七套档位随模组放在 `filters/` 下，音效放在旁边的 `剑心音效` 文件夹
+（过滤器里的 `CustomAlertSound` 用的就是这个相对路径）。
 
-On load the mod:
+加载时模组会：
 
-1. copies all seven `.filter` files into that folder (only the ones whose size differs, so the 900 KB are not
-   rewritten every start);
-2. fills in the sounds from **音效来源目录** (27 MB, missing files only);
-3. unless the game is running, rewrites `item_filter=` in `production_Config.ini` to the tier you picked, after
-   keeping a one-time backup `production_Config.ini.before-lootfilter`.
+1. 把七个 `.filter` 文件全部复制进那个目录（只复制大小不一样的，免得每次启动都重写这 900 KB）；
+2. 从 **音效来源目录** 补齐音效（27 MB，只补缺的）；
+3. 游戏没在运行时，把 `production_Config.ini` 里的 `item_filter=` 改写成你选的那一档，
+   改之前留一份一次性备份 `production_Config.ini.before-lootfilter`。
 
-Running the client while it writes would lose the change: the client saves its own `production_Config.ini` when it
-exits, so the mod skips the selection then and says so in the log.
+客户端开着的时候写会被它退出时覆盖掉，所以那时模组跳过选中这一步，并在日志里说明。
 
-## Tiers
+## 档位
 
-| Key | File |
+| 键 | 文件 |
 | --- | --- |
-| `campaign` | 剑心过滤[1].剧情.filter (1-70) |
-| `mapping` | 剑心过滤[2].异界.filter (71-90) |
+| `campaign` | 剑心过滤[1].剧情.filter（1-70） |
+| `mapping` | 剑心过滤[2].异界.filter（71-90） |
 | `advanced` | 剑心过滤[3].进阶.filter |
 | `speed` | 剑心过滤[4].速刷.filter |
 | `magic` | 剑心过滤[5].打宝.filter |
 | `ultimate` | 剑心过滤[6].终极.filter |
 | `clean` | 剑心过滤[7].纯净.filter |
 
-All seven are installed; the setting only decides which one gets selected. In game you can switch at
-Options → Game → Item Filter.
+七套都会装进去，设置只决定选中哪一套。进了游戏可以在 选项 → 游戏 → 物品过滤器 里自己换。
 
-## Settings
+## 设置
 
-| Key | Meaning |
+| 键 | 含义 |
 | --- | --- |
-| `enabled` | Off leaves the client alone. |
-| `profile` | Which tier to select. |
-| `selectInGame` | Rewrite the client's `item_filter` (off: files only). |
-| `copySounds` | Copy the alert sounds too. |
-| `soundSource` | Folder holding `剑心音效`'s mp3s. Empty: filters only. |
-| `targetFolder` | Client filter folder. Empty: `Documents\My Games\Path of Exile`. |
-
-## Command
-
-`/lootfilter [status|install]` — installs again, or reports where the files are and how many arrived.
-
-## Only the machine running the server
-
-The mod writes into the file system of the machine the Gateway runs on. A player on another machine does not get
-these files from it: their client needs the same `.filter` files and `剑心音效` folder, which is what the client
-patch and the launcher's copy step are for.
-
-## Credit
-
-The filters are 剑影流心's 剑心过滤 (S31, 2026-11-13), https://www.jxpoe.cn — shipped unchanged.
+| `enabled` | 关掉就不动客户端。 |
+| `profile` | 选中哪一档。 |
+| `selectInGame` | 是否改写客户端的 `item_filter`（关掉只装文件，不改选中）。 |
+| `copySounds` | 是否连提示音一起装。 |
+| `filtersSource` | 换一版过滤器时填它所在的文件夹，留空用模组自带的 7 套。 |
+| `soundSource` | 剑心音效文件夹的路径，留空就只装过滤器不装音效。 |
+| `targetFolder` | 客户端过滤器目录，留空为 `文档\My Games\Path of Exile`。 |
