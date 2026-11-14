@@ -146,10 +146,11 @@ public sealed class LootFilterMod : IMod
         return Path.Combine(mod.Folder, "filters");
     }
 
-    /// <summary>音效按需补齐：27 MB，只在缺失或大小不同时复制。</summary>
+    /// <summary>音效按需补齐：16 MB、230 个，只在缺失或大小不同时复制。源优先用设置里指定的
+    /// （换了风格包只改设置），否则用模组自带的 sounds。</summary>
     int CopySounds(string target)
     {
-        string source = (options.SoundSource ?? "").Trim();
+        string source = SoundsFrom();
         if (source.Length == 0 || !Directory.Exists(source)) return 0;
         string destination = Path.Combine(target, SoundFolder);
         Directory.CreateDirectory(destination);
@@ -162,6 +163,14 @@ public sealed class LootFilterMod : IMod
             copied++;
         }
         return copied;
+    }
+
+    /// <summary>音效从哪来：设置里的「音效来源目录」，没设就用模组自带的 sounds。</summary>
+    string SoundsFrom()
+    {
+        string configured = (options.SoundSource ?? "").Trim();
+        if (configured.Length > 0 && Directory.Exists(configured)) return configured;
+        return Path.Combine(mod.Folder, "sounds");
     }
 
     static bool Same(string from, string to)

@@ -43,10 +43,10 @@
     },
     "soundSource": {
       "type": "text",
-      "default": "G:\\POE1.1\\Poe1+-+剑心过滤+-+S31赛季+-+2026.11.13\\剑心音效",
+      "default": "",
       "label": "音效来源目录",
       "advanced": true,
-      "description": "剑心音效文件夹的路径，留空就只装过滤器不装音效。"
+      "description": "留空就用模组自带的音效（230 个，16 MB）。想换风格包（原版 / 经典日漫 / 曼波 / 招财进宝 / 唱歌）时，填那个文件夹的路径。"
     },
     "targetFolder": {
       "type": "text",

@@ -26,7 +26,7 @@
 加载时模组会：
 
 1. 把七个 `.filter` 文件全部复制进那个目录（只复制大小不一样的，免得每次启动都重写这 900 KB）；
-2. 从 **音效来源目录** 补齐音效（27 MB，只补缺的）；
+2. 从模组自带的 `sounds/` 补齐音效（230 个、16 MB，只补缺的）；
 3. 游戏没在运行时，把 `production_Config.ini` 里的 `item_filter=` 改写成你选的那一档，
    改之前留一份一次性备份 `production_Config.ini.before-lootfilter`。
 
@@ -55,5 +55,5 @@
 | `selectInGame` | 是否改写客户端的 `item_filter`（关掉只装文件，不改选中）。 |
 | `copySounds` | 是否连提示音一起装。 |
 | `filtersSource` | 换一版过滤器时填它所在的文件夹，留空用模组自带的 7 套。 |
-| `soundSource` | 剑心音效文件夹的路径，留空就只装过滤器不装音效。 |
+| `soundSource` | 音效从哪来，留空用模组自带的 `sounds/`；想换风格包（原版 / 日漫 / 曼波 / 招财进宝 / 唱歌）时填那个文件夹。 |
 | `targetFolder` | 客户端过滤器目录，留空为 `文档\My Games\Path of Exile`。 |
