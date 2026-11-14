@@ -51,6 +51,31 @@
       "label": "地图外的掉落阶数",
       "description": "剧情和藏身处掉落的地图阶数；关闭「跟随当前地图阶数」时，地图里也用这个阶数。"
     },
+    "higherChance": {
+      "type": "number",
+      "default": 0.2,
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "label": "掉更高阶的几率",
+      "description": "每次掉地图时有这个概率把阶数往上提（提几阶看下一项）。0 表示永远与本图同阶。"
+    },
+    "higherStep": {
+      "type": "integer",
+      "default": 1,
+      "min": 0,
+      "max": 5,
+      "label": "一次提高几阶",
+      "description": "触发提升时往上提多少阶。0 表示不提升。"
+    },
+    "maxTier": {
+      "type": "integer",
+      "default": 16,
+      "min": 1,
+      "max": 16,
+      "label": "最高阶数",
+      "description": "提升后的阶数不会超过这个值。"
+    },
     "monsters": {
       "type": "list",
       "default": [],
