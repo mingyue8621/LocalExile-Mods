@@ -30,19 +30,20 @@ public sealed class MapDropMod : IMod
         mod.Log($"maps: normal {choices.Normal:P2}, magic {choices.Magic:P2}, rare {choices.Rare:P2}, unique {choices.Unique:P2} per kill; "
             + (choices.FollowMap ? "the open map's tier" : $"tier {fixedTier}")
             + (higher > 0 && step > 0 ? $", {higher:P0} of them +{step} tier (at most {maxTier})" : ", never above that tier")
-            + (choices.Campaign ? ", in the campaign too" : ", only inside a map")
+            + (choices.Campaign ? ", anywhere" : ", from Act 6 on and in maps")
             + (monsters.Length == 0 ? ", every monster" : $", monsters matching {string.Join(", ", monsters)}"));
         GameEvents.Drops.Add(mod.Manifest.Id, drops =>
         {
-            // The game drops no maps outside the Atlas: a campaign kill leaves one only if the setting asks for it.
-            int? open = OpenTier(drops);
-            if (open is null && !choices.Campaign && !InMapArea(drops)) return;
+            // As in the game, maps start dropping in Act 6: the first five acts, the hubs and the mine give none unless
+            // the setting asks for them everywhere.
+            if (!choices.Campaign && !MapsDropHere(drops)) return;
             if (monsters.Length > 0 && !monsters.Any(m =>
                     drops.Monster.VarietyId.Contains(m, StringComparison.OrdinalIgnoreCase)
                     || drops.Monster.Name.Contains(m, StringComparison.OrdinalIgnoreCase))) return;
             double chance = Chance(drops.Monster.Rarity);
             if (chance <= 0 || Random.Shared.NextDouble() >= chance) return;
-            int tier = choices.FollowMap ? open ?? fixedTier : fixedTier;
+            int? open = OpenTier(drops);
+            int tier = choices.FollowMap && open is { } at ? at : fixedTier;
             // The game's own map drops come at the area's tier and go higher only with the Atlas: here one roll of its
             // own climbs a few tiers now and then, so a run can actually reach the next one.
             if (higher > 0 && step > 0 && Random.Shared.NextDouble() < higher) tier = Math.Min(maxTier, tier + step);
@@ -51,9 +52,14 @@ public sealed class MapDropMod : IMod
         });
     }
 
-    /// <summary>Whether the kill happens in an Atlas map area: the open-map record may be gone (a restart) while the
-    /// client is still in the map, and the area id still says so.</summary>
-    static bool InMapArea(DropRoll drops) => drops.Conn.Layout.Id.StartsWith("MapWorlds", StringComparison.Ordinal);
+    /// <summary>Whether maps drop in this area at all: the game starts them in Act 6, so the second part of the campaign
+    /// (WorldAreas ids "2_…", Acts 6 to 10) and the Atlas maps do, and nothing else — not Acts 1 to 5, not a hideout,
+    /// not the mine.</summary>
+    static bool MapsDropHere(DropRoll drops)
+    {
+        string area = drops.Conn.Layout.Id;
+        return area.StartsWith("MapWorlds", StringComparison.Ordinal) || area.StartsWith("2_", StringComparison.Ordinal);
+    }
 
     /// <summary>The tier of the map the kill's character has open, when they are in it (the tier the server's own map
     /// roll would use); null anywhere else, so the fixed tier applies.</summary>
