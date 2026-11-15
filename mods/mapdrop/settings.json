@@ -41,38 +41,15 @@
       "type": "bool",
       "default": true,
       "label": "跟随当前地图阶数",
-      "description": "开启：在地图里击杀，掉的是该地图同阶的地图（和服务端自己那套滚动的阶数一致）。关闭：一律掉下面设定的阶数。"
+      "description": "开启时和官方一致：在地图里，普通怪掉本图同阶，魔法怪和稀有怪掉 +1 阶，地图首领掉 +2 阶。关闭时一律掉下面设定的阶数。"
     },
     "tier": {
       "type": "integer",
       "default": 1,
       "min": 1,
       "max": 16,
-      "label": "地图外的掉落阶数",
-      "description": "剧情和藏身处掉落的地图阶数；关闭「跟随当前地图阶数」时，地图里也用这个阶数。"
-    },
-    "campaign": {
-      "type": "bool",
-      "default": false,
-      "label": "第一章到第五章也掉图",
-      "description": "关着的时候和正式服一致：只有第六章之后（A6 到 A10）和地图里才掉地图，A1 到 A5、藏身处、矿坑都不掉。打开则任何地方都掉，按「地图外的掉落阶数」来。"
-    },
-    "higherChance": {
-      "type": "number",
-      "default": 0.2,
-      "min": 0,
-      "max": 1,
-      "step": 0.01,
-      "label": "掉更高阶的几率",
-      "description": "每次掉地图时有这个概率把阶数往上提（提几阶看下一项）。0 表示永远与本图同阶。"
-    },
-    "higherStep": {
-      "type": "integer",
-      "default": 1,
-      "min": 0,
-      "max": 5,
-      "label": "一次提高几阶",
-      "description": "触发提升时往上提多少阶。0 表示不提升。"
+      "label": "剧情里掉的阶数",
+      "description": "官方在剧情阶段只掉最低阶（T1），这里默认也是 1。关闭「跟随当前地图阶数」时，地图里也用这个阶数。"
     },
     "maxTier": {
       "type": "integer",
@@ -80,7 +57,13 @@
       "min": 1,
       "max": 16,
       "label": "最高阶数",
-      "description": "提升后的阶数不会超过这个值。"
+      "description": "+1、+2 提升之后的阶数不会超过这个值。"
+    },
+    "campaign": {
+      "type": "bool",
+      "default": false,
+      "label": "所有章节都掉图",
+      "description": "官方是第八章才开始掉地图。关着就和官方一致：A8 到 A10 和异界地图才掉，A1 到 A7、藏身处、矿坑都不掉。打开则任何区域都掉。"
     },
     "monsters": {
       "type": "list",
