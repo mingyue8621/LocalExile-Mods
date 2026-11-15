@@ -10,7 +10,7 @@ namespace LocalExile.Mods.MapDrop;
 public sealed class MapDropMod : IMod
 {
     sealed record Choices(double Normal, double Magic, double Rare, double Unique, bool FollowMap, int Tier,
-        double HigherChance, int HigherStep, int MaxTier, List<string>? Monsters);
+        double HigherChance, int HigherStep, int MaxTier, bool Campaign, List<string>? Monsters);
 
     public void Load(IModContext mod)
     {
@@ -30,15 +30,19 @@ public sealed class MapDropMod : IMod
         mod.Log($"maps: normal {choices.Normal:P2}, magic {choices.Magic:P2}, rare {choices.Rare:P2}, unique {choices.Unique:P2} per kill; "
             + (choices.FollowMap ? "the open map's tier" : $"tier {fixedTier}")
             + (higher > 0 && step > 0 ? $", {higher:P0} of them +{step} tier (at most {maxTier})" : ", never above that tier")
+            + (choices.Campaign ? ", in the campaign too" : ", only inside a map")
             + (monsters.Length == 0 ? ", every monster" : $", monsters matching {string.Join(", ", monsters)}"));
         GameEvents.Drops.Add(mod.Manifest.Id, drops =>
         {
+            // The game drops no maps outside the Atlas: a campaign kill leaves one only if the setting asks for it.
+            int? open = OpenTier(drops);
+            if (open is null && !choices.Campaign && !InMapArea(drops)) return;
             if (monsters.Length > 0 && !monsters.Any(m =>
                     drops.Monster.VarietyId.Contains(m, StringComparison.OrdinalIgnoreCase)
                     || drops.Monster.Name.Contains(m, StringComparison.OrdinalIgnoreCase))) return;
             double chance = Chance(drops.Monster.Rarity);
             if (chance <= 0 || Random.Shared.NextDouble() >= chance) return;
-            int tier = choices.FollowMap && OpenTier(drops) is int open ? open : fixedTier;
+            int tier = choices.FollowMap ? open ?? fixedTier : fixedTier;
             // The game's own map drops come at the area's tier and go higher only with the Atlas: here one roll of its
             // own climbs a few tiers now and then, so a run can actually reach the next one.
             if (higher > 0 && step > 0 && Random.Shared.NextDouble() < higher) tier = Math.Min(maxTier, tier + step);
@@ -46,6 +50,10 @@ public sealed class MapDropMod : IMod
             drops.Items.Add($"Map (Tier {tier})");
         });
     }
+
+    /// <summary>Whether the kill happens in an Atlas map area: the open-map record may be gone (a restart) while the
+    /// client is still in the map, and the area id still says so.</summary>
+    static bool InMapArea(DropRoll drops) => drops.Conn.Layout.Id.StartsWith("MapWorlds", StringComparison.Ordinal);
 
     /// <summary>The tier of the map the kill's character has open, when they are in it (the tier the server's own map
     /// roll would use); null anywhere else, so the fixed tier applies.</summary>

@@ -51,6 +51,12 @@
       "label": "地图外的掉落阶数",
       "description": "剧情和藏身处掉落的地图阶数；关闭「跟随当前地图阶数」时，地图里也用这个阶数。"
     },
+    "campaign": {
+      "type": "bool",
+      "default": false,
+      "label": "剧情和藏身处也掉图",
+      "description": "关闭时只在你正在打的那张地图里掉图（正式服也是这样，剧情不会掉地图）。打开则剧情、藏身处、矿坑这些地方也按「地图外的掉落阶数」掉。"
+    },
     "higherChance": {
       "type": "number",
       "default": 0.2,
