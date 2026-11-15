@@ -42,6 +42,22 @@
       "label": "每次击杀掉落数",
       "description": "填物品名或 metadata id：每次击杀掉几个。小数表示再多掉一个的概率（0.05 是 5%，2.5 是两个半）。0 表示不掉。"
     },
+    "chaosAct": {
+      "type": "integer",
+      "default": 6,
+      "min": 1,
+      "max": 10,
+      "label": "混沌石从第几章开始掉",
+      "description": "列表里的混沌石（Chaos Orb）从这一章起才会额外掉落。1 表示从头就掉，6 表示第六章之后。"
+    },
+    "highAct": {
+      "type": "integer",
+      "default": 8,
+      "min": 1,
+      "max": 10,
+      "label": "其他通货从第几章开始掉",
+      "description": "列表里除混沌石以外的通货（剥离石、崇高石、神圣石、魔镜等）从这一章起才掉。默认 8，和正式服后期才见高等通货一致。地图里不受限制。"
+    },
     "monsters": {
       "type": "list",
       "default": [],
