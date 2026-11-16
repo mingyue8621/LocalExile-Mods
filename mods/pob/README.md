@@ -4,6 +4,12 @@ Optional Path of Building import front end for LocalExile. It is a normal global
 
 Works with LocalExile **0.4.3-beta**, **0.5.0-beta** and **0.5.1-beta**; it was written for 0.4.2-beta, the release including #821 (slim loader API), #818 (GameEvents), and #639 (validated imports). Stock 0.4.1-beta is not supported.
 
+## BD 库（中文）
+
+`BD库.md` / `BD库.html`：从腾讯《流放之路》英雄榜 S29 抓的七个职业各一份头名 BD，已存成 inbox 里的分享码，
+游戏里 `/pob file <Class>.txt` 直接导入。每份写了等级、升华、榜单排名、来源玩家、天赋点分布、关键天赋、
+技能组和装备概览。HTML 版是深色金边卡片，浏览器直接打开即可。
+
 ## Installation and commands
 
 Install with Waypoint after the required server update, or build `Pob.csproj` with `-p:LocalExileRoot=<checkout>` and put its output in `Mods/Binaries/pob/`.

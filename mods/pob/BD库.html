@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>POB 模组 · 全职业 BD 库</title>
+<style>
+  :root { --bg:#0d0b09; --panel:#161311; --line:#3a2f1d; --gold:#d8b46a; --gold-dim:#9a7f45; --text:#e8e0d0; --dim:#9c9182; --red:#c2452f; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:radial-gradient(circle at 50% -10%, #241d13 0%, var(--bg) 60%); color:var(--text);
+         font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif; line-height:1.65; }
+  .wrap { max-width:1080px; margin:0 auto; padding:48px 24px 80px; }
+  h1 { font-size:34px; letter-spacing:2px; margin:0 0 6px; color:var(--gold);
+       text-shadow:0 0 18px rgba(216,180,106,.25); }
+  .lead { color:var(--dim); margin:0 0 28px; }
+  h2 { font-size:20px; color:var(--gold); border-left:4px solid var(--gold); padding-left:12px; margin:42px 0 16px; }
+  pre { background:#0a0908; border:1px solid var(--line); border-radius:10px; padding:14px 16px; overflow:auto;
+        color:#cbb98e; font-size:13px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th, td { border-bottom:1px solid var(--line); padding:9px 10px; text-align:left; }
+  thead th { color:var(--gold-dim); font-weight:600; }
+  code { background:#0a0908; border:1px solid var(--line); border-radius:6px; padding:1px 6px; color:#e2c98d; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:18px; margin-top:20px; }
+  .card { background:linear-gradient(180deg,#1a1613,#12100d); border:1px solid var(--line); border-radius:14px;
+          padding:18px 18px 14px; box-shadow:0 10px 26px rgba(0,0,0,.45); }
+  .card header { border-bottom:1px dashed var(--line); padding-bottom:10px; margin-bottom:12px; }
+  .card h3 { margin:0; font-size:19px; color:var(--gold); }
+  .card h3 .sub { font-size:13px; color:var(--gold-dim); font-weight:400; margin-left:6px; }
+  .meta { margin:4px 0 0; color:var(--dim); font-size:12.5px; }
+  .cmd { margin:0 0 10px; font-family:Consolas,monospace; font-size:13px; color:#eadfd0;
+         background:#0a0908; border:1px solid var(--line); border-radius:8px; padding:6px 10px; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+  .chip { font-size:12px; color:#d9c7a0; background:#221c15; border:1px solid var(--line); border-radius:999px; padding:2px 10px; }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+  .tag { font-size:12px; color:#bfae94; border:1px solid var(--line); border-radius:6px; padding:2px 8px; }
+  .tag.gold { color:#1a1409; background:linear-gradient(180deg,#e2c88a,#c9a75c); border-color:#8a6f33; font-weight:600; }
+  .card table { font-size:12.5px; }
+  .card th { width:82px; color:var(--gold-dim); font-weight:500; vertical-align:top; }
+  .card td { border-bottom:none; padding:4px 6px; }
+  .dim { color:var(--dim); }
+  .warn { color:var(--red); font-size:11.5px; }
+  .skill { margin-bottom:4px; }
+  footer { margin-top:48px; color:#6f665a; font-size:12.5px; border-top:1px solid var(--line); padding-top:16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>POB 模组 · 全职业 BD 库</h1>
+  <p class="lead">腾讯《流放之路》英雄榜 S29 赛季，每个职业排名最高且详情还在的一份 BD，已抓成 PoB 分享码放进
+     <code>data/pob-import/inbox/</code>。</p>
+
+  <h2>怎么用</h2>
+  <pre>启动服务端 → 进角色 → 聊天框输入 /pob file &lt;文件名&gt;
+  例如：/pob file Witch.txt
+按 Y 确认 → 角色自动登出 → 重新进入角色
+
+导入会替换：职业、等级、天赋树
+不会改动：装备、宝石、药水、珠宝
+不导入：升华点、精通（Mastery）、星团珠宝节点</pre>
+
+  <h2>一目了然</h2>
+  <table>
+    <thead><tr><th>职业</th><th>升华</th><th>等级</th><th>榜单</th><th>普通天赋</th><th>文件</th></tr></thead>
+    <tbody><tr><td>贵族</td><td>圣物使</td><td>100</td><td>第 6 名</td><td>116</td><td><code>Scion.txt</code></td></tr><tr><td>野蛮人</td><td>酋长</td><td>100</td><td>第 2 名</td><td>100</td><td><code>Marauder.txt</code></td></tr><tr><td>游侠</td><td>死眼</td><td>100</td><td>第 1 名</td><td>85</td><td><code>Ranger.txt</code></td></tr><tr><td>女巫</td><td>元素使</td><td>100</td><td>第 7 名</td><td>80</td><td><code>Witch.txt</code></td></tr><tr><td>决斗者</td><td>杀手</td><td>100</td><td>第 14 名</td><td>98</td><td><code>Duelist.txt</code></td></tr><tr><td>圣堂武僧</td><td>圣宗</td><td>100</td><td>第 12 名</td><td>100</td><td><code>Templar.txt</code></td></tr><tr><td>暗影</td><td>刺客</td><td>100</td><td>第 74 名</td><td>90</td><td><code>Shadow.txt</code></td></tr></tbody>
+  </table>
+
+  <h2>每个职业一份</h2>
+  <div class="grid">
+    <article class="card">
+      <header>
+        <h3>贵族 <span class="sub">圣物使</span></h3>
+        <p class="meta">等级 100　·　榜单第 6 名　·　SCSPVP沙海黄老板</p>
+      </header>
+      <p class="cmd">/pob file Scion.txt</p>
+      <div class="chips"><span class="chip">普通 116</span><span class="chip">升华 10</span><span class="chip">精通 10</span><span class="chip">星团 2</span></div>
+      <div class="tags"><span class="tag gold">血魔法（Blood Magic）</span><span class="tag gold">永葆青春（Eternal Youth）</span><span class="tag gold">擦身而过（Glancing Blows）</span><span class="tag gold">苦痛共鸣（Pain Attunement）</span></div>
+      <div class="tags"><span class="tag">Arcanist&#x27;s Dominion</span><span class="tag">Armour Display</span><span class="tag">As The Mountain</span><span class="tag">刺杀（Assassination）</span><span class="tag">野蛮（Barbarism）</span><span class="tag">Blast Radius</span><span class="tag">Blood Siphon</span><span class="tag">Bloodless</span></div>
+      <table><tr><th>技能组</th><td><div class="skill"><b>自动化</b> ← 钢铁之肤、持续时间总增（辅）、烈焰冲刺</div><div class="skill"><b>重盾冲锋</b> ← 尊严、永恒祝福 （辅）</div><div class="skill"><b>幻化守卫</b> ← 肉盾（辅）、召唤灵体、元素大军（辅）</div><div class="skill"><b>惩戒</b> ← 脆弱、诅咒之地辅助</div></td></tr><tr><th>装备（19 件）</th><td class="dim">The Gull<i>（Raven Mask）</i>、The Will of Xoph<i>（Enthalpic Ring）</i>、viper Track<i>（Riveted Boots）</i>、Kaom&#x27;s Heart<i>（Glorious Plate）</i>、Relic of the Pact<i>（Sage Wand）</i>、Vortex Spire<i>（Coiled Wand）</i>、Rune Bite<i>（Kinetic Wand）</i>、The Will of Tul<i>（Cryonic Ring）</i>（另有 11 件）　<span class="warn">不导入</span></td></tr></table>
+    </article>
+    <article class="card">
+      <header>
+        <h3>野蛮人 <span class="sub">酋长</span></h3>
+        <p class="meta">等级 100　·　榜单第 2 名　·　主播满哥阿里里</p>
+      </header>
+      <p class="cmd">/pob file Marauder.txt</p>
+      <div class="chips"><span class="chip">普通 100</span><span class="chip">升华 9</span><span class="chip">精通 8</span></div>
+      <div class="tags"><span class="tag gold">永葆青春（Eternal Youth）</span></div>
+      <div class="tags"><span class="tag">Ancestral Knowledge</span><span class="tag">As The Mountain</span><span class="tag">野蛮（Barbarism）</span><span class="tag">Bloodless</span><span class="tag">体格（Constitution）</span><span class="tag">Cruel Preparation</span><span class="tag">虔诚（Devotion）</span><span class="tag">Diamond Skin</span></div>
+      <table><tr><th>装备（2 件）</th><td class="dim">Crude Bow、Maloney&#x27;s Mechanism<i>（Ornate Quiver）</i>　<span class="warn">不导入</span></td></tr></table>
+    </article>
+    <article class="card">
+      <header>
+        <h3>游侠 <span class="sub">死眼</span></h3>
+        <p class="meta">等级 100　·　榜单第 1 名　·　云窥山叶瞬光</p>
+      </header>
+      <p class="cmd">/pob file Ranger.txt</p>
+      <div class="chips"><span class="chip">普通 85</span><span class="chip">升华 8</span><span class="chip">精通 9</span><span class="chip">星团 8</span></div>
+      <div class="tags"><span class="tag gold">异灵之体（Chaos Inoculation）</span><span class="tag gold">Ghost Reaver</span></div>
+      <div class="tags"><span class="tag">Ballistics</span><span class="tag">Clever Thief</span><span class="tag">Corruption</span><span class="tag">Disintegration</span><span class="tag">Endless Munitions</span><span class="tag">Far Shot</span><span class="tag">Fusillade</span><span class="tag">Gathering Winds</span></div>
+      <table><tr><th>技能组</th><td><div class="skill"><b>重盾冲锋</b> ← 增幅(辅)</div><div class="skill"><b>暗影印记</b> ← 击中时施加印记（辅）、启迪（辅）</div><div class="skill"><b>力量爆破</b> ← 高阶分裂（辅）、无常（辅）</div><div class="skill"><b>烈焰冲刺</b> ← 冷却回复（辅）</div><div class="skill"><b>瓦尔：迅捷</b> ← 精准、瓦尔：优雅、元素净化、月蚀（辅）、启蒙(辅)</div></td></tr><tr><th>装备（30 件）</th><td class="dim">Vessel of Vinktar<i>（Topaz Flask）</i>、Nimis<i>（Topaz Ring）</i>、Hate Clasp<i>（Simplex Amulet）</i>、???????????-<i>（Leather Belt）</i>、Phoenix Chant<i>（Faun&#x27;s Horn）</i>、The Squire<i>（Elegant Round Shield）</i>、Dying Sun<i>（Ruby Flask）</i>、Hollow Vision<i>（Searching Eye Jewel）</i>（另有 22 件）　<span class="warn">不导入</span></td></tr></table>
+    </article>
+    <article class="card">
+      <header>
+        <h3>女巫 <span class="sub">元素使</span></h3>
+        <p class="meta">等级 100　·　榜单第 7 名　·　请大笑笑大王</p>
+      </header>
+      <p class="cmd">/pob file Witch.txt</p>
+      <div class="chips"><span class="chip">普通 80</span><span class="chip">升华 10</span><span class="chip">精通 7</span></div>
+      <div class="tags"><span class="tag gold">The Agnostic</span></div>
+      <div class="tags"><span class="tag">Arcane Guarding</span><span class="tag">As The Mountain</span><span class="tag">Bringer of Ruin</span><span class="tag">Endurance</span><span class="tag">Faith and Steel</span><span class="tag">Golem Commander</span><span class="tag">Liege of the Primordial</span><span class="tag">血肉纯净（Purity of Flesh）</span></div>
+      <table><tr><th>装备（2 件）</th><td class="dim">viper Skewer<i>（Vaal Blade）</i>、Victory Knell<i>（Opal Sceptre）</i>　<span class="warn">不导入</span></td></tr></table>
+    </article>
+    <article class="card">
+      <header>
+        <h3>决斗者 <span class="sub">杀手</span></h3>
+        <p class="meta">等级 100　·　榜单第 14 名　·　沙海幻境_CX_JKruoli</p>
+      </header>
+      <p class="cmd">/pob file Duelist.txt</p>
+      <div class="chips"><span class="chip">普通 98</span><span class="chip">升华 9</span><span class="chip">精通 12</span><span class="chip">星团 4</span></div>
+      <div class="tags"><span class="tag gold">箭舞（Arrow Dancing）</span><span class="tag gold">Versatile Combatant</span></div>
+      <div class="tags"><span class="tag">Acuity</span><span class="tag">Art of the Gladiator</span><span class="tag">Bane of Legends</span><span class="tag">Blade of Cunning</span><span class="tag">Bravery</span><span class="tag">Brutal Fervour</span><span class="tag">Cloth and Chain</span><span class="tag">Defiance</span></div>
+      <table><tr><th>技能组</th><td><div class="skill"><b>熔岩护盾</b> ← 赤炼（辅）、自动化</div><div class="skill"><b>闪现打击</b> ← 赤炼（辅）、近战（辅）、三位一体（辅）</div><div class="skill"><b>暗影印记</b> ← 击中时施加印记（辅）、赤炼（辅）、冰霜闪现</div><div class="skill"><b>时空之门</b> ← 无</div><div class="skill"><b>灰烬之捷</b> ← 无</div><div class="skill"><b>纯净之捷</b> ← 无</div></td></tr><tr><th>装备（26 件）</th><td class="dim">Short Bow、Rift Bastion<i>（Crusader Buckler）</i>、Maloney&#x27;s Mechanism<i>（Ornate Quiver）</i>、Corpse Curtain<i>（Triumphant Lamellar）</i>、Shadows and Dust<i>（Clasped Mitts）</i>、Death Rush<i>（Amethyst Ring）</i>、Morbid Stare<i>（Murderous Eye Jewel）</i>、Tecrod&#x27;s Gaze<i>（Murderous Eye Jewel）</i>（另有 18 件）　<span class="warn">不导入</span></td></tr></table>
+    </article>
+    <article class="card">
+      <header>
+        <h3>圣堂武僧 <span class="sub">圣宗</span></h3>
+        <p class="meta">等级 100　·　榜单第 12 名　·　S29上午好流放者</p>
+      </header>
+      <p class="cmd">/pob file Templar.txt</p>
+      <div class="chips"><span class="chip">普通 100</span><span class="chip">升华 10</span><span class="chip">精通 7</span><span class="chip">星团 4</span></div>
+      <div class="tags"><span class="tag gold">元素超载（Elemental Overload）</span><span class="tag gold">Mind Over Matter</span><span class="tag gold">Minion Instability</span></div>
+      <div class="tags"><span class="tag">Arcane Blessing</span><span class="tag">Arcane Capacitor</span><span class="tag">Arcane Will</span><span class="tag">Arcanist&#x27;s Dominion</span><span class="tag">Ash, Frost and Storm</span><span class="tag">Battle Rouse</span><span class="tag">体格（Constitution）</span><span class="tag">Conviction of Power</span></div>
+      <table><tr><th>技能组</th><td><div class="skill"><b>寒霜爆</b> ← 奥法烙印、威能法印、永恒祝福 （辅）、雷霆</div><div class="skill"><b>冰爆之冰霜闪现</b> ← 大法师（辅）、秘术增强(辅)</div><div class="skill"><b>瓦尔：电球</b> ← 大法师（辅）、穿透(辅)、闪电穿透(辅)、精准破坏(辅)</div><div class="skill"><b>瓦尔：迅捷</b> ← 持续时间总增（辅）、自动化、奥术斗篷</div><div class="skill"><b>狙击印记</b> ← 惩戒</div><div class="skill"><b>导电</b> ← 无</div></td></tr><tr><th>装备（21 件）</th><td class="dim">Headhunter<i>（Leather Belt）</i>、Widowhail<i>（Crude Bow）</i>、Rearguard<i>（Blunt Arrow Quiver）</i>、Horror Band<i>（Amethyst Ring）</i>、Miracle Vise<i>（Warlock Gloves）</i>、Plague Scratch<i>（Spiraled Wand）</i>、Morbid Branch<i>（Tornado Wand）</i>、mind Mantle<i>（Nightweave Robe）</i>（另有 13 件）　<span class="warn">不导入</span></td></tr></table>
+    </article>
+    <article class="card">
+      <header>
+        <h3>暗影 <span class="sub">刺客</span></h3>
+        <p class="meta">等级 100　·　榜单第 74 名　·　S29瓜皮头儿</p>
+      </header>
+      <p class="cmd">/pob file Shadow.txt</p>
+      <div class="chips"><span class="chip">普通 90</span><span class="chip">升华 9</span><span class="chip">精通 7</span><span class="chip">星团 10</span></div>
+      <div class="tags"><span class="tag gold">Hex Master</span><span class="tag gold">苦痛共鸣（Pain Attunement）</span><span class="tag gold">狂信者之誓（Zealot&#x27;s Oath）</span></div>
+      <div class="tags"><span class="tag">Arcane Potency</span><span class="tag">刺杀（Assassination）</span><span class="tag">Assassination Style</span><span class="tag">Blood Siphon</span><span class="tag">Cruel Preparation</span><span class="tag">Devastating Devices</span><span class="tag">Disciple of the Forbidden</span><span class="tag">Efficient Explosives</span></div>
+      <table><tr><th>技能组</th><td><div class="skill"><b>幻化守卫</b> ← 奋锐光环、肉盾（辅）、守卫祝福（辅）</div><div class="skill"><b>召唤巨石魔像</b> ← 增幅(辅)、自动化、号召、暗影迷踪、引爆地雷</div><div class="skill"><b>正义之火</b> ← 赤嚣（辅）、瓦尔：不净之火、召唤灵体</div><div class="skill"><b>活力</b> ← 召唤飞掠者、清晰、烈焰冲刺</div></td></tr><tr><th>装备（24 件）</th><td class="dim">Horror Keeper<i>（Sunfire Circlet）</i>、????????-???????????????a?????<i>（Diamond Ring）</i>、????????-???????????????a?????<i>（Diamond Ring）</i>、Carrion Trap<i>（Heavy Belt）</i>、Silverbranch<i>（Crude Bow）</i>、The Annihilating Light<i>（Quarterstaff）</i>、Maloney&#x27;s Mechanism<i>（Ornate Quiver）</i>、Ralakesh&#x27;s Impatience<i>（Riveted Boots）</i>（另有 16 件）　<span class="warn">不导入</span></td></tr></table>
+    </article>
+  </div>
+
+  <footer>数据来源：poe.qq.com 英雄榜公开接口　|　抓取脚本 Tools/PobLadder/fetch_ladder.py　|　转换器 Tools/PobConverter
+  　|　流程：英雄榜 → PoB 分享码 → 转换器 → 服务器导入</footer>
+</div>
+</body>
+</html>
