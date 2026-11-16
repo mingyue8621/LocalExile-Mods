@@ -189,9 +189,9 @@ public sealed class PetLootMod : IMod
                 var goldPiles = ground.Where(g => Game.IsGold(g.Item)).Take(5).Select(g =>
                     $"{g.Item.Item.StackSize}金@{g.Item.GridX},{g.Item.GridY}");
                 int goldGround = ground.Count(g => Game.IsGold(g.Item));
+                var near = Nearby(conn, profile);
                 int goldNear = near.Count(i => Game.IsGold(i.Item));
                 int goldOk = near.Count(i => Game.IsGold(i.Item) && Accept(i, profile));
-                var near = Nearby(conn, profile);
                 int accepted = near.Count(i => Accept(i, profile));
                 string sample = string.Join("; ", near.Take(3).Select(i =>
                     $"{i.Type.Name}:{(Accept(i, profile) ? "OK" : "拒")}{(state.RetryAfter.ContainsKey(i.Id) ? "/重试中" : "")}"));
