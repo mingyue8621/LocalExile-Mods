@@ -131,11 +131,13 @@ public sealed class PetLootMod : IMod
     {
         if (!profile.Enabled || drop.Item.PlayerDropped) return false;
         var type = drop.Type;
+        // 金币只看自己的开关：旧版本存下来的单项覆盖里若有一条把金币设成 0，
+        // 原来会先命中它直接屏蔽，导致 /petloot status 显示金币开、地面金币却一件不捡。
+        if (Game.IsGold(drop.Item)) return profile.Gold;
         // 单项覆盖优先：0 屏蔽，1-65535 是最少地面堆叠。
         if (profile.Rules.TryGetValue(type.Id, out int minimum) || profile.Rules.TryGetValue(type.Name, out minimum))
             return minimum > 0 && drop.Item.Item.StackSize >= minimum;
         if (type.Quest is not null) return profile.QuestItem;
-        if (Game.IsGold(drop.Item)) return profile.Gold;
         string cls = type.Class;
         if (CurrencyClasses.Contains(cls)) return profile.Currency;
         if (cls == "DivinationCard") return profile.DivinationCard;
@@ -191,7 +193,7 @@ public sealed class PetLootMod : IMod
                 mod.Log($"petloot probe: enabled={profile.Enabled} radius={profile.Radius} gold={profile.Gold} "
                     + $"candidates={candidates.Length} (gold {gold}) pets={conn.Pets.Count} "
                     + $"ground={onGround} seen={seen} typed={typed} autoExcluded={excluded} "
-                    + $"accepted={accepted} retry={state.RetryAfter.Count} [{sample}]");
+                    + $"accepted={accepted} retry={state.RetryAfter.Count} rules={profile.Rules.Count} [{sample}]");
             }
             Candidate? drop = null;
             if (state.Item is uint target)
