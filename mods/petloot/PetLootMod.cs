@@ -48,7 +48,7 @@ public sealed class PetLootMod : IMod
         internal readonly SemaphoreSlim Gate = new(1, 1);
         internal readonly Dictionary<uint, double> RetryAfter = [];
         internal uint? Item, Pet;
-        internal double Seconds, Started;
+        internal double Seconds, Started, LastLog;
     }
 
     public void Load(IModContext context)
@@ -175,7 +175,14 @@ public sealed class PetLootMod : IMod
             foreach (uint old in state.RetryAfter.Where(e => e.Value <= state.Seconds).Select(e => e.Key).ToArray())
                 state.RetryAfter.Remove(old);
             var at = conn.Walk.Position(conn.Clock.Elapsed.TotalSeconds);
-            var candidates = Nearby(conn, profile).Where(i => Accept(i, profile) && !state.RetryAfter.ContainsKey(i.Id));
+            var candidates = Nearby(conn, profile).Where(i => Accept(i, profile) && !state.RetryAfter.ContainsKey(i.Id)).ToArray();
+            if (state.Seconds - state.LastLog >= 5)
+            {
+                state.LastLog = state.Seconds;
+                int gold = candidates.Count(i => Game.IsGold(i.Item));
+                mod.Log($"petloot probe: enabled={profile.Enabled} radius={profile.Radius} gold={profile.Gold} "
+                    + $"candidates={candidates.Length} (gold {gold}) pets={conn.Pets.Count}");
+            }
             Candidate? drop = null;
             if (state.Item is uint target)
             {
