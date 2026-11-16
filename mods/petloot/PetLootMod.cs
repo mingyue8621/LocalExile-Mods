@@ -120,7 +120,7 @@ public sealed class PetLootMod : IMod
             var items = Game.ItemsFor(conn);
             var nearby = new List<Candidate>();
             foreach (var (id, item) in conn.Instance.Ground.Within(pos.X, pos.Y, Math.Clamp(profile.Radius, 1, 100), _ => true))
-                if (!AutoLooted(item, pos) && Visible(conn, id) && items.ByHash(item.Item.TypeHash) is { } type)
+                if (Visible(conn, id) && items.ByHash(item.Item.TypeHash) is { } type)
                     nearby.Add(new(id, item, type));
             return nearby.ToArray();
         }
@@ -184,9 +184,14 @@ public sealed class PetLootMod : IMod
                 int onGround = ground.Count, seen = ground.Count(g => Visible(conn, g.Id));
                 int typed = ground.Count(g => Game.ItemsFor(conn).ByHash(g.Item.Item.TypeHash) is not null);
                 int excluded = ground.Count(g => AutoLooted(g.Item, at));
+                var near = Nearby(conn, profile);
+                int accepted = near.Count(i => Accept(i, profile));
+                string sample = string.Join("; ", near.Take(3).Select(i =>
+                    $"{i.Type.Name}:{(Accept(i, profile) ? "OK" : "拒")}{(state.RetryAfter.ContainsKey(i.Id) ? "/重试中" : "")}"));
                 mod.Log($"petloot probe: enabled={profile.Enabled} radius={profile.Radius} gold={profile.Gold} "
                     + $"candidates={candidates.Length} (gold {gold}) pets={conn.Pets.Count} "
-                    + $"ground={onGround} seen={seen} typed={typed} autoExcluded={excluded}");
+                    + $"ground={onGround} seen={seen} typed={typed} autoExcluded={excluded} "
+                    + $"accepted={accepted} retry={state.RetryAfter.Count} [{sample}]");
             }
             Candidate? drop = null;
             if (state.Item is uint target)
