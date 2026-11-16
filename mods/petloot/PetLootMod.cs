@@ -181,9 +181,9 @@ public sealed class PetLootMod : IMod
                 state.LastLog = state.Seconds;
                 int gold = candidates.Count(i => Game.IsGold(i.Item));
                 var ground = conn.Instance.Ground.Within(at.X, at.Y, Math.Clamp(profile.Radius, 1, 100), _ => true);
-                int onGround = ground.Count, seen = ground.Count(g => Visible(conn, g.Key));
-                int typed = ground.Count(g => Game.ItemsFor(conn).ByHash(g.Value.Item.TypeHash) is not null);
-                int excluded = ground.Count(g => AutoLooted(g.Value, at));
+                int onGround = ground.Count, seen = ground.Count(g => Visible(conn, g.Id));
+                int typed = ground.Count(g => Game.ItemsFor(conn).ByHash(g.Item.Item.TypeHash) is not null);
+                int excluded = ground.Count(g => AutoLooted(g.Item, at));
                 mod.Log($"petloot probe: enabled={profile.Enabled} radius={profile.Radius} gold={profile.Gold} "
                     + $"candidates={candidates.Length} (gold {gold}) pets={conn.Pets.Count} "
                     + $"ground={onGround} seen={seen} typed={typed} autoExcluded={excluded}");
