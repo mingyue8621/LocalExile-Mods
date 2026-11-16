@@ -186,6 +186,11 @@ public sealed class PetLootMod : IMod
                 int onGround = ground.Count, seen = ground.Count(g => Visible(conn, g.Id));
                 int typed = ground.Count(g => Game.ItemsFor(conn).ByHash(g.Item.Item.TypeHash) is not null);
                 int excluded = ground.Count(g => AutoLooted(g.Item, at));
+                var goldPiles = ground.Where(g => Game.IsGold(g.Item)).Take(5).Select(g =>
+                    $"{g.Item.Item.StackSize}金@{g.Item.GridX},{g.Item.GridY}");
+                int goldGround = ground.Count(g => Game.IsGold(g.Item));
+                int goldNear = near.Count(i => Game.IsGold(i.Item));
+                int goldOk = near.Count(i => Game.IsGold(i.Item) && Accept(i, profile));
                 var near = Nearby(conn, profile);
                 int accepted = near.Count(i => Accept(i, profile));
                 string sample = string.Join("; ", near.Take(3).Select(i =>
@@ -193,7 +198,9 @@ public sealed class PetLootMod : IMod
                 mod.Log($"petloot probe: enabled={profile.Enabled} radius={profile.Radius} gold={profile.Gold} "
                     + $"candidates={candidates.Length} (gold {gold}) pets={conn.Pets.Count} "
                     + $"ground={onGround} seen={seen} typed={typed} autoExcluded={excluded} "
-                    + $"accepted={accepted} retry={state.RetryAfter.Count} rules={profile.Rules.Count} [{sample}]");
+                    + $"accepted={accepted} retry={state.RetryAfter.Count} rules={profile.Rules.Count} "
+                    + $"goldGround={goldGround} goldNear={goldNear} goldOk={goldOk} piles=[{string.Join(", ", goldPiles)}] "
+                    + $"player={at.X},{at.Y} [{sample}]");
             }
             Candidate? drop = null;
             if (state.Item is uint target)
@@ -243,6 +250,7 @@ public sealed class PetLootMod : IMod
             }
             if (pickup is not null)
             {
+                mod.Log($"petloot pickup: {drop.Type.Name} x{drop.Item.Item.StackSize} at {to.X},{to.Y} -> sent");
                 await Game.SendPickup(conn.Wire.Remote, conn.Wire.Stream, conn.Wire.Ciphers, conn, drop.Id, pickup);
                 // 捡到了：这一件结束，但宠物继续被占用（不清 busy），下一个 tick 接着捡下一件。
                 state.Item = null;
