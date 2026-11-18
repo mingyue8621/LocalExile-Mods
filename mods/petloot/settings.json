@@ -87,6 +87,71 @@
         "min": 0,
         "max": 65535
       }
+    },
+    "profiles": {
+      "type": "map",
+      "default": {},
+      "label": "角色配置",
+      "advanced": true,
+      "value": {
+        "type": "group",
+        "settings": {
+          "enabled": {
+            "type": "bool",
+            "default": true,
+            "label": "启用拾取",
+            "description": "没有保存过配置的角色用这个默认值。"
+          },
+          "gold": {
+            "type": "bool",
+            "default": true,
+            "label": "宠物拾取金币"
+          },
+          "range": {
+            "type": "integer",
+            "default": 60,
+            "min": 5,
+            "max": 80,
+            "label": "拾取半径",
+            "unit": "格"
+          },
+          "commonCurrency": {
+            "type": "bool",
+            "default": true,
+            "label": "常用通货预设",
+            "description": "只包括 README 里列的那 20 种通货；单项覆盖优先。"
+          },
+          "rules": {
+            "type": "map",
+            "default": {},
+            "label": "单项覆盖",
+            "description": "精确物品名或 metadata：0 屏蔽，1-65535 是最少地面堆叠数。",
+            "value": {
+              "type": "integer",
+              "min": 0,
+              "max": 65535
+            }
+          },
+          "movementSpeed": {
+            "type": "number",
+            "default": 2,
+            "min": 0.25,
+            "max": 10,
+            "format": "multiplier",
+            "label": "宠物移动速度",
+            "description": "跟随、拾取与返回的速度倍率；1 是原速，2 是两倍速。"
+          }
+        }
+      }
+    },
+    "movementSpeed": {
+      "type": "number",
+      "default": 2,
+      "min": 0.25,
+      "max": 10,
+      "format": "multiplier",
+      "label": "宠物移动速度",
+      "description": "跟随、拾取与返回的速度倍率；1 是原速，2 是两倍速。"
     }
   }
 }

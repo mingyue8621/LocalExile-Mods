@@ -13,7 +13,7 @@ whenever the Game module does.
 | Movement | `/tp`, `/goto`, `/tour` (with `live.ps1 -Walkmaps`), `/pos` |
 | Monsters and NPCs | `/spawn_mob`, `/mobs`, `/despawn`, `/kill`, `/mob_mods`, `/mob_tp`, `/mob_move`, `/mob_walk`, `/anim`, `/ai`, `/statue`, `/npc`, `/npcs`, `/npc_place`, `/npc_face` |
 | Items | `/item`, `/item_give` (Waypoint's item crafter), `/item_tab`, `/gem`, `/gem_xp`, `/adorned`, `/unique_jewel`, `/radius_jewel`, `/impossible_escape`, `/timeless`, `/voices`, `/cluster_jewel`, `/corrupt`, `/item_mod`, `/item_max`, `/item_mods`, `/roll`, `/base_defence`, `/item_state`, `/rarity`, `/sockets` |
-| Character | `/set_level`, `/add_xp`, `/gold`, `/add_passive_points`, `/add_refund_points`, `/add_passive`, `/reset_passives`, `/ascendancy`, `/ascendancy_points`, `/reset_ascendancy`, `/atlas_points`, `/waypoints`, `/quest_flag`, `/league_flag`, `/trials`, `/quest_preset` |
+| Character | `/set_level`, `/add_xp`, `/gold`, `/add_passive_points`, `/add_refund_points`, `/add_passive`, `/reset_passives`, `/ascendancy`, `/descendancy`, `/ascendancy_points`, `/reset_ascendancy`, `/atlas_points`, `/waypoints`, `/quest_flag`, `/league_flag`, `/trials`, `/quest_preset` |
 | Stats | `/stat`, `/set_stat`, `/set_speed`, `/set_aoe`, `/god`, `/charges`, `/auras`, `/resistances`, `/crit`, `/block`, `/accuracy`, `/defences`, `/suppression` |
 | Test hits | `/hit`, `/spellhit`, `/blockhit`, `/blind`, `/heal`, `/death_screen`, `/block_luck`, `/suppression_luck` |
 | Areas and objects | `/stash_place`, `/guild_stash_place`, `/stash_add`, `/stash`, `/wp_place`, `/wp_state`, `/transition`, `/map_portal`, `/portal_rotation`, `/cosmetic`, `/hideout_keys`, `/atlas`, `/atlas_tree`, `/lab_layout` |
@@ -40,7 +40,11 @@ as "Nothingness". Each `mod` is the Mods Id of an affix: a notable, or an "also 
 LocalExile's own dev scripts (the campaign driver, the level generator's tour loop, `client_control.py`) and Waypoint's
 item crafter send these commands: install this mod for them.
 
-Works with: 1.4.0 needs LocalExile v0.5.2-beta (`/cluster_jewel` uses its `ClusterJewels`, LocalExile/LocalExile#948). 1.3.0 needs LocalExile v0.5.1-beta (`/stash_add` uses LocalExile/LocalExile#891, and the server's monster calls
+`/item_tab` fills (slotted, Flask and Gem tabs) refresh unloaded inventories before publishing their changes, including tabs kept in the client cache. Existing items are preserved; quantities are added only once.
+
+Works with: 1.5.0, 1.4.1 and 1.4.0 need LocalExile v0.5.2-beta (from 1.4.1 `/god` and `/set_aoe` relight a
+burning Righteous Fire through its `RelightRighteousFire`, LocalExile/LocalExile#1070; `/cluster_jewel` uses its
+`ClusterJewels`, LocalExile/LocalExile#948). 1.3.0 needs LocalExile v0.5.1-beta (`/stash_add` uses LocalExile/LocalExile#891, and the server's monster calls
 changed). 1.1.3 works with v0.4.3-beta and v0.5.0-beta, not v0.5.1-beta: there its `/spawn_mob` fails and ends the
 connection. 1.1.2 works with v0.4.3-beta, the first with the client-table API it reads (LocalExile/LocalExile#862).
 Mods reach what modules reach from v0.4.0-beta (LocalExile/LocalExile#815); not v0.3.0-beta or earlier.

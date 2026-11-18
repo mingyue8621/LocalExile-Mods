@@ -5,7 +5,8 @@
   "author": "mingyue8621",
   "version": "1.0.5",
   "compatibleClientVersions": [
-    "0.5.1-beta"
+    "0.5.1-beta",
+    "0.5.2-beta"
   ],
   "kind": "feature",
   "depends": []

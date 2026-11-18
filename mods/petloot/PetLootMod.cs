@@ -9,13 +9,20 @@ public sealed class PetLootMod : IMod
     public sealed record Profile(bool Enabled, int Radius,
         bool Gold, bool Currency, bool DivinationCard, bool MapFragment, bool Gem, bool Flask, bool QuestItem,
         bool Normal, bool Magic, bool Rare, bool Unique, bool Other,
-        Dictionary<string, int> Rules);
+        Dictionary<string, int> Rules)
+    {
+        /// <summary>宠物跟随、拾取与返回的移动速度倍率（0.25-10，1 是原速）。</summary>
+        public double MovementSpeed { get; init; } = 2;
+    }
 
     /// <summary>服务器默认（settings.json 的 default）与各账号的覆盖。</summary>
     public sealed record Choices(bool Enabled, int Radius,
         bool Gold, bool Currency, bool DivinationCard, bool MapFragment, bool Gem, bool Flask, bool QuestItem,
         bool Normal, bool Magic, bool Rare, bool Unique, bool Other,
-        Dictionary<string, int> Rules, Dictionary<string, Profile> Profiles);
+        Dictionary<string, int> Rules, Dictionary<string, Profile> Profiles)
+    {
+        public double MovementSpeed { get; init; } = 2;
+    }
 
     // 分类只看 ItemClasses（BaseItemTypes 的 class），和设置界面上的勾选一一对应。
     static readonly HashSet<string> CurrencyClasses = new(StringComparer.Ordinal)
@@ -55,20 +62,33 @@ public sealed class PetLootMod : IMod
     {
         mod = context;
         var loaded = mod.Settings<Choices>();
+        // 手改 settings.json 的倍率照样钳到 0.25-10（和 /petloot speed 一致）。
         choices = loaded with
         {
             Rules = Normalize(loaded.Rules),
-            Profiles = (loaded.Profiles ?? []).ToDictionary(p => p.Key, p => p.Value with { Rules = Normalize(p.Value.Rules) }),
+            MovementSpeed = Speed(loaded.MovementSpeed),
+            Profiles = (loaded.Profiles ?? []).ToDictionary(p => p.Key,
+                p => p.Value with { Rules = Normalize(p.Value.Rules), MovementSpeed = Speed(p.Value.MovementSpeed) }),
         };
         GameEvents.Tick.Add(mod.Manifest.Id, Tick);
+        // 只给这个模组管的宠物乘倍率，其它实体的移动速度原样返回。
+        GameEvents.MovementSpeed.Add(mod.Manifest.Id, (conn, id, speed) =>
+        {
+            if (!mod.Lifetime.IsActive) return speed;
+            lock (conn.Pets)
+                return conn.Pets.ContainsKey(id) ? speed * ProfileOf(conn).MovementSpeed : speed;
+        });
         GameEvents.Command(mod.Manifest.Id, "petloot",
-            "/petloot [on|off|toggle|status|nearby|radius|allow|block|remove|reset]", Command);
+            "/petloot [on|off|toggle|status|nearby|radius|speed|allow|block|remove|reset]", Command);
         mod.Log("pet pickup: gold / currency / cards / maps / gems / flasks / quest items / gear by rarity; /petloot for this account.");
     }
 
     // 按账号：同一账号下的角色共用一套勾选（参考界面写的「按账号生效」）。
     static string Key(ClientState conn) => string.Join("|", new[] { conn.Account ?? "", conn.League ?? "Standard" }
         .Select(Uri.EscapeDataString));
+
+    /// <summary>手改设置文件里的倍率同样钳到 0.25-10。</summary>
+    static double Speed(double value) => double.IsFinite(value) ? Math.Clamp(value, .25, 10) : 2;
 
     static Dictionary<string, int> Normalize(Dictionary<string, int>? rules)
     {
@@ -78,7 +98,8 @@ public sealed class PetLootMod : IMod
     }
 
     static Profile FromChoices(Choices c) => new(c.Enabled, c.Radius, c.Gold, c.Currency, c.DivinationCard,
-        c.MapFragment, c.Gem, c.Flask, c.QuestItem, c.Normal, c.Magic, c.Rare, c.Unique, c.Other, c.Rules);
+        c.MapFragment, c.Gem, c.Flask, c.QuestItem, c.Normal, c.Magic, c.Rare, c.Unique, c.Other, c.Rules)
+    { MovementSpeed = c.MovementSpeed };
 
     Profile ProfileOf(ClientState conn)
     {
@@ -288,9 +309,10 @@ public sealed class PetLootMod : IMod
             if (action is "status" or "list")
             {
                 string rules = string.Join(", ", profile.Rules.OrderBy(r => r.Key).Select(r => $"{r.Key}: {(r.Value == 0 ? "屏蔽" : "最少 " + r.Value)}"));
-                await conn.Commands!.Reply($"宠物拾取：{(profile.Enabled ? "开" : "关")}；半径 {profile.Radius} 格；勾选 {Flags(profile)}。\n"
+                await conn.Commands!.Reply($"宠物拾取：{(profile.Enabled ? "开" : "关")}；半径 {profile.Radius} 格；"
+                    + $"速度 {profile.MovementSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture)}x；勾选 {Flags(profile)}。\n"
                     + $"单项覆盖：{(rules.Length == 0 ? "无" : rules)}\n"
-                    + "分类勾选在启动器的模组设置里改；这里是这个账号的临时改动：/petloot on|off|radius 1-100|allow <物品> [最少堆叠]|block|remove <物品>|nearby|reset");
+                    + "分类勾选在启动器的模组设置里改；这里是这个账号的临时改动：/petloot on|off|radius 1-100|speed 0.25-10|allow <物品> [最少堆叠]|block|remove <物品>|nearby|reset");
                 return;
             }
             if (action == "nearby")
@@ -304,6 +326,13 @@ public sealed class PetLootMod : IMod
                 profile = profile with { Enabled = action == "on" || action == "toggle" && !profile.Enabled };
             else if (action == "radius" && args.Length == 2 && int.TryParse(args[1], out int radius) && radius is >= 1 and <= 100)
                 profile = profile with { Radius = radius };
+            else if (action == "speed")
+            {
+                if (args.Length != 2 || !double.TryParse(args[1], System.Globalization.NumberStyles.Float,
+                    System.Globalization.CultureInfo.InvariantCulture, out double speed) || !double.IsFinite(speed) || speed is < .25 or > 10)
+                { await conn.Commands!.Reply("用法：/petloot speed <0.25-10>；1 是原速，2 是两倍速。"); return; }
+                profile = profile with { MovementSpeed = speed };
+            }
             else if (action is "allow" or "block" or "remove" && args.Length > 1)
             {
                 int minimum = 1, end = args.Length;

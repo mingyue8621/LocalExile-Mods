@@ -65,7 +65,7 @@ if ($projects.Count -eq 1) {
     # The server's own assemblies and LocalExile's modules are referenced, not shipped: every mod uses the Gateway's. A
     # copy of one in the mod's folder would load as a type of its own.
     $server = @(Get-ChildItem -LiteralPath (Join-Path $LocalExileRoot 'Modules') -Filter 'module.json' -File -Recurse |
-        ForEach-Object { [IO.Path]::GetFileName((Get-Content -LiteralPath $_.FullName -Raw | ConvertFrom-Json).assembly) })
+        ForEach-Object { [IO.Path]::GetFileName((Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json).assembly) })
     Get-ChildItem -LiteralPath $output -File |
         Where-Object { $_.Extension -ne '.pdb' -and $_.Name -notlike 'GameServer.*' -and $_.Name -notin $server } |
         Copy-Item -Destination $stage

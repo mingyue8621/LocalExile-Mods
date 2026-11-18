@@ -4,7 +4,7 @@
   "description": "控制每次击杀掉什么通货：逐项设定数量、对哪些怪物生效，以及是否保留服务端自己的掉落。",
   "author": "mingyue8621",
   "version": "1.0.2",
-  "compatibleClientVersions": ["0.5.1-beta"],
+  "compatibleClientVersions": ["0.5.1-beta", "0.5.2-beta"],
   "kind": "feature",
   "depends": []
 }

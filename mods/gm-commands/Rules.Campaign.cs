@@ -149,11 +149,13 @@ static partial class GmCommandsRules
             _ => throw new ArgumentException("on, off or immune"),
         };
         bool immune = on && (mode == "immune" || (mode == "on" && conn.Immune));
-        lock (conn.Monsters) conn.Immune = immune;
+        // The Righteous Fire burning now, before this command's own sends: the relight below is for that one only.
+        RighteousFireState? burning;
+        lock (conn.Monsters) { conn.Immune = immune; burning = conn.RighteousFire; }
         if (immune) ImmuneCharacters[CharacterName(conn)] = true; else ImmuneCharacters.TryRemove(CharacterName(conn), out _);
         await SetGod(remote, stream, ciphers, conn, on);
         // A burning Righteous Fire takes its radius when lit: light it again with the new area.
-        await RelightRighteousFire(remote, stream, ciphers, conn, "/god");
+        await RelightRighteousFire(remote, stream, ciphers, conn, "/god", burning);
         await conn.Commands!.Reply(on ? immune ? "God mode on, immune to damage." : "God mode on." : "God mode off.");
     }
 
