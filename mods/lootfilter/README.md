@@ -26,11 +26,14 @@
   地图短名（`"Citadel"` / `"Courtyard"` / `"Ziggurat"` …）按 `"<名字> Map"` 精确展开；
 - 3.29 里根本不存在的名字（丝线、灵魂核心、菌丝核心、皇家面甲、3.30 新星盘等）删掉；一个块被删空了
   就整块移除，否则剩下那个光秃秃的 `Class` 会把这一类的物品全部高亮；
-- **名字在表里但挂在空类下的退役物品也删掉**。客户端是按「物品类 + 物品名」查表的，`BaseItemTypes` 里
-  `ItemClassesKey` 指向空类（`RemovedItem` 之类）的物品解析不出来，写进过滤器就报
-  「行 N: 规则 BaseType 无法解析的参数: 未找到匹配 X 的基础类型」，整份过滤器都用不了。实例：
-  `Growing Wombgift` 挂在 `RemovedItem` 下，而同组的另外四个 Wombgift 挂在 `Wombgifts` 下——
-  所以只剔这一个，别把整组 `" Wombgift"` 都删了（那四个是能用的）；
+- **名字在表里、但客户端不给它分配过滤器条目的物品也删掉**。客户端按「物品类 + 物品名」建过滤表，
+  挂在**空类**（`RemovedItem` / `GhostItem` / `DONOTUSE*` / `GiftBox` / `Unarmed`）、**`Hidden Items`**
+  或 **`Instance Local Items`** 类下的物品都不在表里，写进过滤器就报
+  「行 N: 规则 BaseType 无法解析的参数: 未找到匹配 X 的基础类型」，整份过滤器都用不了。
+  这三类正好是「直接继承 `Metadata/Items/Item`、没有专用基类」的 96 个占位物品的全部归宿（56 + 22 + 18）。
+  两个实例：`Growing Wombgift` 挂在 `RemovedItem` 下（同组另外四个 Wombgift 挂在 `Wombgifts` 下，是好的）；
+  `Random Minor Idol` 挂在 `Hidden Items` 下（同块其他 Idol 挂在 `Idols` 下，也是好的）——
+  所以只剔坏的那几个，别把整组都删了；
 - 客户端不认识的条件会让**整份**过滤器读取失败（一乐那套曾因 3.30 的 `Fated` 报「规则类型 Fated 未知」），
   所以脚本带一张 3.29 条件关键字表，表外的块整块剔除。`Fated` 就是这样被清掉的；`ShapedMap` / `ElderMap` /
   `IsVaalUnique` 等老条件在客户端条件表里仍在，保留。

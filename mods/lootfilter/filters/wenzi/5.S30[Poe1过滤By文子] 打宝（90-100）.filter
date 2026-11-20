@@ -3459,7 +3459,7 @@ Show # 通货 - 起源之礼 - 全部起源之礼(S28)
 
 Show # 地图类 - 雕像 - 全部雕像
     Class "Idols"
-    BaseType "Golden Hetzapal Idol" "Golden Matatl Idol" "Golden Napuatzi Idol" "Golden Slave Idol" "Golden Xoplotli Idol" "Crested Golden Idol" "Golden Prayer Idol" "The Blood Idol" "Minor Idol" "Kamasan Idol" "Totemic Idol" "Noble Idol" "Burial Idol" "Conqueror Idol" "Random Minor Idol" "Random Kamasan Idol" "Random Totemic Idol" "Random Noble Idol" "Random Burial Idol" "Random Conqueror Idol"
+    BaseType "Golden Hetzapal Idol" "Golden Matatl Idol" "Golden Napuatzi Idol" "Golden Slave Idol" "Golden Xoplotli Idol" "Crested Golden Idol" "Golden Prayer Idol" "The Blood Idol" "Minor Idol" "Kamasan Idol" "Totemic Idol" "Noble Idol" "Burial Idol" "Conqueror Idol"
     SetTextColor 255 69 0 225 #高阶价值色
     SetBackgroundColor 73 56 42 255 #高阶价值色
     SetBorderColor 255 186 51 255 #高阶价值色

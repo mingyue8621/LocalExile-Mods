@@ -107,14 +107,29 @@ HEADER = [
 AUTHOR = "# 原作者：剑影流心  https://www.jxpoe.cn   —— 内容未改，只做版本换算。"
 
 
-def load_client():
-    """返回 (客户端认得的基础类型名, 类名集合, 已退役物品名)。
+# 客户端过滤器**不认**的类（写进去就报「未找到匹配 X 的基础类型」）：
+# - 类名是空的：RemovedItem / GhostItem / DONOTUSE* / GiftBox / Unarmed —— 退役占位类；
+# - 'Hidden Items'：内部隐藏物品（Random Minor Idol、Random Bow、Hidden Item …）；
+# - 'Instance Local Items'：只在实例内存在的本地物品（不可掉进地面）。
+# 这三类正好是「直接继承 Metadata/Items/Item、没有专用基类」的 96 个占位物品的全部归宿
+# （56 + 22 + 18），客户端不给它们分配过滤器条目。
+# 佐证：文子「全部雕像」块里写了 6 个 Random XXX Idol，报
+# 「行 3512: 未找到匹配 Random Minor Idol 的基础类型」。
+# 这些物品在 client.db 的 BaseItemTypes 里是**存在**的，光看名字查得到不算数，得看类。
+DEAD_CLASS_NAMES = {"Hidden Items", "Instance Local Items"}
+# 同样不会出现在物品栏、但暂时没证据说客户端不认的类：命中只提示，不删。
+SUSPECT_CLASS_NAMES = {"Microtransactions", "Hideout Doodads", "Archnemesis Mods"}
 
-    客户端解析过滤器时是按「物品类 + 物品名」查表的：BaseItemTypes 里挂在**空类**下面的物品
-    （ItemClasses.Name 为空，比如 RemovedItem）客户端根本认不出来，写进过滤就报
-    「行 N: 规则 BaseType 无法解析的参数: 未找到匹配 X 的基础类型」，整个过滤器都用不了。
-    实例：Growing Wombgift 的 ItemClassesKey 指向 RemovedItem，而同组的另外四个 Wombgift
-    挂在 Wombgifts 类下——所以只删这一个名字，别把整组都删了。
+
+def load_client():
+    """返回 (客户端认得的基础类型名, 类名集合, 客户端不认的物品名)。
+
+    客户端解析过滤器时，名字得能在「过滤可用的基础类型」名单里查到：BaseItemTypes 里挂在
+    空类或 Hidden Items 类下面的物品不在名单里，写进过滤就报
+    「行 N: 规则 BaseType 无法解析的参数: 未找到匹配 X 的基础类型」，整份过滤器都用不了。
+    实例：Growing Wombgift 挂在 RemovedItem 下（同组另外四个 Wombgift 挂在 Wombgifts 下，是好的），
+    Random Minor Idol 挂在 Hidden Items 下（同块里其他 Idol 挂在 Idols 下，也是好的）——
+    所以只删这几个名字，别把整组都删了。
     """
     db = sqlite3.connect(DB)
     class_names = {r[0]: (r[1] or "") for r in db.execute("select _row, Name from ItemClasses")}
@@ -123,11 +138,12 @@ def load_client():
     for name, class_row in db.execute("select Name, ItemClassesKey from BaseItemTypes"):
         if not name:
             continue
-        if class_names.get(class_row, "").strip():
+        class_name = class_names.get(class_row, "").strip()
+        if class_name and class_name not in DEAD_CLASS_NAMES:
             names.append(name)
         else:
             retired.add(name)
-    return names, classes, retired
+    return names, classes, retired, class_names
 
 
 def expand(token, names):
@@ -343,9 +359,10 @@ def main():
     src, dst = sys.argv[1], sys.argv[2]
     if len(sys.argv) > 3:
         AUTHOR = sys.argv[3]
-    names, classes, retired = load_client()
+    names, classes, retired, class_names = load_client()
     if retired:
-        print(f"客户端认不出来的退役物品 {len(retired)} 个（挂在空类下），写进过滤器会报「无法解析的参数」：")
+        print(f"客户端认不出来的物品 {len(retired)} 个（挂在空类 / Hidden Items / Instance Local Items 下），"
+              f"写进过滤器会报「无法解析的参数」：")
         print("  " + "、".join(sorted(retired)))
         print()
     os.makedirs(dst, exist_ok=True)
