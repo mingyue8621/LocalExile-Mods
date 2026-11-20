@@ -5,22 +5,36 @@
       "type": "bool",
       "default": true,
       "label": "安装物品过滤器",
-      "description": "把模组自带的剑心过滤器放进客户端的过滤器目录。关掉就不动客户端。"
+      "description": "把模组自带的过滤器放进客户端的过滤器目录。关掉就不动客户端。"
+    },
+    "filterSet": {
+      "type": "choice",
+      "default": "jianxin",
+      "options": [
+        { "value": "jianxin", "label": "剑心（七档）" },
+        { "value": "yile", "label": "一乐（八档，小结巴音效）" }
+      ],
+      "label": "用哪一套过滤器",
+      "description": "两套都已换算成本服 3.29 的客户端数据。换一套后点 /lootfilter install 重新装一遍；另一套的文件留在客户端，进游戏也能自己切。"
     },
     "profile": {
       "type": "choice",
       "default": "mapping",
       "options": [
-        { "value": "campaign", "label": "剧情（1-70）" },
-        { "value": "mapping", "label": "异界（71-90）" },
-        { "value": "advanced", "label": "进阶" },
-        { "value": "speed", "label": "速刷" },
-        { "value": "magic", "label": "打宝" },
-        { "value": "ultimate", "label": "终极" },
-        { "value": "clean", "label": "纯净" }
+        { "value": "campaign", "label": "剧情 / 开荒（1-68）" },
+        { "value": "campaign-bow", "label": "弓系开荒（一乐）" },
+        { "value": "campaign-caster", "label": "法系开荒（一乐）" },
+        { "value": "mapping", "label": "异界（68-90）" },
+        { "value": "mapping-late", "label": "异界后期（一乐 90-96）" },
+        { "value": "advanced", "label": "进阶（剑心）" },
+        { "value": "speed", "label": "速刷（90-96）" },
+        { "value": "speed-late", "label": "速刷后期（一乐 96-100）" },
+        { "value": "magic", "label": "打宝（96+ / 100）" },
+        { "value": "ultimate", "label": "终极（剑心）" },
+        { "value": "clean", "label": "纯净（剑心）" }
       ],
       "label": "默认档位",
-      "description": "七套都会装进客户端，这里选的是进游戏时替你选中的那套；进了游戏也能自己换。"
+      "description": "这一套的档位全部会装进客户端，这里选的是进游戏时替你选中的那档；选到另一套才有的档位时按「异界」处理。"
     },
     "selectInGame": {
       "type": "bool",
@@ -32,21 +46,21 @@
       "type": "bool",
       "default": true,
       "label": "同时安装音效",
-      "description": "过滤器里的提示音（27 MB）。缺了不影响过滤，只是没有声音。"
+      "description": "过滤器里的提示音（剑心 231 个、一乐 250 个）。缺了不影响过滤，只是没有声音。"
     },
     "filtersSource": {
       "type": "text",
       "default": "",
       "label": "过滤器来源目录",
       "advanced": true,
-      "description": "换一版过滤器时填它所在的文件夹（该目录下所有 .filter 都会被装进去）；留空用模组自带的 7 套（剑心 S31）。"
+      "description": "换一版过滤器时填它所在的文件夹（该目录下所有 .filter 都会被装进去）；留空用模组自带的那一套。"
     },
     "soundSource": {
       "type": "text",
       "default": "",
       "label": "音效来源目录",
       "advanced": true,
-      "description": "留空就用模组自带的音效（231 个，关键音效是剑心原版）。想整套换成别的风格（经典日漫 / 曼波 / 招财进宝 / 唱歌）时，填那个文件夹的路径。"
+      "description": "留空就用模组自带的音效。想整套换成别的风格（经典日漫 / 曼波 / 招财进宝 / 唱歌）时，填那个文件夹的路径。"
     },
     "targetFolder": {
       "type": "text",

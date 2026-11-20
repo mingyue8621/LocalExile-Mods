@@ -1,12 +1,12 @@
-"""把剑心过滤器(S31 / 3.30 口径)改成当前客户端的 3.29 口径。
+"""把 3.30 口径的过滤器（剑心 S31、一乐 S31 都算）改成当前客户端的 3.29 口径。
 
 做三件事，数据全部取自 G:/POE1.1/data/client.db：
 1. Class 名换成 3.29 的 ItemClasses.Name（`Flasks` → 四个具体药水类、`Support Gem` → `Support Gems` …）。
-2. 作者用「不完整名」当通配的地方（`" of Rage"`、`"Essence of"`、`"Awakened "` …）展开成 3.29 里真实存在的物品名。
+2. 作者用「不完整名」当通配的地方（`" of Rage"`、`"Essence of"`、`"Awakened "`、`"Contract: "` …）展开成 3.29 里真实存在的物品名。
 3. 3.29 里根本不存在的物品名（丝线、灵魂核心等 3.30 新内容）删掉；删完一个块里既没有 Class 也没有 BaseType 的，整块删掉
    —— 否则它会变成「匹配所有物品」，把所有东西都染成同一个颜色。
 
-用法：python adapt-lootfilter.py <源目录> <目标目录>
+用法：python adapt-lootfilter.py <源目录> <目标目录> [原作者注释行]
 """
 import os
 import re
@@ -41,8 +41,10 @@ ACTIONS = {
 
 HEADER = [
     "# 由 lootfilter 模组按 3.29 客户端数据适配（Class 名、通配展开、3.30 新物品剔除）。",
-    "# 原作者：剑影流心  https://www.jxpoe.cn   —— 内容未改，只做版本换算。",
 ]
+
+# 第二行注释写原作者；第三个参数可以换掉（一乐那套就不是剑心）。
+AUTHOR = "# 原作者：剑影流心  https://www.jxpoe.cn   —— 内容未改，只做版本换算。"
 
 
 def load_client():
@@ -53,27 +55,43 @@ def load_client():
 
 
 def expand(token, names):
-    """作者的「不完整名」当通配用；这里按 3.29 的真实物品名展开。None = 不是通配写法。"""
+    """作者的「不完整名」当通配用；这里按 3.29 的真实物品名展开。None = 不是通配写法。
+    作者常把通配写成带空格的 `" Essence of "`、`"Contract: "`，所以先去掉首尾空格再比。"""
+    key = token.strip()
     rules = [
-        (" Astrolabe", lambda n: n.endswith(" Astrolabe")),
-        (" of Rage", lambda n: n.endswith(" of Rage")),
-        (" of Doubt", lambda n: n.endswith(" of Doubt")),
-        (" Talisman", lambda n: n.endswith(" Talisman")),
-        ("Awakened ", lambda n: n.startswith("Awakened ")),
-        ("Essence of", lambda n: n.startswith("Essence of ")),
+        ("Astrolabe", lambda n: n.endswith(" Astrolabe")),
+        ("of Rage", lambda n: n.endswith(" of Rage")),
+        ("of Doubt", lambda n: n.endswith(" of Doubt")),
+        ("Talisman", lambda n: n.endswith(" Talisman")),
+        ("Awakened", lambda n: n.startswith("Awakened ")),
+        # 精华：3.29 的八个等级都叫「<等级> Essence of X」，只按前缀 "Essence of" 找会漏掉大多数，
+        # 所以按「含有」找（Whispering / Screaming / Deafening … Essence of Hatred 都算）。
+        ("Essence of", lambda n: "Essence of " in n),
         ("Deafening Essence of", lambda n: n.startswith("Deafening Essence of ")),
         ("Shrieking Essence of", lambda n: n.startswith("Shrieking Essence of ")),
-        ("Omen of ", lambda n: n.startswith("Omen of ")),
-        ("Allflame Ember of ", lambda n: n.startswith("Allflame Ember of ")),
-        ("Ducat of ", lambda n: n.startswith("Ducat of ")),
+        ("Omen of", lambda n: n.startswith("Omen of ")),
+        ("Allflame Ember of", lambda n: n.startswith("Allflame Ember of ")),
+        ("Ducat of", lambda n: n.startswith("Ducat of ")),
         ("'s Ducat", lambda n: n.endswith("'s Ducat")),
         ("Enshrouding Crystal", lambda n: n.endswith(" Enshrouding Crystal")),
-        ("Vaal ", lambda n: n.startswith("Vaal ")),
+        ("Vaal", lambda n: n.startswith("Vaal ")),
         ("Coin", lambda n: n.startswith("Coin of ")),
+        # 一乐那套还用了这几种：契约按「Contract: …」开头，灵柩按「Perfect …」开头，
+        # 活动通货按「Stone of …」开头。
+        ("Contract:", lambda n: n.startswith("Contract:")),
+        ("Perfect", lambda n: n.startswith("Perfect ")),
+        # 作者把 Imperfect 写成了 ImPerfect（3.29 里是 Imperfect Hydra 这种写法）。
+        ("ImPerfect", lambda n: n.startswith("Imperfect ")),
+        ("Stone of", lambda n: n.startswith("Stone of ")),
+        ("Shard", lambda n: n.endswith(" Shard")),
     ]
-    for key, test in rules:
-        if token == key:
+    for rule, test in rules:
+        if key == rule:
             return [n for n in names if test(n)]
+    # 大小写写错的名字（"large Cluster Jewel"）：3.29 里只有一种写法时按它改回来。
+    folded = [n for n in names if n.lower() == key.lower()]
+    if len(folded) == 1:
+        return folded
     return None
 
 
@@ -98,13 +116,16 @@ def rewrite_line(line, names, classes, report):
                 report["class_fixed"] += 1
                 out += mapped
             continue
-        # BaseType
+        # BaseType：先按真名（去首尾空格）认，认不出才当通配展开——否则每个真名都会被「大小写还原」
+        # 当成一次展开，报告里看不出哪些才是真的通配。
+        stripped = value.strip()
+        if stripped in names:
+            out.append(stripped)
+            continue
         bucket = expand(value, names)
         if bucket is not None:
             report["expanded"][value] = len(bucket)
             out += bucket
-        elif value in names:
-            out.append(value)
         else:
             report["item_dropped"].append(value)
     seen, uniq = set(), []
@@ -149,9 +170,9 @@ def adapt(path, target, names, classes, report):
     head = parts[0][1]
     # 文件头：保留原注释，插到第一条注释之后
     if head:
-        output += HEADER + [""] + head
+        output += HEADER + [AUTHOR, ""] + head
     else:
-        output += HEADER + [""]
+        output += HEADER + [AUTHOR, ""]
     for show, body in parts[1:]:
         new_body, dropped_by_value = [], False
         # 原块是不是按「具体物品」写的：是的话，物品名被删空就意味着这一块没意义了，
@@ -175,7 +196,10 @@ def adapt(path, target, names, classes, report):
 
 
 def main():
+    global AUTHOR
     src, dst = sys.argv[1], sys.argv[2]
+    if len(sys.argv) > 3:
+        AUTHOR = sys.argv[3]
     names, classes = load_client()
     os.makedirs(dst, exist_ok=True)
     totals = {"files": 0, "class_fixed": 0, "class_dropped": [], "item_dropped": [],
