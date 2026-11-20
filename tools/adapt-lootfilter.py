@@ -16,19 +16,55 @@ import sys
 
 DB = r"G:/POE1.1/data/client.db"
 
-# 3.29 的类名映射：filter 里的写法 -> 3.29 的 ItemClasses.Name（空列表 = 3.29 没有这个类）
+# 3.29 的类名映射：filter 里的写法 -> 3.29 的 ItemClasses.Name（空列表 = 3.29 没有这个类）。
+# 文子那套大量用老版的单数写法（Amulet / Belt / Bow），3.29 的 ItemClasses 一律是复数。
+FLASKS = ["Life Flasks", "Mana Flasks", "Hybrid Flasks", "Utility Flasks", "Critical Utility Flasks"]
+ONE_HAND = ["One Hand Axes", "One Hand Maces", "One Hand Swords", "Thrusting One Hand Swords"]
+TWO_HAND = ["Two Hand Axes", "Two Hand Maces", "Two Hand Swords"]
+RELICS = ["Relics", "Large Relics", "Medium Relics", "Small Relics", "Sanctified Relics"]
 CLASS_MAP = {
+    "Abyss Jewel": ["Abyss Jewels"],
+    "Amulet": ["Amulets"],
     "Atlas Upgrade Item": ["Atlas Upgrade Items"],
-    "Flasks": ["Life Flasks", "Mana Flasks", "Hybrid Flasks", "Utility Flasks"],
+    "Belt": ["Belts"],
+    "Blueprint": ["Blueprints"],
+    "Body Armour": ["Body Armours"],
+    "Bow": ["Bows"],
+    "Breachstone": ["Breachstones"],
+    "Claw": ["Claws"],
+    "Contract": ["Contracts"],
+    "Dagger": ["Daggers"],
+    "Expedition Logbook": ["Expedition Logbooks"],
+    "Flask": FLASKS,
+    "Flasks": FLASKS,
     "Gems": ["Skill Gems", "Support Gems"],
+    "Heist Brooch": ["Heist Brooches"],
+    "Heist Cloak": ["Heist Cloaks"],
     "Heist Target": ["Heist Targets"],
+    "Heist Tool": ["Heist Tools"],
+    "Helmet": ["Helmets"],
+    "Idol": ["Idols"],
     "Incursion Item": ["Incursion Items"],
-    "Relic": ["Relics", "Large Relics", "Medium Relics", "Small Relics", "Sanctified Relics"],
+    "Jewel": ["Jewels"],
+    "Labyrinth Item": ["Labyrinth Items"],
+    "Labyrinth Map Item": ["Labyrinth Map Items"],
+    "Labyrinth Trinket": ["Labyrinth Trinkets"],
+    "Map Fragment": ["Map Fragments"],
+    "One Hand": ONE_HAND,
+    "Piece": ["Pieces"],
+    "Quiver": ["Quivers"],
+    "Relic": RELICS,
+    "Sceptre": ["Sceptres"],
+    "Sentinel Drone": ["Sentinels"],
+    "Shield": ["Shields"],
     "Skill Gem": ["Skill Gems"],
     "Support Gem": ["Support Gems"],
     "Tincture": ["Tinctures"],
     "Trinket": ["Trinkets"],
+    "Two Hand": TWO_HAND,
+    "Two Hand Axe": ["Two Hand Axes"],
     "Viscera": [],
+    "Wand": ["Wands"],
 }
 
 # 动作行：判断一个块还剩没剩「条件」
@@ -57,6 +93,9 @@ CONDITIONS = {
     "TransfiguredGem", "HasSearingExarchImplicit", "HasEaterOfWorldsImplicit",
     # 剑心那套用了这三个，3.29 客户端在跑（exe 字符串表里也有），别误判成未知：
     "HasImplicitMod", "HasCruciblePassiveTree", "Imbued",
+    # 文子那套的老条件：朔界 / 长老地图。客户端字符串表里 ShapedMap、ElderMap 紧挨着
+    # ItemLevel、Mirrored（同一张条件关键字表），说明 3.29 的解析器仍然认识，保留这些块。
+    "ShapedMap", "ElderMap",
 }
 KNOWN = ACTIONS | CONDITIONS
 
@@ -77,19 +116,17 @@ def load_client():
 
 def expand(token, names):
     """作者的「不完整名」当通配用；这里按 3.29 的真实物品名展开。None = 不是通配写法。
-    作者常把通配写成带空格的 `" Essence of "`、`"Contract: "`，所以先去掉首尾空格再比。"""
+    作者常把通配写成带空格的 `" Essence of "`、`" Charm"`、`"Contract: "`，所以先去掉首尾空格再比。"""
     key = token.strip()
+    # 地图类写的是短名（"Citadel" 想要 "Citadel Map"，而不是 "Citadel Bow"），精确拼出来最稳。
+    if key + " Map" in names:
+        return [key + " Map"]
     rules = [
         ("Astrolabe", lambda n: n.endswith(" Astrolabe")),
         ("of Rage", lambda n: n.endswith(" of Rage")),
         ("of Doubt", lambda n: n.endswith(" of Doubt")),
         ("Talisman", lambda n: n.endswith(" Talisman")),
         ("Awakened", lambda n: n.startswith("Awakened ")),
-        # 精华：3.29 的八个等级都叫「<等级> Essence of X」，只按前缀 "Essence of" 找会漏掉大多数，
-        # 所以按「含有」找（Whispering / Screaming / Deafening … Essence of Hatred 都算）。
-        ("Essence of", lambda n: "Essence of " in n),
-        ("Deafening Essence of", lambda n: n.startswith("Deafening Essence of ")),
-        ("Shrieking Essence of", lambda n: n.startswith("Shrieking Essence of ")),
         ("Omen of", lambda n: n.startswith("Omen of ")),
         ("Allflame Ember of", lambda n: n.startswith("Allflame Ember of ")),
         ("Ducat of", lambda n: n.startswith("Ducat of ")),
@@ -97,18 +134,50 @@ def expand(token, names):
         ("Enshrouding Crystal", lambda n: n.endswith(" Enshrouding Crystal")),
         ("Vaal", lambda n: n.startswith("Vaal ")),
         ("Coin", lambda n: n.startswith("Coin of ")),
-        # 一乐那套还用了这几种：契约按「Contract: …」开头，灵柩按「Perfect …」开头，
-        # 活动通货按「Stone of …」开头。
-        ("Contract:", lambda n: n.startswith("Contract:")),
+        ("Coin of", lambda n: n.startswith("Coin of ")),
+        ("Stone of", lambda n: n.startswith("Stone of ")),
+        ("Shard", lambda n: n.endswith(" Shard")),
+        # --- 文子那套（S30，老版写法）用的 ---
+        ("Breachstone", lambda n: n.endswith(" Breachstone")),
+        ("Flawless Breachstone", lambda n: n.endswith(" Flawless Breachstone")),
+        ("Charm", lambda n: n.endswith(" Charm")),
+        ("Emblem", lambda n: n.endswith(" Emblem")),
+        ("Idol", lambda n: n.endswith(" Idol")),
+        ("Tincture", lambda n: n.endswith(" Tincture")),
+        ("Wombgift", lambda n: n.endswith(" Wombgift")),
+        ("Recombinator", lambda n: n.endswith(" Recombinator")),
+        ("Apex Sentinel", lambda n: n.endswith(" Apex Sentinel")),
+        ("Pandemonium Sentinel", lambda n: n.endswith(" Pandemonium Sentinel")),
+        ("Stalker Sentinel", lambda n: n.endswith(" Stalker Sentinel")),
+        ("'s Exalted Orb", lambda n: n.endswith("'s Exalted Orb")),
+        ("Cartographer's Seal", lambda n: n.endswith("Cartographer's Seal")),
+        ("Maraketh Splinter", lambda n: n.endswith(" Maraketh Splinter")),
+        ("Scarab", lambda n: n.endswith(" Scarab")),
+        ("Contract", lambda n: n.startswith("Contract:")),
+        ("Lycia's Invocation", lambda n: n.startswith("Lycia's Invocation")),
+        ("Sacrifice at", lambda n: n.startswith("Sacrifice at ")),
+        ("Tattoo of", lambda n: n.startswith("Tattoo of ")),
+        ("Vial of", lambda n: n.startswith("Vial of ")),
+        ("Runegraft of", lambda n: n.startswith("Runegraft of ")),
+        # 精华：3.29 的八个等级都叫「<等级> Essence of X」，文子按等级各写一条，一乐只写 "Essence of"。
+        ("Essence of", lambda n: "Essence of " in n),
+        ("Deafening Essence of", lambda n: n.startswith("Deafening Essence of ")),
+        ("Shrieking Essence of", lambda n: n.startswith("Shrieking Essence of ")),
         ("Perfect", lambda n: n.startswith("Perfect ")),
         # 作者把 Imperfect 写成了 ImPerfect（3.29 里是 Imperfect Hydra 这种写法）。
         ("ImPerfect", lambda n: n.startswith("Imperfect ")),
-        ("Stone of", lambda n: n.startswith("Stone of ")),
-        ("Shard", lambda n: n.endswith(" Shard")),
     ]
     for rule, test in rules:
         if key == rule:
             return [n for n in names if test(n)]
+    # 按等级开头的精华（"Muttering Essence of" 之类）：命中就按前缀展开。
+    if "Essence of" in key:
+        return [n for n in names if n.startswith(key)]
+    # 名字被写断了（"Perfect Druidic Alchemis"）：只有唯一一个以它开头时才认。
+    if len(key) >= 10:
+        prefix = [n for n in names if n.lower().startswith(key.lower())]
+        if len(prefix) == 1:
+            return prefix
     # 大小写写错的名字（"large Cluster Jewel"）：3.29 里只有一种写法时按它改回来。
     folded = [n for n in names if n.lower() == key.lower()]
     if len(folded) == 1:

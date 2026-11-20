@@ -12,10 +12,11 @@
       "default": "jianxin",
       "options": [
         { "value": "jianxin", "label": "剑心（七档）" },
-        { "value": "yile", "label": "一乐（八档，小结巴音效）" }
+        { "value": "yile", "label": "一乐（八档，小结巴音效）" },
+        { "value": "wenzi", "label": "文子（六档，物价版）" }
       ],
       "label": "用哪一套过滤器",
-      "description": "两套都已换算成本服 3.29 的客户端数据。换一套后点 /lootfilter install 重新装一遍；另一套的文件留在客户端，进游戏也能自己切。"
+      "description": "三套都已换算成本服 3.29 的客户端数据。换一套后点 /lootfilter install 重新装一遍；另外两套的文件留在客户端，进游戏也能自己切。"
     },
     "profile": {
       "type": "choice",
@@ -26,10 +27,12 @@
         { "value": "campaign-caster", "label": "法系开荒（一乐）" },
         { "value": "mapping", "label": "异界（68-90）" },
         { "value": "mapping-late", "label": "异界后期（一乐 90-96）" },
+        { "value": "transition", "label": "过渡（文子 75-92）" },
         { "value": "advanced", "label": "进阶（剑心）" },
         { "value": "speed", "label": "速刷（90-96）" },
         { "value": "speed-late", "label": "速刷后期（一乐 96-100）" },
         { "value": "magic", "label": "打宝（96+ / 100）" },
+        { "value": "magic-plus", "label": "进阶打宝（文子 90-100）" },
         { "value": "ultimate", "label": "终极（剑心）" },
         { "value": "clean", "label": "纯净（剑心）" }
       ],
@@ -46,7 +49,7 @@
       "type": "bool",
       "default": true,
       "label": "同时安装音效",
-      "description": "过滤器里的提示音（剑心 231 个、一乐 250 个）。缺了不影响过滤，只是没有声音。"
+      "description": "过滤器里的提示音（剑心 231 个、一乐 250 个、文子 240 个）。缺了不影响过滤，只是没有声音。"
     },
     "filtersSource": {
       "type": "text",

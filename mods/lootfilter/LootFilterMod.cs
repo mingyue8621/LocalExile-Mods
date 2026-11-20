@@ -6,8 +6,8 @@ namespace LocalExile.Mods.LootFilter;
 
 /// <summary>
 /// 把「物品过滤器」装到客户端的过滤器目录（我的文档\My Games\Path of Exile），并在客户端配置
-/// production_Config.ini 里选中指定的那一档。自带两套：剑心（七档）与一乐（八档，小结巴音效），
-/// 设置里选一套；两套的 .filter 都已换算成 3.29 客户端数据（tools/adapt-lootfilter.py）。
+/// production_Config.ini 里选中指定的那一档。自带三套：剑心（七档）、一乐（八档，小结巴音效）、
+/// 文子（六档，物价版），设置里选一套；三套的 .filter 都已换算成 3.29 客户端数据（tools/adapt-lootfilter.py）。
 /// <para>过滤器是客户端资源，服务端只能替**同一台机器**上的客户端装好；要让其他玩家也拿到，
 /// 同样的文件得随客户端补丁或启动器分发（它们才在玩家的机器上跑）。</para>
 /// <para>游戏开着的时候不写配置：客户端退出时会把 ini 写回，改了就白改。每套的档位文件每次都补齐，
@@ -51,7 +51,19 @@ public sealed class LootFilterMod : IMod
         new("magic", ["打宝"]),
     ]);
 
-    static readonly FilterSet[] Sets = [Jianxin, Yile];
+    static readonly FilterSet Wenzi = new("wenzi", "文子", "wenzi", "文子过滤音效",
+    [
+        new("campaign", ["开荒"]),
+        new("mapping", ["异界"]),
+        new("transition", ["过渡"]),
+        new("speed", ["速刷"]),
+        // 「打宝」与「进阶打宝」两份都含「打宝」，按文件名排序前者在前，所以 magic 命中「打宝」那份，
+        // magic-plus 只认「进阶打宝」。
+        new("magic", ["打宝"]),
+        new("magic-plus", ["进阶打宝"]),
+    ]);
+
+    static readonly FilterSet[] Sets = [Jianxin, Yile, Wenzi];
 
     IModContext mod = null!;
     Options options = null!;
@@ -95,7 +107,11 @@ public sealed class LootFilterMod : IMod
             int filters = CopyFilters(target);
             int sounds = options.CopySounds ? CopySounds(target) : 0;
             string? selected = options.SelectInGame ? Select(target) : null;
-            return $"{filters} 个过滤文件、{sounds} 个音效已放到 {target}"
+            // 只报「这次新复制了几个」：都是 0 说明客户端里已经是最新的，不是没装上。
+            string work = filters + sounds == 0
+                ? "客户端里已是最新，这次没有复制文件"
+                : $"新复制 {filters} 个过滤文件、{sounds} 个音效";
+            return $"{work}；目录 {target}"
                 + (selected is null ? "；没有改动游戏里的选中项" : "；已选中 " + selected)
                 + $"（{why}）";
         }

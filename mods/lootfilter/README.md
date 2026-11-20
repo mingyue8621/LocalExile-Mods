@@ -1,28 +1,34 @@
 # 物品过滤器
 
-把物品过滤器装进客户端自己的过滤器目录，并选中你挑的那一档。自带两套，设置里选一套：
+把物品过滤器装进客户端自己的过滤器目录，并选中你挑的那一档。自带三套，设置里选一套：
 
 | 套 | 档位数 | 音效 | 说明 |
 | --- | --- | --- | --- |
 | `jianxin` 剑心 | 7 | 231 个（剑心原版） | 剑影流心 S31，剧情 / 异界 / 进阶 / 速刷 / 打宝 / 终极 / 纯净 |
 | `yile` 一乐 | 8 | 250 个（小结巴音效） | 一乐过滤 S31 正式版 V3.30.0，开荒（弓 / 法 / 近战）、异界、异界后期、速刷、速刷后期、打宝 |
+| `wenzi` 文子 | 6 | 240 个（文子原版） | 文子过滤 S30 V3.29.1 物价版（26.7.30 永火赛季），开荒 / 异界 / 过渡 / 速刷 / 打宝 / 进阶打宝 |
 
-两套互不影响：各自的 `.filter` 与音效目录分开存放（`filters/<套>/`、`sounds/<套>/`），装到客户端后
+三套互不影响：各自的 `.filter` 与音效目录分开存放（`filters/<套>/`、`sounds/<套>/`），装到客户端后
 也能在游戏里自由切换；换套只改设置，不用动文件。
 
 ## 已换算到 3.29
 
-两套的上游都是 S31、按 3.30 写的（物品类别和一些物品名都变了）。`filters/jianxin/` 与 `filters/yile/`
-里的副本都由 `tools/adapt-lootfilter.py` 换算成本服 `3.29.3c` 的客户端数据：
+`filters/<套>/` 里的副本都由 `tools/adapt-lootfilter.py` 换算成本服 `3.29.3c` 的客户端数据：
 
-- 每个 `Class` 都映射到 3.29 `ItemClasses` 里真实存在的名字（`Flasks` → `Life/Mana/Hybrid/Utility Flasks`、
-  `Support Gem` → `Support Gems`、`Skill Gem` → `Skill Gems`、`Trinket` → `Trinkets`，3.30 才有的 `Viscera` 丢掉）；
-- 作者用的「通配」写法展开成 3.29 里真实存在的物品名，让那些块真的能匹配到东西。一乐那套里用到的有：
+- 每个 `Class` 都映射到 3.29 `ItemClasses` 里真实存在的名字。剑心 / 一乐是 3.30 写法（`Flasks` →
+  `Life/Mana/Hybrid/Utility/Critical Utility Flasks`、`Support Gem` → `Support Gems`、`Trinket` → `Trinkets`，
+  3.30 才有的 `Viscera` 丢掉）；文子用的是更老的单数写法（`Amulet` / `Belt` / `Bow` / `Jewel` / `One Hand` /
+  `Two Hand Axe` / `Sentinel Drone` …），一律换成 3.29 的复数类名；
+- 作者用的「通配」写法展开成 3.29 里真实存在的物品名，让那些块真的能匹配到东西。比如一乐那套的
   `" Essence of "` → 105 个精华名、`"Contract: "` → 37 个契约、`"Vaal "` → 91 个、`"Perfect "` / `"ImPerfect "`
-  → 38 / 39 个灵柩、`"Coin"` → 5 个、`"Shard"` → 15 个、`"Stone of"` → 1 个，以及写错大小写的
-  `"large Cluster Jewel"` → `Large Cluster Jewel`；
+  → 38 / 39 个灵柩、`"Coin"` → 5 个、`"Shard"` → 15 个、`"Stone of"` → 1 个；文子那套的 `" Talisman"` → 78 个、
+  `"Scarab"` → 86 个、`"Tattoo of "` → 60 个、`"Allflame Ember of "` → 71 个、`"Sacrifice at"` → 8 个，
+  地图短名（`"Citadel"` / `"Courtyard"` / `"Ziggurat"` …）按 `"<名字> Map"` 精确展开；
 - 3.29 里根本不存在的名字（丝线、灵魂核心、菌丝核心、皇家面甲、3.30 新星盘等）删掉；一个块被删空了
-  就整块移除，否则剩下那个光秃秃的 `Class` 会把这一类的物品全部高亮。
+  就整块移除，否则剩下那个光秃秃的 `Class` 会把这一类的物品全部高亮；
+- 客户端不认识的条件会让**整份**过滤器读取失败（一乐那套曾因 3.30 的 `Fated` 报「规则类型 Fated 未知」），
+  所以脚本带一张 3.29 条件关键字表，表外的块整块剔除。`Fated` 就是这样被清掉的；`ShapedMap` / `ElderMap` /
+  `IsVaalUnique` 等老条件在客户端条件表里仍在，保留。
 
 换算后**没有一个** `Class` / `BaseType` 名在 3.29 客户端里查不到（每套每档都逐行校验过）。
 
@@ -30,12 +36,12 @@
 
 流放之路从 `文档\My Games\Path of Exile\` 读取 `.filter` 文件（客户端自己也把 `production_Config.ini`
 放在这个文件夹）。音效放在过滤器旁边的子目录里，目录名由过滤器自己决定：剑心是 `剑心音效`，
-一乐是 `音效`（`.filter` 里的 `CustomAlertSound "音效\xxx.mp3"` 就是这个相对路径）。
+一乐是 `音效`，文子是 `文子过滤音效`（`.filter` 里的 `CustomAlertSound "音效\xxx.mp3"` 就是这个相对路径）。
 
 加载时模组会：
 
 1. 把当前这套的 `.filter` 全部复制进那个目录（只复制大小不一样的，免得每次启动都重写这几 MB）；
-2. 从模组自带的 `sounds/<套>/` 补齐音效（剑心 231 个 13 MB、一乐 250 个 12 MB，只补缺的）；
+2. 从模组自带的 `sounds/<套>/` 补齐音效（剑心 231 个 13 MB、一乐 250 个 12 MB、文子 240 个 12 MB，只补缺的）；
 3. 游戏没在运行时，把 `production_Config.ini` 里的 `item_filter=` 改写成你选的那一档，
    改之前留一份一次性备份 `production_Config.ini.before-lootfilter`。
 
@@ -43,21 +49,23 @@
 
 ## 档位
 
-设置里的 `profile` 是通用的键，两套各自映射到自己的文件；某一套没有这一档时按「异界」处理。
+设置里的 `profile` 是通用的键，每套各自映射到自己的文件；某一套没有这一档时按「异界」处理。
 
-| 键 | 剑心 | 一乐 |
-| --- | --- | --- |
-| `campaign` | 剑心过滤[1].剧情.filter | 一乐过滤[lv1-68]近战开荒.filter |
-| `campaign-bow` | —（按异界） | 一乐过滤[lv1-68]弓系开荒.filter |
-| `campaign-caster` | —（按异界） | 一乐过滤[lv1-68]法系开荒.filter |
-| `mapping` | 剑心过滤[2].异界.filter | 一乐过滤[lv68-90]异界.filter |
-| `mapping-late` | —（按异界） | 一乐过滤[lv90-96]异界后期.filter |
-| `advanced` | 剑心过滤[3].进阶.filter | —（按异界） |
-| `speed` | 剑心过滤[4].速刷.filter | 一乐过滤[lv90-96]速刷.filter |
-| `speed-late` | —（按异界） | 一乐过滤[lv96-100]速刷后期.filter |
-| `magic` | 剑心过滤[5].打宝.filter | 一乐过滤[lv100]打宝.filter |
-| `ultimate` | 剑心过滤[6].终极.filter | —（按异界） |
-| `clean` | 剑心过滤[7].纯净.filter | —（按异界） |
+| 键 | 剑心 | 一乐 | 文子 |
+| --- | --- | --- | --- |
+| `campaign` | 剑心过滤[1].剧情 | 一乐过滤[lv1-68]近战开荒 | 文子 开荒（1-70） |
+| `campaign-bow` | —（按异界） | 一乐过滤[lv1-68]弓系开荒 | —（按异界） |
+| `campaign-caster` | —（按异界） | 一乐过滤[lv1-68]法系开荒 | —（按异界） |
+| `mapping` | 剑心过滤[2].异界 | 一乐过滤[lv68-90]异界 | 文子 异界（60-80） |
+| `mapping-late` | —（按异界） | 一乐过滤[lv90-96]异界后期 | —（按异界） |
+| `transition` | —（按异界） | —（按异界） | 文子 过渡（75-92） |
+| `advanced` | 剑心过滤[3].进阶 | —（按异界） | —（按异界） |
+| `speed` | 剑心过滤[4].速刷 | 一乐过滤[lv90-96]速刷 | 文子 速刷（80-96） |
+| `speed-late` | —（按异界） | 一乐过滤[lv96-100]速刷后期 | —（按异界） |
+| `magic` | 剑心过滤[5].打宝 | 一乐过滤[lv100]打宝 | 文子 打宝（90-100） |
+| `magic-plus` | —（按异界） | —（按异界） | 文子 进阶打宝（90-100） |
+| `ultimate` | 剑心过滤[6].终极 | —（按异界） | —（按异界） |
+| `clean` | 剑心过滤[7].纯净 | —（按异界） | —（按异界） |
 
 一套的档位都会装进去，设置只决定选中哪一套。进了游戏可以在 选项 → 游戏 → 物品过滤器 里自己换。
 
@@ -66,7 +74,7 @@
 | 键 | 含义 |
 | --- | --- |
 | `enabled` | 关掉就不动客户端。 |
-| `filterSet` | 用哪一套：`jianxin`（剑心）或 `yile`（一乐）。换套后 `/lootfilter install` 重新装一遍。 |
+| `filterSet` | 用哪一套：`jianxin`（剑心）、`yile`（一乐）或 `wenzi`（文子）。换套后 `/lootfilter install` 重新装一遍。 |
 | `profile` | 选中哪一档（见上表）。 |
 | `selectInGame` | 是否改写客户端的 `item_filter`（关掉只装文件，不改选中）。 |
 | `copySounds` | 是否连提示音一起装。 |
@@ -81,3 +89,6 @@
 把新包解压到任意目录，用 `tools/adapt-lootfilter.py <源目录> <目标目录> [原作者注释行]` 换算出 3.29 口径，
 再把目标目录里的 `.filter` 放进 `filters/<套>/`；文件名里保留原有的档位关键词（如「异界」「速刷」「打宝」），
 档位就还能自动认出来。也可以不改模组、直接把设置里的 `filtersSource` 指到新目录。
+
+报告里会列出：Class 修正多少处、哪些通配展开成多少个名字、哪些名字被删、哪些块整块删掉、
+有没有「未知条件块」（有就说明这份过滤器不兼容当前客户端，得先补规则）。
