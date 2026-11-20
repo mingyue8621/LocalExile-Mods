@@ -33,11 +33,32 @@ CLASS_MAP = {
 
 # 动作行：判断一个块还剩没剩「条件」
 ACTIONS = {
+    "Show", "Hide",
     "SetTextColor", "SetBorderColor", "SetBackgroundColor", "SetFontSize",
     "MinimapIcon", "PlayEffect", "PlayEffectColor",
     "CustomAlertSound", "CustomAlertSoundOptional",
     "DisableDropSound", "EnableDropSound", "Continue",
 }
+
+# 3.29 客户端认识的块内条件关键字。不在这张表里的一律当「这个版本没有的条件」，
+# 整块删掉——只删那一行会把条件放宽成「匹配所有物品」，比删块更糟。
+# 依据：报错前能跑通的关键字 + 逐个在客户端 exe 的字符串表里核过。
+# 已知 3.30 才有的：Fated（命运机制）。3.29 没有命运物品，这个块本来也匹配不到东西。
+CONDITIONS = {
+    "ItemLevel", "DropLevel", "Quality", "Rarity", "Class", "BaseType", "SocketGroup",
+    "Sockets", "LinkedSockets", "Width", "Height", "StackSize",
+    "AreaLevel", "GemLevel", "MapTier", "HasExplicitMod", "AnyEnchantment", "HasEnchantment",
+    "Corrupted", "Mirrored", "Identified", "CorruptedMods",
+    "ElderItem", "ShaperItem", "CrusaderItem", "RedeemerItem", "HunterItem", "WarlordItem",
+    "SynthesisedItem", "FracturedItem", "HasInfluence", "Scourged", "Replica", "AlternateQuality",
+    "BlightedMap", "UberBlightedMap", "MirageMap", "ZanaMemory", "Foulborn", "Vestigial",
+    "BaseDefencePercentile", "BaseArmour", "BaseEnergyShield", "BaseEvasion", "BaseWard",
+    "MemoryStrands", "UnidentifiedItemTier", "EnchantmentPassiveNum", "EnchantmentPassiveNode",
+    "TransfiguredGem", "HasSearingExarchImplicit", "HasEaterOfWorldsImplicit",
+    # 剑心那套用了这三个，3.29 客户端在跑（exe 字符串表里也有），别误判成未知：
+    "HasImplicitMod", "HasCruciblePassiveTree", "Imbued",
+}
+KNOWN = ACTIONS | CONDITIONS
 
 HEADER = [
     "# 由 lootfilter 模组按 3.29 客户端数据适配（Class 名、通配展开、3.30 新物品剔除）。",
@@ -174,6 +195,19 @@ def adapt(path, target, names, classes, report):
     else:
         output += HEADER + [AUTHOR, ""]
     for show, body in parts[1:]:
+        # 客户端遇到不认识的块内关键字会直接判「读取物品过滤失败」，整个过滤器都用不了，
+        # 所以这种块必须整块删掉（删单行会把条件放宽成匹配全部物品）。
+        unknown = []
+        for line in body:
+            text = line.strip()
+            if not text or text.startswith("#"):
+                continue
+            head = text.split()[0]
+            if head not in KNOWN and head not in unknown:
+                unknown.append(head)
+        if unknown:
+            report["blocks_unknown"].append((show.strip(), unknown))
+            continue
         new_body, dropped_by_value = [], False
         # 原块是不是按「具体物品」写的：是的话，物品名被删空就意味着这一块没意义了，
         # 剩下的 Class 会变成「匹配所有该类物品」，把整类都染成同一颜色。
@@ -203,27 +237,31 @@ def main():
     names, classes = load_client()
     os.makedirs(dst, exist_ok=True)
     totals = {"files": 0, "class_fixed": 0, "class_dropped": [], "item_dropped": [],
-              "expanded": {}, "blocks_dropped": []}
+              "expanded": {}, "blocks_dropped": [], "blocks_unknown": []}
     for name in sorted(os.listdir(src)):
         if not name.endswith(".filter"):
             continue
         report = {"class_fixed": 0, "class_dropped": [], "item_dropped": [],
-                  "expanded": {}, "blocks_dropped": []}
+                  "expanded": {}, "blocks_dropped": [], "blocks_unknown": []}
         adapt(os.path.join(src, name), os.path.join(dst, name), names, classes, report)
         totals["files"] += 1
         totals["class_fixed"] += report["class_fixed"]
         for key in ("class_dropped", "item_dropped", "blocks_dropped"):
             totals[key] += report[key]
+        totals["blocks_unknown"] += report["blocks_unknown"]
         for key, value in report["expanded"].items():
             totals["expanded"].setdefault(key, value)
         print(f"{name}: Class 修正 {report['class_fixed']} 处，"
               f"物品名展开 {len(report['expanded'])} 种，删名字 {len(report['item_dropped'])} 个，"
-              f"删整块 {len(report['blocks_dropped'])} 个")
+              f"删整块 {len(report['blocks_dropped'])} 个，"
+              f"未知条件块 {len(report['blocks_unknown'])} 个")
     print("\n合计:", totals["files"], "个文件")
     print("  Class 修正:", totals["class_fixed"])
     print("  展开:", totals["expanded"])
     print("  删掉的物品名:", sorted(set(totals["item_dropped"])))
     print("  删掉的块:", sorted(set(totals["blocks_dropped"])))
+    for show, keys in totals["blocks_unknown"]:
+        print(f"  未知条件块（{','.join(keys)}）: {show}")
 
 
 if __name__ == "__main__":

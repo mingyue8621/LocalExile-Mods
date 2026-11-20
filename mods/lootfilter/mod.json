@@ -1,9 +1,9 @@
 {
   "id": "lootfilter",
   "name": "物品过滤器",
-  "description": "自带剑心（七档）与一乐（八档，小结巴音效）两套物品过滤器，都已换算成本服 3.29 的客户端数据，按你选的档位在客户端里选中。",
+  "description": "自带剑心（七档）与一乐（八档，小结巴音效）两套物品过滤器，都已换算成本服 3.29 的客户端数据（一乐那套的 3.30 专属「Fated 命运装备」条件块已剔除），按你选的档位在客户端里选中。",
   "author": "mingyue8621",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "compatibleClientVersions": ["0.5.1-beta", "0.5.2-beta"],
   "kind": "feature",
   "depends": []

@@ -7545,26 +7545,6 @@ Show # 装备 - 优先判断的常规装备 - 混沌石配方 - 腰带
     SetFontSize 34
     DisableDropSound 
 
-Show # 装备 - 命运装备 - 特定基底
-    Corrupted False
-    Fated True
-    ItemLevel >= 1
-    UnidentifiedItemTier >= 2
-    BaseType "Giantslayer Helmet" "Majestic Pelt" "Lich's Circlet" "Haunted Bascinet" "Divine Crown" "Torturer's Mask" "Royal Plate" "Syndicate's Garb" "Twilight Regalia" "Conquest Lamellar" "Sacred Chainmail" "Necrotic Armour" "Leviathan Gauntlets" "Velour Gloves" "Warlock Gloves" "Wyvernscale Gauntlets" "Paladin Gloves" "Phantom Mitts" "Leviathan Greaves" "Velour Boots" "Warlock Boots" "Wyvernscale Boots" "Paladin Boots" "Phantom Boots" "Spine Bow" "Amethyst Ring" "Convoking Wand" "Convening Wand" "Bone Ring" "Kinetic Wand" "Titanium Spirit Shield" "Fugitive Boots" "Bone Helmet" "Pearlescent Amulet" "Prophecy Wand" "Vermillion Ring" "Apothecary's Gloves" "Fingerless Silk Gloves" "Spiked Gloves" "Gripped Gloves" "Two-Toned Boots" "Simplex Amulet" "Focused Amulet" "Cerulean Ring" "Steel Ring" "Opal Ring" "Artillery Quiver" "Blue Pearl Amulet" "Astrolabe Amulet" "Manifold Ring" "Helical Ring" "Cogwork Ring" "Geodesic Ring" "Composite Ring" "Ratcheting Ring" "Crystal Belt" "Cord Belt" "Stygian Vise" "Vanguard Belt" "Seaglass Amulet"
-    SetBorderColor 58 230 204 
-    SetFontSize 36
-    DisableDropSound 
-
-Show # 装备 - 命运装备 - 全部
-    Corrupted False
-    Fated True
-    ItemLevel >= 1
-    UnidentifiedItemTier >= 3
-    Class "Amulets" "Rings" "Belts" "Gloves" "Boots" "Helmets" "Body Armours" "Quivers" "Claws" "Daggers" "Rune Daggers" "Wands" "One Hand Axes" "One Hand Maces" "One Hand Swords" "Thrusting One Hand Swords" "Sceptres" "Staves" "Warstaves" "Bows" "Two Hand Axes" "Two Hand Maces" "Two Hand Swords" "Shields"
-    SetBorderColor 58 230 204 
-    SetFontSize 36
-    DisableDropSound 
-
 Show # 装备 - 常规装备 - 黄装 - 武器 - 阶级5
     Corrupted False
     ItemLevel >= 1
