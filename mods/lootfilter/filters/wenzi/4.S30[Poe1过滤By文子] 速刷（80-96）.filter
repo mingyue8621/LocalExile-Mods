@@ -3431,7 +3431,7 @@ Show # 通货 - 起源之礼 - 高价起源之礼(S28)
 
 Show # 通货 - 起源之礼 - 全部起源之礼(S28)
     Class "Wombgifts"
-    BaseType "Provisioning Wombgift" "Lavish Wombgift" "Ancient Wombgift" "Growing Wombgift" "Mysterious Wombgift"
+    BaseType "Provisioning Wombgift" "Lavish Wombgift" "Ancient Wombgift" "Mysterious Wombgift"
     SetTextColor 189 189 0 #古灵色
     SetBackgroundColor 70 28 66 #古灵色
     SetBorderColor 241 148 180 #古灵色

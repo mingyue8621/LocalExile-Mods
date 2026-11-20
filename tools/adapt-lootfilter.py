@@ -108,10 +108,26 @@ AUTHOR = "# 原作者：剑影流心  https://www.jxpoe.cn   —— 内容未改
 
 
 def load_client():
+    """返回 (客户端认得的基础类型名, 类名集合, 已退役物品名)。
+
+    客户端解析过滤器时是按「物品类 + 物品名」查表的：BaseItemTypes 里挂在**空类**下面的物品
+    （ItemClasses.Name 为空，比如 RemovedItem）客户端根本认不出来，写进过滤就报
+    「行 N: 规则 BaseType 无法解析的参数: 未找到匹配 X 的基础类型」，整个过滤器都用不了。
+    实例：Growing Wombgift 的 ItemClassesKey 指向 RemovedItem，而同组的另外四个 Wombgift
+    挂在 Wombgifts 类下——所以只删这一个名字，别把整组都删了。
+    """
     db = sqlite3.connect(DB)
-    names = [r[0] for r in db.execute("select Name from BaseItemTypes") if r and r[0]]
-    classes = {r[0] for r in db.execute("select Name from ItemClasses") if r and r[0]}
-    return names, classes
+    class_names = {r[0]: (r[1] or "") for r in db.execute("select _row, Name from ItemClasses")}
+    classes = {name.strip() for name in class_names.values() if name.strip()}
+    names, retired = [], set()
+    for name, class_row in db.execute("select Name, ItemClassesKey from BaseItemTypes"):
+        if not name:
+            continue
+        if class_names.get(class_row, "").strip():
+            names.append(name)
+        else:
+            retired.add(name)
+    return names, classes, retired
 
 
 def expand(token, names):
@@ -185,7 +201,7 @@ def expand(token, names):
     return None
 
 
-def rewrite_line(line, names, classes, report):
+def rewrite_line(line, names, classes, retired, report):
     """一行 Class / BaseType 的改写；返回新行（可能为 None = 这一行没条件了）。"""
     match = re.match(r"^(\s*)(Class|BaseType)\s+(.+?)\s*$", line)
     if not match:
@@ -209,6 +225,10 @@ def rewrite_line(line, names, classes, report):
         # BaseType：先按真名（去首尾空格）认，认不出才当通配展开——否则每个真名都会被「大小写还原」
         # 当成一次展开，报告里看不出哪些才是真的通配。
         stripped = value.strip()
+        if stripped in retired:
+            # 客户端认不出来的退役物品：留着会让整个过滤器读不出来。
+            report["item_retired"].append(stripped)
+            continue
         if stripped in names:
             out.append(stripped)
             continue
@@ -252,7 +272,7 @@ def conditions(body):
     return False
 
 
-def adapt(path, target, names, classes, report):
+def adapt(path, target, names, classes, retired, report):
     text = open(path, encoding="utf-8").read().replace("\r\n", "\n")
     lines = text.split("\n")
     parts = blocks(lines)
@@ -283,7 +303,7 @@ def adapt(path, target, names, classes, report):
         had_items = any(re.match(r"^\s*BaseType\b", line) for line in body)
         kept_items = False
         for line in body:
-            new = rewrite_line(line, names, classes, report)
+            new = rewrite_line(line, names, classes, retired, report)
             if new is None:
                 dropped_by_value = True
                 continue
@@ -296,6 +316,26 @@ def adapt(path, target, names, classes, report):
         output.append(show)
         output += new_body
     open(target, "w", encoding="utf-8", newline="\r\n").write("\n".join(output))
+    verify(target, names, classes)
+
+
+def verify(target, names, classes):
+    """把写出去的文件再读回来核一遍：客户端解析不了的名字一个都不许留，
+    否则进游戏就是「读取物品过滤失败」，整份过滤器都用不了。"""
+    name_set, class_set = set(names), set(classes)
+    bad_items, bad_classes = [], []
+    for line in open(target, encoding="utf-8"):
+        match = re.match(r"^\s*(Class|BaseType)\s+(.+?)\s*$", line)
+        if not match:
+            continue
+        values = re.findall(r'"([^"]*)"', match.group(2))
+        if match.group(1) == "Class":
+            bad_classes += [v for v in values if v not in class_set]
+        else:
+            bad_items += [v for v in values if v not in name_set]
+    if bad_items or bad_classes:
+        raise SystemExit(f"{os.path.basename(target)}: 还有客户端认不出的名字 "
+                         f"Class={sorted(set(bad_classes))[:5]} BaseType={sorted(set(bad_items))[:5]}")
 
 
 def main():
@@ -303,31 +343,37 @@ def main():
     src, dst = sys.argv[1], sys.argv[2]
     if len(sys.argv) > 3:
         AUTHOR = sys.argv[3]
-    names, classes = load_client()
+    names, classes, retired = load_client()
+    if retired:
+        print(f"客户端认不出来的退役物品 {len(retired)} 个（挂在空类下），写进过滤器会报「无法解析的参数」：")
+        print("  " + "、".join(sorted(retired)))
+        print()
     os.makedirs(dst, exist_ok=True)
     totals = {"files": 0, "class_fixed": 0, "class_dropped": [], "item_dropped": [],
-              "expanded": {}, "blocks_dropped": [], "blocks_unknown": []}
+              "item_retired": [], "expanded": {}, "blocks_dropped": [], "blocks_unknown": []}
     for name in sorted(os.listdir(src)):
         if not name.endswith(".filter"):
             continue
-        report = {"class_fixed": 0, "class_dropped": [], "item_dropped": [],
+        report = {"class_fixed": 0, "class_dropped": [], "item_dropped": [], "item_retired": [],
                   "expanded": {}, "blocks_dropped": [], "blocks_unknown": []}
-        adapt(os.path.join(src, name), os.path.join(dst, name), names, classes, report)
+        adapt(os.path.join(src, name), os.path.join(dst, name), names, classes, retired, report)
         totals["files"] += 1
         totals["class_fixed"] += report["class_fixed"]
-        for key in ("class_dropped", "item_dropped", "blocks_dropped"):
+        for key in ("class_dropped", "item_dropped", "item_retired", "blocks_dropped"):
             totals[key] += report[key]
         totals["blocks_unknown"] += report["blocks_unknown"]
         for key, value in report["expanded"].items():
             totals["expanded"].setdefault(key, value)
         print(f"{name}: Class 修正 {report['class_fixed']} 处，"
               f"物品名展开 {len(report['expanded'])} 种，删名字 {len(report['item_dropped'])} 个，"
+              f"删退役物品 {len(report['item_retired'])} 个，"
               f"删整块 {len(report['blocks_dropped'])} 个，"
               f"未知条件块 {len(report['blocks_unknown'])} 个")
     print("\n合计:", totals["files"], "个文件")
     print("  Class 修正:", totals["class_fixed"])
     print("  展开:", totals["expanded"])
     print("  删掉的物品名:", sorted(set(totals["item_dropped"])))
+    print("  删掉的退役物品:", sorted(set(totals["item_retired"])))
     print("  删掉的块:", sorted(set(totals["blocks_dropped"])))
     for show, keys in totals["blocks_unknown"]:
         print(f"  未知条件块（{','.join(keys)}）: {show}")
