@@ -21,8 +21,9 @@ import sys
 
 DB = r"G:/POE1.1/data/client.db"
 
-DEAD_CLASS_NAMES = {"Hidden Items", "Instance Local Items"}
-SUSPECT_CLASS_NAMES = {"Microtransactions", "Hideout Doodads", "Archnemesis Mods"}
+DEAD_CLASS_NAMES = {"Hidden Items", "Instance Local Items", "Hideout Doodads",
+                    "Microtransactions", "Archnemesis Mods"}
+SUSPECT_CLASS_NAMES = set()
 
 
 def load_client():

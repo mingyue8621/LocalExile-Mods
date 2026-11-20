@@ -116,9 +116,12 @@ AUTHOR = "# 原作者：剑影流心  https://www.jxpoe.cn   —— 内容未改
 # 佐证：文子「全部雕像」块里写了 6 个 Random XXX Idol，报
 # 「行 3512: 未找到匹配 Random Minor Idol 的基础类型」。
 # 这些物品在 client.db 的 BaseItemTypes 里是**存在**的，光看名字查得到不算数，得看类。
-DEAD_CLASS_NAMES = {"Hidden Items", "Instance Local Items"}
-# 同样不会出现在物品栏、但暂时没证据说客户端不认的类：命中只提示，不删。
-SUSPECT_CLASS_NAMES = {"Microtransactions", "Hideout Doodads", "Archnemesis Mods"}
+DEAD_CLASS_NAMES = {"Hidden Items", "Instance Local Items", "Hideout Doodads",
+                    "Microtransactions", "Archnemesis Mods"}
+# 这几个类同样不进过滤器，但过滤器里写它们也没意义，一并当「客户端不认」处理最省事。
+# 反过来，Small/Medium/Large Relics、Shards、Shard Hearts、Cursed Ducat、Enshrouded Items、
+# Chart、Corpses 这些类名正常的都有过滤器在用，客户端能解析，别误删。
+SUSPECT_CLASS_NAMES = set()
 
 
 def load_client():

@@ -30,7 +30,9 @@
   挂在**空类**（`RemovedItem` / `GhostItem` / `DONOTUSE*` / `GiftBox` / `Unarmed`）、**`Hidden Items`**
   或 **`Instance Local Items`** 类下的物品都不在表里，写进过滤器就报
   「行 N: 规则 BaseType 无法解析的参数: 未找到匹配 X 的基础类型」，整份过滤器都用不了。
-  这三类正好是「直接继承 `Metadata/Items/Item`、没有专用基类」的 96 个占位物品的全部归宿（56 + 22 + 18）。
+  这三类正好是「直接继承 `Metadata/Items/Item`、没有专用基类」的 96 个占位物品的全部归宿（56 + 22 + 18）；
+  黑名单里还顺手加了 `Hideout Doodads`、`Microtransactions`、`Archnemesis Mods`（同样进不了过滤器，
+  写它们没意义）。
   两个实例：`Growing Wombgift` 挂在 `RemovedItem` 下（同组另外四个 Wombgift 挂在 `Wombgifts` 下，是好的）；
   `Random Minor Idol` 挂在 `Hidden Items` 下（同块其他 Idol 挂在 `Idols` 下，也是好的）——
   所以只剔坏的那几个，别把整组都删了；
