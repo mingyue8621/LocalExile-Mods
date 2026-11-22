@@ -455,16 +455,19 @@ public sealed class ExcitingItemsMod : IMod, IDisposable
             watch.Next = end;
             foreach (var (id, lying) in fresh)
             {
-                // An item a player put down was a drop once already: dropping it again must not roll it again.
-                if (watch.Ours.Remove(id) || lying.PlayerDropped
+                // An item a player put down was a drop once already: dropping it again must not roll it again. An item
+                // only one player sees (a quest item, the start weapon) is left alone too.
+                if (watch.Ours.Remove(id) || lying.PlayerDropped || !ground.Origin(id).Shared
                     || lying.Item.Rarity is not (ItemRarity.Magic or ItemRarity.Rare or ItemRarity.Unique)) continue;
                 var forced = Volatile.Read(ref _forced) is { } f && ReferenceEquals(f.For, conn) ? f : null;
                 var log = new List<string>();
                 if (Excite(conn, lying.Item, Random.Shared, forced, out string effects, log) is not { } changed) continue;
-                var (by, shared) = ground.Origin(id);
                 // Only one caller gets the item, so a pickup in the same moment cannot duplicate it.
                 if (ground.Take(id, lying) is null) continue;
-                watch.Ours.Add(ground.Add(lying with { Item = changed }, by, shared));
+                // Put down by no one, as DepravedTrinity moves a shared item: the ground sync sends an item to every
+                // client but the one that put it down (that one was sent it where it dropped), so keeping the dropper
+                // here left the new item unsent to the player who killed the monster until they entered the area again.
+                watch.Ours.Add(ground.Add(lying with { Item = changed }, null, shared: true));
                 if (forced is not null) Interlocked.CompareExchange(ref _forced, null, forced);
                 string name = Game.ItemsFor(conn).ByHash(changed.TypeHash)?.Name ?? "item";
                 found.Add($"{changed.Rarity} {name} with {effects}");
