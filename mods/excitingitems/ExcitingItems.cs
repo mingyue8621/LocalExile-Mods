@@ -85,7 +85,7 @@ public sealed class ExcitingItemsMod : IMod, IDisposable
         catch (Exception e) { mod.Log($"loot filters not updated: {e.Message}"); }
         GameEvents.Tick.Add(id, (conn, _) => Scan(conn));
         GameEvents.Command(id, "exciting",
-            "/exciting (Exciting Items: the chances) | /exciting next implicit [1-3] | empowered | extra | all (the next magic, rare or unique drop gets it)",
+            "/exciting（惊喜物品：查看概率）| /exciting next implicit [1-3] | empowered | extra | all（让下一件魔法/稀有/传奇掉落带上它）",
             async (conn, args) =>
             {
                 var player = Program.PlayerOf(conn);
@@ -101,14 +101,14 @@ public sealed class ExcitingItemsMod : IMod, IDisposable
                         _ => new Forced(count, true, true, conn),
                     };
                     Volatile.Write(ref _forced, forced);
-                    await player.Tell($"Exciting Items: your next magic, rare or unique drop gets {Effects(forced.Implicits, forced.Empowered, forced.Extra)}.");
+                    await player.Tell($"惊喜物品：你下一件魔法、稀有或传奇掉落会带上{Effects(forced.Implicits, forced.Empowered, forced.Extra)}。");
                     return;
                 }
                 var c = _choices;
                 int known = Pool(Game.ItemsFor(conn), Game.UniquesFor(conn), Game.DropsFor(conn)).Count;
-                await player.Tell($"Exciting Items: unique implicits 1 in {c.Implicits.Chance} / {c.Implicits.ChanceTwo} / {c.Implicits.ChanceThree} " +
-                    $"({c.Implicits.Mode}, {known} modifiers known); empowered 1 in {c.Empowered.Chance} (+{Low(c)}-{High(c)}%); " +
-                    $"extra fractured modifier 1 in {c.ExtraModifier.Chance}. /exciting next implicit|empowered|extra|all forces one.");
+                await player.Tell($"惊喜物品：传奇固定词缀 1 / {c.Implicits.Chance} / {c.Implicits.ChanceTwo} / {c.Implicits.ChanceThree} " +
+                    $"（{ModeText(c.Implicits.Mode)}，已知 {known} 条词缀）；强化词缀 1 / {c.Empowered.Chance}（+{Low(c)}-{High(c)}%）；" +
+                    $"额外破碎词缀 1 / {c.ExtraModifier.Chance}。/exciting next implicit|empowered|extra|all 可强制下一件。");
             });
     }
 
@@ -122,11 +122,27 @@ public sealed class ExcitingItemsMod : IMod, IDisposable
     static int Low(Choices c) => Math.Max(1, c.Empowered.Percent.ElementAtOrDefault(0));
     static int High(Choices c) => Math.Max(Low(c), c.Empowered.Percent.ElementAtOrDefault(1));
 
-    static string Effects(int implicits, bool empowered, bool extra) => string.Join(", ", new[]
+    static string ModeText(string mode) => mode.ToLowerInvariant() switch
     {
-        implicits > 0 ? (implicits == 1 ? "a unique implicit" : $"{implicits} unique implicits") : null,
-        empowered ? "an empowered modifier" : null,
-        extra ? "an extra fractured modifier" : null,
+        "wild" => "狂野",
+        "sanity" => "合理",
+        "thematic" => "主题",
+        _ => mode,
+    };
+
+    static string RarityText(ItemRarity rarity) => rarity switch
+    {
+        ItemRarity.Magic => "魔法",
+        ItemRarity.Rare => "稀有",
+        ItemRarity.Unique => "传奇",
+        _ => rarity.ToString(),
+    };
+
+    static string Effects(int implicits, bool empowered, bool extra) => string.Join("、", new[]
+    {
+        implicits > 0 ? (implicits == 1 ? "一条传奇固定词缀" : $"{implicits} 条传奇固定词缀") : null,
+        empowered ? "一条强化词缀" : null,
+        extra ? "一条额外破碎词缀" : null,
     }.Where(s => s is not null));
 
     static bool Takes(string[] rarities, ItemRarity rarity) => rarities.Contains(rarity.ToString(), StringComparer.OrdinalIgnoreCase);
@@ -470,12 +486,12 @@ public sealed class ExcitingItemsMod : IMod, IDisposable
                 watch.Ours.Add(ground.Add(lying with { Item = changed }, null, shared: true));
                 if (forced is not null) Interlocked.CompareExchange(ref _forced, null, forced);
                 string name = Game.ItemsFor(conn).ByHash(changed.TypeHash)?.Name ?? "item";
-                found.Add($"{changed.Rarity} {name} with {effects}");
+                found.Add($"{RarityText(changed.Rarity)} {name}，带 {effects}");
                 _log($"{changed.Rarity} {name} at ({lying.GridX}, {lying.GridY}): {string.Join("; ", log)}");
             }
         }
         if (!_choices.Announce) return;
-        foreach (string text in found) await Program.PlayerOf(conn).Tell("* Exciting item dropped: " + text);
+        foreach (string text in found) await Program.PlayerOf(conn).Tell("* 掉落惊喜物品：" + text);
     }
 
     // ---- loot filters ----
