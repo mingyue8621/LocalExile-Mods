@@ -3,30 +3,30 @@
   "settings": {
     "implicits": {
       "type": "group",
-      "label": "Unique implicits",
-      "description": "A dropped item gets a unique item's modifier as an extra implicit.",
+      "label": "传奇固定词缀",
+      "description": "掉落的物品会额外获得一条传奇物品的词缀，作为固定词缀（implicit）。",
       "settings": {
         "chance": {
           "type": "integer",
           "default": 1000,
           "min": 1,
           "max": 100000000,
-          "label": "One implicit: 1 in",
-          "description": "The chance of one unique implicit, as 1 in this many drops."
+          "label": "一条固定词缀：1 /",
+          "description": "获得一条传奇固定词缀的概率，按 1 / N 次掉落计算。"
         },
         "chanceTwo": {
           "type": "integer",
           "default": 100000,
           "min": 1,
           "max": 100000000,
-          "label": "Two implicits: 1 in"
+          "label": "两条固定词缀：1 /"
         },
         "chanceThree": {
           "type": "integer",
           "default": 1000000,
           "min": 1,
           "max": 100000000,
-          "label": "Three implicits: 1 in"
+          "label": "三条固定词缀：1 /"
         },
         "mode": {
           "type": "choice",
@@ -34,25 +34,25 @@
           "options": [
             {
               "value": "wild",
-              "label": "Wild: any modifier on any gear"
+              "label": "狂野：任何装备都能出任何词缀"
             },
             {
               "value": "sanity",
-              "label": "Sanity: only modifiers of uniques of the same kind of item"
+              "label": "合理：只出同类物品对应传奇的词缀"
             },
             {
               "value": "thematic",
-              "label": "Thematic: modifiers that suit the slot"
+              "label": "主题：只出适合该部位的词缀"
             }
           ],
-          "label": "Which modifiers can come",
-          "description": "Thematic: offence on weapons, quivers and gloves; defence on body armours and shields; speed and ailments on boots; defence and scaling (per charge, per stat, auras) on helmets; utility and odd unique effects on rings, amulets and belts. Jewels get unique jewels' modifiers in every mode, and gear never gets those."
+          "label": "可以出现哪些词缀",
+          "description": "主题模式：武器、箭袋、手套出攻击；胸甲、盾牌出防御；鞋子出移速与异常状态；头盔出防御与成长类（每球、每属性、光环）；戒指、项链、腰带出功能性与各种稀奇古怪的传奇效果。珠宝在任何模式下都只出传奇珠宝的词缀，装备则永远不出这些。"
         },
         "rarityWeights": {
           "type": "bool",
           "default": true,
-          "label": "Rarer uniques, rarer modifiers",
-          "description": "A modifier of a rare unique (a Mageblood) comes up as seldom as that unique drops. Off: every modifier alike."
+          "label": "传奇越稀有，词缀越难出",
+          "description": "稀有传奇（比如法师之血）的词缀出现率，与那件传奇本身的掉落率一样低。关掉则所有词缀等概率。"
         },
         "rarities": {
           "type": "choices",
@@ -64,32 +64,32 @@
           "options": [
             {
               "value": "magic",
-              "label": "Magic"
+              "label": "魔法"
             },
             {
               "value": "rare",
-              "label": "Rare"
+              "label": "稀有"
             },
             {
               "value": "unique",
-              "label": "Unique"
+              "label": "传奇"
             }
           ],
-          "label": "Drops that can get them"
+          "label": "哪些掉落能获得"
         }
       }
     },
     "empowered": {
       "type": "group",
-      "label": "Empowered modifier",
-      "description": "One of the drop's modifiers, implicit or explicit (a unique implicit included), rolls higher than it can: its value times 1.1 to 2.",
+      "label": "强化词缀",
+      "description": "掉落自带的某一条词缀（固定或明文，含上面加的传奇固定词缀）会被强化，数值超过它原本的上限：原值乘以 1.1 到 2。",
       "settings": {
         "chance": {
           "type": "integer",
           "default": 500,
           "min": 1,
           "max": 100000000,
-          "label": "Chance: 1 in"
+          "label": "概率：1 /"
         },
         "percent": {
           "type": "range",
@@ -101,8 +101,8 @@
           "min": 1,
           "max": 1000,
           "unit": "%",
-          "label": "How much stronger",
-          "description": "Picked at random in this range for each empowered modifier."
+          "label": "强化幅度",
+          "description": "每一条被强化的词缀，都在这个区间里随机取值。"
         },
         "rarities": {
           "type": "choices",
@@ -114,32 +114,32 @@
           "options": [
             {
               "value": "magic",
-              "label": "Magic"
+              "label": "魔法"
             },
             {
               "value": "rare",
-              "label": "Rare"
+              "label": "稀有"
             },
             {
               "value": "unique",
-              "label": "Unique"
+              "label": "传奇"
             }
           ],
-          "label": "Drops that can get it"
+          "label": "哪些掉落能获得"
         }
       }
     },
     "extraModifier": {
       "type": "group",
-      "label": "Extra fractured modifier",
-      "description": "The drop gets one modifier more than it could have: a rare 7 (a rare jewel 5), a magic item 3, a unique one rare-style prefix or suffix. Its side (prefixes or suffixes) is fractured.",
+      "label": "额外破碎词缀",
+      "description": "掉落比它本该有的多一条词缀：稀有物品变成 7 条（稀有珠宝 5 条），魔法物品 3 条，传奇物品则按稀有的规则多一条前缀或后缀。这条词缀所在的半边（前缀或后缀）会被破碎锁定。",
       "settings": {
         "chance": {
           "type": "integer",
           "default": 1000,
           "min": 1,
           "max": 100000000,
-          "label": "Chance: 1 in"
+          "label": "概率：1 /"
         },
         "rarities": {
           "type": "choices",
@@ -151,24 +151,24 @@
           "options": [
             {
               "value": "magic",
-              "label": "Magic"
+              "label": "魔法"
             },
             {
               "value": "rare",
-              "label": "Rare"
+              "label": "稀有"
             },
             {
               "value": "unique",
-              "label": "Unique"
+              "label": "传奇"
             }
           ],
-          "label": "Drops that can get it"
+          "label": "哪些掉落能获得"
         },
         "influencedMods": {
           "type": "bool",
           "default": true,
-          "label": "Influenced modifiers too",
-          "description": "The extra modifier (and the ones that fill the item first) can also be one that only an influenced item rolls: one influence the item does not have is picked, and its modifiers for this base and item level join the pool. The item does not become influenced."
+          "label": "也包含势力词缀",
+          "description": "额外那条词缀（以及先把物品填满的那些）也可以来自势力：随机挑一个物品本身没有的势力，该势力在这个底子与物等下的词缀会加入候选池。物品本身不会因此变成势力物品。"
         }
       }
     },
@@ -203,20 +203,20 @@
         "class:Relic",
         "class:SanctumRelic"
       ],
-      "label": "Modifiers never used as implicits",
-      "description": "A Mods id or the start of one (LevelRequirementOverride), stat: and a piece of a stat id (stat:in_radius), or class: and a kind of item whose uniques' modifiers stay with it (class:UtilityFlask). The defaults are modifiers tied to their own item: radius jewels and tree effects, granted supports by index, effects only that unique has, and flasks', tinctures', maps' and idols' modifiers. Every other unique modifier can come on some kind of item in every mode."
+      "label": "绝不作为固定词缀的词缀",
+      "description": "可以填 Mods 的 id 或它的开头（LevelRequirementOverride）、stat: 加一段 stat id（stat:in_radius），或 class: 加物品类别，让这类物品的传奇词缀留在它自己身上（class:UtilityFlask）。默认值是与自身物品绑死的词缀：范围珠宝与天赋树特效、按序号赋予的辅助、只有那件传奇才有的效果，以及药剂、酊剂、地图、神像的词缀。除此之外的任何传奇词缀，在任何模式下都能出现在某类装备上。"
     },
     "mark": {
       "type": "bool",
       "default": true,
-      "label": "Mark exciting items",
-      "description": "An item with any of these effects drops synthesised, so it looks special on the ground and in its tooltip."
+      "label": "标记惊喜物品",
+      "description": "带有上述任一效果的物品会以「合成」的外观掉落，在地上和物品说明里都显得特别。"
     },
     "showInFilters": {
       "type": "bool",
       "default": false,
-      "label": "Loot filter beam",
-      "description": "Puts a rule at the top of every loot filter in the filter folder that always shows marked items, with a beam and a sound. It edits your own filters; turning it off takes the rule out again.",
+      "label": "过滤器光柱",
+      "description": "在过滤器目录里的每份过滤器顶部加一条规则，永远显示被标记的物品，带光柱和音效。它会改动你自己的过滤器；关掉这个设置就会把规则撤掉。",
       "when": {
         "mark": true
       }
@@ -224,14 +224,14 @@
     "announce": {
       "type": "bool",
       "default": true,
-      "label": "Tell me in chat",
-      "description": "A chat line when an exciting item drops, naming which effects it got (not what they are)."
+      "label": "聊天里提示我",
+      "description": "掉落惊喜物品时在聊天框说一句，点出它获得了哪些效果（只说效果名，不说具体是什么）。"
     },
     "filterFolder": {
       "type": "text",
       "default": "",
-      "label": "Loot filter folder",
-      "description": "Empty: Documents\\My Games\\Path of Exile\\LocalExile.",
+      "label": "过滤器目录",
+      "description": "留空表示 Documents\\My Games\\Path of Exile\\LocalExile。",
       "advanced": true
     }
   }

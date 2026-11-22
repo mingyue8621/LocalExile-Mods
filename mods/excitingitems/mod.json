@@ -1,9 +1,9 @@
 {
   "id": "excitingitems",
-  "name": "Exciting Items",
-  "description": "Rare chances on magic, rare and unique drops: a unique item's modifier as an extra implicit, an empowered modifier 10-100% above its roll, and one modifier more than the item could have, fractured with its side; they can all land on one item.",
+  "name": "惊喜物品",
+  "description": "魔法、稀有、传奇掉落都有小概率带上这些效果：把某件传奇的词缀当成额外固定词缀、把已有词缀强化到原值的 1.1~2 倍、或者比本该有的多给一条词缀并破碎住它所在的半边（前缀或后缀）。三种效果可以同时落在一件物品上。",
   "author": "marshmellion",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "compatibleClientVersions": [
     "0.5.2-beta"
   ],
