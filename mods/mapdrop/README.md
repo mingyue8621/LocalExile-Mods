@@ -44,4 +44,4 @@
 举例，在 T3 图里：普通怪掉 T3，魔法怪和稀有怪掉 T4，地图首领掉 T5。
 
 灵感来自 [mingyue8621/LocalExile-Mods](https://github.com/mingyue8621/LocalExile-Mods) 里的地图掉落设置。
-适用于 LocalExile 0.6.0-beta（1.0.1 版本，使用 `DropRoll.Player` 新 API）；更早的 1.0.0 适用于 0.5.2-beta。
+适用于 LocalExile 0.6.0-beta / 0.8.118（1.0.2 起适配新版 Player API）；1.0.1 用 `DropRoll.Player`，更早的 1.0.0 适用于 0.5.2-beta。
