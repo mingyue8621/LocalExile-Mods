@@ -61,7 +61,7 @@ public sealed class MapDropMod : IMod
     /// WorldAreas ids "2_8_…" through "2_10_…") and the Atlas maps; Acts 1 to 7, the hubs and the mine give none.</summary>
     static bool MapsDropHere(DropRoll drops)
     {
-        string area = drops.Conn.Layout.Id;
+        string area = drops.Player.Layout.Id;
         if (InMap(drops)) return true;
         if (!area.StartsWith("2_", StringComparison.Ordinal)) return false;
         int end = area.IndexOf('_', 2);
@@ -69,14 +69,11 @@ public sealed class MapDropMod : IMod
     }
 
     /// <summary>An Atlas map area: the id still says so when the open-map record is gone (a restart).</summary>
-    static bool InMap(DropRoll drops) => drops.Conn.Layout.Id.StartsWith("MapWorlds", StringComparison.Ordinal);
+    static bool InMap(DropRoll drops) => drops.Player.Layout.Id.StartsWith("MapWorlds", StringComparison.Ordinal);
 
-    /// <summary>The tier of the map the kill's character has open, when they are in it (the tier the server's own map
-    /// roll would use); null anywhere else, so the fixed tier applies.</summary>
-    static int? OpenTier(DropRoll drops)
-    {
-        if (drops.Conn.Character is not { Length: > 0 } character) return null;
-        return MapDevice.OpenOf(character) is { } open && open.Area.Hash16 == drops.Conn.Layout.Hash
-            ? Math.Clamp(open.Area.Tier, 1, 16) : null;
-    }
+    /// <summary>The tier of the map the kill's character has open, when they are in it; null anywhere else, so the
+    /// fixed tier applies. New API: the open map lives on the player's instance (DropRoll.Player).</summary>
+    static int? OpenTier(DropRoll drops) =>
+        drops.Player.Instance?.Map is { } map && map.Area.Hash16 == drops.Player.Layout.Hash
+            ? Math.Clamp(map.Area.Tier, 1, 16) : null;
 }

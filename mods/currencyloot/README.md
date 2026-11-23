@@ -67,4 +67,6 @@
 它只是额外塞入你列出的物品（`mode: only` 时则整轮替换成这些）。它**不会**改服务端自己那套通货权重的比例：
 要让服务端自己的 24 种核心通货掉得更频繁或更少，得改 `world.db` 里的 `drop_currency_weights`。
 
-适用版本：LocalExile 0.8.83 及以后（`GameEvents.Drops` 钩子，带 `Items`、`Cancel` 和怪物稀有度）。
+适用版本：LocalExile 0.5.2-beta 与 0.6.0-beta（`GameEvents.Drops` 钩子，带 `Items`、`Cancel` 和怪物稀有度）。
+
+灵感来自 [mingyue8621/LocalExile-Mods](https://github.com/mingyue8621/LocalExile-Mods) 里可配置的通货掉落。

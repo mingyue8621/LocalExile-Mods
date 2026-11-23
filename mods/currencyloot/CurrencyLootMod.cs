@@ -34,7 +34,7 @@ public sealed class CurrencyLootMod : IMod
                     drops.Monster.VarietyId.Contains(m, StringComparison.OrdinalIgnoreCase)
                     || drops.Monster.Name.Contains(m, StringComparison.OrdinalIgnoreCase))) return;
             if (only) drops.Cancel = true;
-            int act = ActOf(drops.Conn.Layout.Id);
+            int act = ActOf(drops.Player.Layout.Id);
             foreach (var (item, count) in items)
             {
                 // Each currency waits for its act, as the game's own drop tables do: a Chaos Orb later than the basics,

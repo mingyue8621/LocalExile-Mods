@@ -79,21 +79,21 @@ public sealed class LootFilterMod : IMod
         mod.Log($"物品过滤器（{set.Label}）：" + summary);
     }
 
-    async Task Command(ClientState conn, string[] args)
+    async Task Command(Player player, string[] args)
     {
         string action = args.Length == 0 ? "status" : args[0].ToLowerInvariant();
         if (action is "install" or "reload")
         {
             string summary = Install("手动");
-            await conn.Commands!.Reply($"物品过滤器（{set.Label}）：{summary}");
+            await Program.PlayerOf(player).Tell($"物品过滤器（{set.Label}）：{summary}");
             return;
         }
         if (action != "status" && action != "list")
         {
-            await conn.Commands!.Reply("用法：/lootfilter [status|install]");
+            await Program.PlayerOf(player).Tell("用法：/lootfilter [status|install]");
             return;
         }
-        await conn.Commands!.Reply($"物品过滤器（{set.Label}）：{Describe()}\n用 /lootfilter install 重新安装一次（游戏开着时不会改选中项）。");
+        await Program.PlayerOf(player).Tell($"物品过滤器（{set.Label}）：{Describe()}\n用 /lootfilter install 重新安装一次（游戏开着时不会改选中项）。");
     }
 
     /// <summary>装一遍，返回一句给人看的结果。</summary>

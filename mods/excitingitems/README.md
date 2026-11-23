@@ -69,4 +69,4 @@
 
 **只改新掉落**：玩家从背包里扔到地上的物品不会被重新掷骰。
 
-适用于 LocalExile 0.5.2-beta 及其 main 分支，不需要改动 LocalExile 本体。
+适用于 LocalExile 0.6.0-beta（1.0.2 版本）；更早的 1.0.1 适用于 0.5.2-beta。

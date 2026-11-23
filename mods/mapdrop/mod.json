@@ -3,10 +3,9 @@
   "name": "地图掉落",
   "description": "控制每次击杀掉多少地图：按怪物稀有度给概率，掉落与当前地图同阶（或固定阶数），首领必掉。",
   "author": "mingyue8621",
-  "version": "1.0.5",
+  "version": "1.0.1",
   "compatibleClientVersions": [
-    "0.5.1-beta",
-    "0.5.2-beta"
+    "0.6.0-beta"
   ],
   "kind": "feature",
   "depends": []

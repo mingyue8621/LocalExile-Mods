@@ -5,48 +5,35 @@ using GameServer.Modding;
 
 public sealed class PetLootMod : IMod
 {
-    /// <summary>一个账号的拾取设置（/petloot 改的就是这一份），没存过的账号用服务器默认。</summary>
-    public sealed record Profile(bool Enabled, int Radius,
-        bool Gold, bool Currency, bool DivinationCard, bool MapFragment, bool Gem, bool Flask, bool QuestItem,
-        bool Normal, bool Magic, bool Rare, bool Unique, bool Other,
-        Dictionary<string, int> Rules)
+    /// <summary>一个角色的拾取设置（/petloot 改的就是这一份），没存过的角色用服务器默认。</summary>
+    public sealed record Profile(bool Enabled, bool Gold, int Range, bool CommonCurrency, Dictionary<string, int> Rules)
     {
         /// <summary>宠物跟随、拾取与返回的移动速度倍率（0.25-10，1 是原速）。</summary>
         public double MovementSpeed { get; init; } = 2;
+        public bool AllCurrency { get; init; }
+        public bool DivinationCards { get; init; }
+        public bool MapFragments { get; init; }
     }
-
-    /// <summary>服务器默认（settings.json 的 default）与各账号的覆盖。</summary>
-    public sealed record Choices(bool Enabled, int Radius,
-        bool Gold, bool Currency, bool DivinationCard, bool MapFragment, bool Gem, bool Flask, bool QuestItem,
-        bool Normal, bool Magic, bool Rare, bool Unique, bool Other,
+    /// <summary>服务器默认（settings.json 的 default）与各角色的覆盖。</summary>
+    public sealed record Choices(bool Enabled, bool Gold, int Range, bool CommonCurrency,
         Dictionary<string, int> Rules, Dictionary<string, Profile> Profiles)
     {
         public double MovementSpeed { get; init; } = 2;
+        public bool AllCurrency { get; init; }
+        public bool DivinationCards { get; init; }
+        public bool MapFragments { get; init; }
     }
 
-    // 分类只看 ItemClasses（BaseItemTypes 的 class），和设置界面上的勾选一一对应。
-    static readonly HashSet<string> CurrencyClasses = new(StringComparer.Ordinal)
+    // 预设通货：和设置界面上的「常见通货」勾选对应。
+    static readonly HashSet<string> Common = new(StringComparer.OrdinalIgnoreCase)
     {
-        "Currency", "StackableCurrency", "DelveSocketableCurrency", "DelveStackableSocketableCurrency",
+        "Chaos Orb", "Divine Orb", "Exalted Orb", "Mirror of Kalandra", "Orb of Annulment",
+        "Orb of Alteration", "Orb of Alchemy", "Orb of Augmentation", "Orb of Chance", "Orb of Transmutation",
+        "Orb of Fusing", "Chromatic Orb", "Jeweller's Orb", "Orb of Regret", "Orb of Scouring",
+        "Regal Orb", "Blessed Orb", "Vaal Orb", "Gemcutter's Prism", "Glassblower's Bauble"
     };
-    static readonly HashSet<string> MapClasses = new(StringComparer.Ordinal)
-    {
-        "Map", "MapFragment", "LabyrinthMapItem", "MiscMapItem", "MapKey",
-    };
-    static readonly HashSet<string> GemClasses = new(StringComparer.Ordinal)
-    {
-        "Active Skill Gem", "Support Skill Gem",
-    };
-    // 装备（剩下的按稀有度分）:武器、护甲、首饰、箭袋、珠宝。不在这里的类别落到「其他」。
-    static readonly HashSet<string> Equipment = new(StringComparer.Ordinal)
-    {
-        "Amulet", "Ring", "Claw", "Dagger", "Wand", "One Hand Sword", "Thrusting One Hand Sword",
-        "One Hand Axe", "One Hand Mace", "Bow", "Staff", "Two Hand Sword", "Two Hand Axe", "Two Hand Mace",
-        "Quiver", "Belt", "Gloves", "Boots", "Body Armour", "Helmet", "Shield", "Jewel", "AbyssJewel",
-    };
-
     readonly object choicesGate = new();
-    readonly ConditionalWeakTable<ClientState, RunState> states = new();
+    readonly ConditionalWeakTable<Player, RunState> states = new();
     IModContext mod = null!;
     Choices choices = null!;
 
@@ -55,7 +42,7 @@ public sealed class PetLootMod : IMod
         internal readonly SemaphoreSlim Gate = new(1, 1);
         internal readonly Dictionary<uint, double> RetryAfter = [];
         internal uint? Item, Pet;
-        internal double Seconds, Started, LastLog;
+        internal double Seconds, Started;
     }
 
     public void Load(IModContext context)
@@ -70,25 +57,27 @@ public sealed class PetLootMod : IMod
             Profiles = (loaded.Profiles ?? []).ToDictionary(p => p.Key,
                 p => p.Value with { Rules = Normalize(p.Value.Rules), MovementSpeed = Speed(p.Value.MovementSpeed) }),
         };
-        GameEvents.Tick.Add(mod.Manifest.Id, Tick);
+        GameEvents.AreaTick.Add(mod.Manifest.Id, GameEvents.Always(Tick));
         // 只给这个模组管的宠物乘倍率，其它实体的移动速度原样返回。
-        GameEvents.MovementSpeed.Add(mod.Manifest.Id, (conn, id, speed) =>
+        GameEvents.MovementSpeed.Add(mod.Manifest.Id, (player, id, speed) =>
         {
             if (!mod.Lifetime.IsActive) return speed;
-            lock (conn.Pets)
-                return conn.Pets.ContainsKey(id) ? speed * ProfileOf(conn).MovementSpeed : speed;
+            lock (player.Pets)
+                return player.Pets.ContainsKey(id) ? speed * ProfileOf(player).MovementSpeed : speed;
         });
         GameEvents.Command(mod.Manifest.Id, "petloot",
-            "/petloot [on|off|toggle|status|nearby|radius|speed|allow|block|remove|reset]", Command);
-        mod.Log("pet pickup: gold / currency / cards / maps / gems / flasks / quest items / gear by rarity; /petloot for this account.");
+            "/petloot [on|off|toggle|list|nearby|gold|common|range|speed|allow|block|remove|reset]", Command);
+        mod.Log("宠物拾取已就绪：金币 / 通货 / 命运卡 / 地图碎片；/petloot 查看当前角色的设置。");
     }
 
-    // 按账号：同一账号下的角色共用一套勾选（参考界面写的「按账号生效」）。
-    static string Key(ClientState conn) => string.Join("|", new[] { conn.Account ?? "", conn.League ?? "Standard" }
+    // 账号 + 联盟 + 角色名：和 /petloot 里说的「这个角色」一致。
+    static string Key(Player player) => string.Join("|", new[] { player.Character.Account ?? "", player.Character.League ?? "Standard", Program.CharacterName(player) }
         .Select(Uri.EscapeDataString));
 
     /// <summary>手改设置文件里的倍率同样钳到 0.25-10。</summary>
     static double Speed(double value) => double.IsFinite(value) ? Math.Clamp(value, .25, 10) : 2;
+
+    static string On(bool value) => value ? "开" : "关";
 
     static Dictionary<string, int> Normalize(Dictionary<string, int>? rules)
     {
@@ -97,240 +86,178 @@ public sealed class PetLootMod : IMod
         return result;
     }
 
-    static Profile FromChoices(Choices c) => new(c.Enabled, c.Radius, c.Gold, c.Currency, c.DivinationCard,
-        c.MapFragment, c.Gem, c.Flask, c.QuestItem, c.Normal, c.Magic, c.Rare, c.Unique, c.Other, c.Rules)
-    { MovementSpeed = c.MovementSpeed };
-
-    Profile ProfileOf(ClientState conn)
+    Profile ProfileOf(Player player)
     {
         Profile profile;
-        lock (choicesGate) profile = choices.Profiles.GetValueOrDefault(Key(conn)) ?? FromChoices(choices);
-        // 老版本存下来的 profile 里半径字段叫 range，读成 radius 是 0；别让它被夹成 1 格。
-        return profile.Radius is >= 1 and <= 100 ? profile : profile with { Radius = 50 };
+        lock (choicesGate)
+            profile = choices.Profiles.GetValueOrDefault(Key(player))
+                ?? new(choices.Enabled, choices.Gold, choices.Range, choices.CommonCurrency, choices.Rules)
+                    {
+                        MovementSpeed = choices.MovementSpeed, AllCurrency = choices.AllCurrency,
+                        DivinationCards = choices.DivinationCards, MapFragments = choices.MapFragments,
+                    };
+        // 老版本存下来的 profile 里半径字段叫 range，读成 Range 是 0；别让它被夹到最小半径。
+        return profile.Range is > 0 and <= 100 ? profile : profile with { Range = 50 };
     }
 
     sealed record Candidate(uint Id, WorldItemObject Item, ItemCatalog.BaseType Type);
 
-    bool Active(ClientState conn) => mod.Lifetime.IsActive && Game.CurrentGameRules && !conn.Closed
-        && !conn.LeavingArea && !conn.Paused && conn.PlayerSent && conn.PlayerLife > 0 && !conn.RageRetired
-        && Program.ModulesFor(conn).Contains("Game") && Program.ModulesFor(conn).Contains("Cosmetics")
-        && !Game.HardcoreProgressBlocked(conn) && GameEvents.AllowsLoot(conn);
+    bool Active(Player player) => mod.Lifetime.IsActive && Game.CurrentGameRules && !player.Closed
+        && !player.LeavingArea && !player.Paused && player.Connection.PlayerSent && player.PlayerLife > 0 && !player.RageRetired
+        && Program.ModulesFor(player).Contains("Game") && Program.ModulesFor(player).Contains("Cosmetics")
+        && !Game.HardcoreProgressBlocked(player) && GameEvents.AllowsLoot(player);
 
-    static bool Visible(ClientState conn, uint id)
+    static bool Visible(Player player, uint id)
     {
-        var origin = conn.Instance.Ground.Origin(id);
-        bool seen;
-        // SeenGround 被区域首播、共享同步、自动吸金币在不同线程上改，服务端自己读写都要拿锁（Game.SeenOnGround）。
-        lock (conn.SeenGround) seen = conn.SeenGround.Contains(id);
-        return seen && (origin.Shared || ReferenceEquals(origin.By, conn));
+        var origin = player.Instance.Ground.Origin(id);
+        // 上游已移除每连接的 SeenGround 表（新版 Connection 上不再有），地面归属判断按新的 Ground.Origin 语义来。
+        return origin.Shared || ReferenceEquals(origin.By, player);
     }
 
-    /// <summary>玩家身边的金币由服务端自己收（Items.PickUpNearbyGold，world.db 的 gold_auto_loot_radius，本服 20 格），
-    /// 宠物走过去只会扑空：它到场前金币已经进仓库，目标于是从候选里消失。留给自动拾取，宠物专管更远的那部分。</summary>
-    static bool AutoLooted(WorldItemObject item, (int X, int Y) at)
+    static Candidate[] Nearby(Player player, Profile profile)
     {
-        double radius = SystemSettings.Default.GoldAutoLootRadius;
-        return radius > 0 && Game.IsGold(item) && Distance(at.X, at.Y, item.GridX, item.GridY) <= radius;
+        var pos = player.Walk.Position(player.Clock.Elapsed.TotalSeconds);
+        var items = Game.ItemsFor(player);
+        var nearby = new List<Candidate>();
+        foreach (var (id, item) in player.Instance.Ground.Within(pos.X, pos.Y, Math.Clamp(profile.Range, 5, 100), _ => true))
+            if (Visible(player, id) && items.ByHash(item.Item.TypeHash) is { } type)
+                nearby.Add(new(id, item, type));
+        return nearby.ToArray();
     }
 
-    static Candidate[] Nearby(ClientState conn, Profile profile)
-    {
-        lock (conn.Monsters)
-        {
-            var pos = conn.Walk.Position(conn.Clock.Elapsed.TotalSeconds);
-            var items = Game.ItemsFor(conn);
-            var nearby = new List<Candidate>();
-            foreach (var (id, item) in conn.Instance.Ground.Within(pos.X, pos.Y, Math.Clamp(profile.Radius, 1, 100), _ => true))
-                if (Visible(conn, id) && items.ByHash(item.Item.TypeHash) is { } type)
-                    nearby.Add(new(id, item, type));
-            return nearby.ToArray();
-        }
-    }
-
-    /// <summary>掉落物是否该捡：先看单项覆盖，再按任务物品 / 金币 / ItemClasses 分类，装备按稀有度。</summary>
     static bool Accept(Candidate drop, Profile profile)
     {
-        if (!profile.Enabled || drop.Item.PlayerDropped) return false;
-        var type = drop.Type;
-        // 金币只看自己的开关：旧版本存下来的单项覆盖里若有一条把金币设成 0，
-        // 原来会先命中它直接屏蔽，导致 /petloot status 显示金币开、地面金币却一件不捡。
-        if (Game.IsGold(drop.Item)) return profile.Gold;
-        // 单项覆盖优先：0 屏蔽，1-65535 是最少地面堆叠。
-        if (profile.Rules.TryGetValue(type.Id, out int minimum) || profile.Rules.TryGetValue(type.Name, out minimum))
-            return minimum > 0 && drop.Item.Item.StackSize >= minimum;
-        if (type.Quest is not null) return profile.QuestItem;
-        string cls = type.Class;
-        if (CurrencyClasses.Contains(cls)) return profile.Currency;
-        if (cls == "DivinationCard") return profile.DivinationCard;
-        if (MapClasses.Contains(cls)) return profile.MapFragment;
-        if (GemClasses.Contains(cls)) return profile.Gem;
-        if (cls.Contains("Flask", StringComparison.Ordinal)) return profile.Flask;
-        if (Equipment.Contains(cls)) return drop.Item.Item.Rarity switch
+        bool gold = Game.IsGold(drop.Item);
+        if (!profile.Enabled || drop.Item.PlayerDropped || drop.Type.Quest is not null
+            || (gold ? !profile.Gold : drop.Type.MaxStack <= 1)) return false;
+        if (!profile.Rules.TryGetValue(drop.Type.Id, out int minimum)
+            && !profile.Rules.TryGetValue(drop.Type.Name, out minimum))
         {
-            ItemRarity.Unique => profile.Unique,
-            ItemRarity.Rare => profile.Rare,
-            ItemRarity.Magic => profile.Magic,
-            _ => profile.Normal,
-        };
-        return profile.Other;
+            bool selected = gold || profile.CommonCurrency && Common.Contains(drop.Type.Name)
+                || drop.Type.Class switch
+                {
+                    "StackableCurrency" => profile.AllCurrency,
+                    "DivinationCard" => profile.DivinationCards,
+                    "MapFragment" => profile.MapFragments,
+                    _ => false,
+                };
+            minimum = selected ? 1 : 0;
+        }
+        return minimum > 0 && drop.Item.Item.StackSize >= minimum;
     }
 
-    async Task Release(ClientState conn, RunState state)
+    async Task Release(Player player, RunState state)
     {
         uint? pet = state.Pet;
         state.Item = state.Pet = null;
-        if (pet is not uint id) return;
-        // 松开占用：跟随恢复。这一步必须无条件做，否则「暂停拾取」之后宠物会永远不跟随。
-        CosmeticsFeature.SetPetBusy(conn, id, false);
-        if (Active(conn))
-            await CosmeticsFeature.WalkPetTo(conn, id, conn.Walk.Position(conn.Clock.Elapsed.TotalSeconds), () => Active(conn));
+        if (pet is uint id && Active(player))
+            await CosmeticsFeature.WalkPetTo(player, id, player.Walk.Position(player.Clock.Elapsed.TotalSeconds), () => Active(player));
     }
 
-    async Task Tick(ClientState conn, double seconds)
+    async Task Tick(Player player, double seconds)
     {
-        var state = states.GetValue(conn, _ => new());
+        var state = states.GetValue(player, _ => new());
         await state.Gate.WaitAsync();
         try
         {
-            var profile = ProfileOf(conn);
-            if (!profile.Enabled || !Active(conn)) { await Release(conn, state); return; }
+            var profile = ProfileOf(player);
+            if (!profile.Enabled || !Active(player)) { await Release(player, state); return; }
             state.Seconds += Math.Max(0, seconds);
             foreach (uint old in state.RetryAfter.Where(e => e.Value <= state.Seconds).Select(e => e.Key).ToArray())
                 state.RetryAfter.Remove(old);
-            var at = conn.Walk.Position(conn.Clock.Elapsed.TotalSeconds);
-            var candidates = Nearby(conn, profile).Where(i => Accept(i, profile) && !state.RetryAfter.ContainsKey(i.Id)).ToArray();
-            if (state.Seconds - state.LastLog >= 5)
+            var at = player.Walk.Position(player.Clock.Elapsed.TotalSeconds);
+            Candidate? matching = null, nearest = null;
+            double nearestDistance = double.PositiveInfinity;
+            foreach (var candidate in Nearby(player, profile))
             {
-                state.LastLog = state.Seconds;
-                int gold = candidates.Count(i => Game.IsGold(i.Item));
-                var ground = conn.Instance.Ground.Within(at.X, at.Y, Math.Clamp(profile.Radius, 1, 100), _ => true);
-                int onGround = ground.Count, seen = ground.Count(g => Visible(conn, g.Id));
-                int typed = ground.Count(g => Game.ItemsFor(conn).ByHash(g.Item.Item.TypeHash) is not null);
-                int excluded = ground.Count(g => AutoLooted(g.Item, at));
-                var goldPiles = ground.Where(g => Game.IsGold(g.Item)).Take(5).Select(g =>
-                    $"{g.Item.Item.StackSize}金@{g.Item.GridX},{g.Item.GridY}");
-                int goldGround = ground.Count(g => Game.IsGold(g.Item));
-                var near = Nearby(conn, profile);
-                int goldNear = near.Count(i => Game.IsGold(i.Item));
-                int goldOk = near.Count(i => Game.IsGold(i.Item) && Accept(i, profile));
-                int accepted = near.Count(i => Accept(i, profile));
-                string sample = string.Join("; ", near.Take(3).Select(i =>
-                    $"{i.Type.Name}:{(Accept(i, profile) ? "OK" : "拒")}{(state.RetryAfter.ContainsKey(i.Id) ? "/重试中" : "")}"));
-                mod.Log($"petloot probe: enabled={profile.Enabled} radius={profile.Radius} gold={profile.Gold} "
-                    + $"candidates={candidates.Length} (gold {gold}) pets={conn.Pets.Count} "
-                    + $"ground={onGround} seen={seen} typed={typed} autoExcluded={excluded} "
-                    + $"accepted={accepted} retry={state.RetryAfter.Count} rules={profile.Rules.Count} "
-                    + $"goldGround={goldGround} goldNear={goldNear} goldOk={goldOk} piles=[{string.Join(", ", goldPiles)}] "
-                    + $"player={at.X},{at.Y} [{sample}]");
+                if (!Accept(candidate, profile) || state.RetryAfter.ContainsKey(candidate.Id)) continue;
+                if (candidate.Id == state.Item) { matching = candidate; break; }
+                double distance = Distance(at.X, at.Y, candidate.Item.GridX, candidate.Item.GridY);
+                if (distance < nearestDistance) { nearestDistance = distance; nearest = candidate; }
             }
-            Candidate? drop = null;
-            if (state.Item is uint target)
-            {
-                drop = candidates.FirstOrDefault(i => i.Id == target);
-                // 目标在宠物到场前就没了（服务端自动吸走金币、队友先拿、掉落过期）：换最近的一件接着捡。
-                // 以前这里直接 Release，整批当场放弃、宠物回去跟随，看起来就是「宠物不捡」。
-                if (drop is null) state.Item = null;
-            }
-            drop ??= candidates.MinBy(i => Distance(at.X, at.Y, i.Item.GridX, i.Item.GridY));
-            if (drop is null) { await Release(conn, state); return; }
+            var drop = matching ?? nearest;
+            if (drop is null) { await Release(player, state); return; }
             var to = (X: drop.Item.GridX, Y: drop.Item.GridY);
-            if (state.Item is null)
+            if (matching is null)
             {
-                double now = conn.Clock.Elapsed.TotalSeconds;
-                uint? previous = state.Pet;
-                lock (conn.Pets)
+                double now = player.Clock.Elapsed.TotalSeconds;
+                lock (player.Pets)
                 {
-                    if (conn.Pets.Count == 0) return;
-                    state.Pet = conn.Pets.MinBy(p => { var pos = p.Value.Walk.Position(now); return Distance(pos.X, pos.Y, to.X, to.Y); }).Key;
+                    if (player.Pets.Count == 0) return;
+                    state.Pet = player.Pets.MinBy(p => { var pos = p.Value.Walk.Position(now); return Distance(pos.X, pos.Y, to.X, to.Y); }).Key;
                 }
-                // 换了一只宠物：松开上一只的占用，否则它会永远停在不跟随的状态。
-                if (previous is uint old && old != state.Pet) CosmeticsFeature.SetPetBusy(conn, old, false);
                 state.Item = drop.Id; state.Started = state.Seconds;
-                // 占住这只宠物：这一批通货捡完之前它不跟随，免得刚走到物品旁就被跟随拉回去。
-                CosmeticsFeature.SetPetBusy(conn, state.Pet.Value, true);
-                if (!await CosmeticsFeature.WalkPetTo(conn, state.Pet.Value, to, () => Active(conn)))
-                { await Release(conn, state); return; }
+                if (!await CosmeticsFeature.WalkPetTo(player, state.Pet.Value, to, () => Active(player)))
+                { await Release(player, state); return; }
             }
             Game.GroundPickup? pickup = null;
-            lock (conn.Monsters)
-            lock (conn.Pets)
+            lock (player.Pets)
             {
-                if (Active(conn) && state.Pet is uint id && conn.Pets.TryGetValue(id, out var pet) && Visible(conn, drop.Id)
-                    && ReferenceEquals(conn.Instance.Ground.Get(drop.Id), drop.Item))
+                if (Active(player) && state.Pet is uint id && player.Pets.TryGetValue(id, out var pet) && Visible(player, drop.Id)
+                    && ReferenceEquals(player.Instance.Ground.Get(drop.Id), drop.Item))
                 {
-                    var current = ProfileOf(conn);
-                    double now = conn.Clock.Elapsed.TotalSeconds;
-                    var owner = conn.Walk.Position(now); var collector = pet.Walk.Position(now);
-                    if (Accept(drop, current) && Distance(owner.X, owner.Y, to.X, to.Y) <= Math.Clamp(current.Radius, 1, 100))
+                    var current = ProfileOf(player);
+                    double now = player.Clock.Elapsed.TotalSeconds;
+                    var owner = player.Walk.Position(now); var collector = pet.Walk.Position(now);
+                    if (Accept(drop, current) && Distance(owner.X, owner.Y, to.X, to.Y) <= Math.Clamp(current.Range, 5, 100))
                     {
                         if (Distance(collector.X, collector.Y, to.X, to.Y) <= 2)
-                            pickup = Game.TakeGroundStack(conn, drop.Id, drop.Item);
+                            pickup = Game.TakeGroundStack(player, drop.Id, drop.Item);
                         else if (state.Seconds - state.Started < 10) return;
                     }
                 }
             }
             if (pickup is not null)
             {
-                mod.Log($"petloot pickup: {drop.Type.Name} x{drop.Item.Item.StackSize} at {to.X},{to.Y} -> sent");
-                await Game.SendPickup(conn.Wire.Remote, conn.Wire.Stream, conn.Wire.Ciphers, conn, drop.Id, pickup);
-                // 捡到了：这一件结束，但宠物继续被占用（不清 busy），下一个 tick 接着捡下一件。
                 state.Item = null;
+                await Game.SendPickup(player, drop.Id, pickup);
+                return;
             }
-            else
-            {
-                // 这件拿不到（超时或被挡）：放弃它换下一件，占用同样保持。
-                state.RetryAfter[drop.Id] = state.Seconds + 2;
-                state.Item = null;
-            }
-            // 这里以前每 tick 都 Release —— 那会顺手把「占用」解掉，宠物下一个 tick 就被跟随逻辑拉走，
-            // 等于这批通货没捡完就跟着玩家跑了（live 2026-11-13）。释放只发生在没有可捡物品时（drop is null）。
+            state.RetryAfter[drop.Id] = state.Seconds + 2;
+            await Release(player, state);
         }
         finally { state.Gate.Release(); }
     }
 
     static double Distance(int x, int y, int toX, int toY) => Math.Sqrt(Math.Pow((double)x - toX, 2) + Math.Pow((double)y - toY, 2));
 
-    string Flags(Profile p) => string.Join(" ", new (string Name, bool On)[]
+    async Task Command(Player player, string[] args)
     {
-        ("金币", p.Gold), ("通货", p.Currency), ("命运卡", p.DivinationCard), ("地图/碎片", p.MapFragment),
-        ("技能石", p.Gem), ("药剂", p.Flask), ("任务物品", p.QuestItem), ("普通装备", p.Normal),
-        ("魔法装备", p.Magic), ("稀有装备", p.Rare), ("传奇装备", p.Unique), ("其他", p.Other),
-    }.Where(f => f.On).Select(f => f.Name));
-
-    async Task Command(ClientState conn, string[] args)
-    {
-        var state = states.GetValue(conn, _ => new());
+        var state = states.GetValue(player, _ => new());
         await state.Gate.WaitAsync();
         try
         {
             if (!mod.Lifetime.IsActive) return;
-            var profile = ProfileOf(conn);
+            var profile = ProfileOf(player);
             string action = args.Length == 0 ? "status" : args[0].ToLowerInvariant();
             if (action is "status" or "list")
             {
                 string rules = string.Join(", ", profile.Rules.OrderBy(r => r.Key).Select(r => $"{r.Key}: {(r.Value == 0 ? "屏蔽" : "最少 " + r.Value)}"));
-                await conn.Commands!.Reply($"宠物拾取：{(profile.Enabled ? "开" : "关")}；半径 {profile.Radius} 格；"
-                    + $"速度 {profile.MovementSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture)}x；勾选 {Flags(profile)}。\n"
+                await player.Commands!.Reply($"宠物拾取：{On(profile.Enabled)}；金币 {On(profile.Gold)}；常见通货 {On(profile.CommonCurrency)}；"
+                    + $"全部通货 {On(profile.AllCurrency)}；命运卡 {On(profile.DivinationCards)}；地图碎片 {On(profile.MapFragments)}；"
+                    + $"半径 {profile.Range} 格；速度 {profile.MovementSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture)}x。\n"
                     + $"单项覆盖：{(rules.Length == 0 ? "无" : rules)}\n"
-                    + "分类勾选在启动器的模组设置里改；这里是这个账号的临时改动：/petloot on|off|radius 1-100|speed 0.25-10|allow <物品> [最少堆叠]|block|remove <物品>|nearby|reset");
+                    + "分类开关在启动器的模组设置里改；这里是这个角色的临时改动：/petloot on|off|toggle|gold|common|range 5-100|speed 0.25-10|allow <物品> [最少堆叠]|block|remove <物品>|nearby|reset");
                 return;
             }
             if (action == "nearby")
             {
-                var nearby = Nearby(conn, profile).Take(12).ToArray();
-                await conn.Commands!.Reply(nearby.Length == 0 ? "附近没有掉落。" : string.Join("\n",
-                    nearby.Select(i => $"{i.Type.Name} x{i.Item.Item.StackSize}（{i.Type.Class}，{i.Item.Item.Rarity}）: {i.Type.Id}")));
+                var nearby = Nearby(player, profile).Take(12).ToArray();
+                await player.Commands!.Reply(nearby.Length == 0 ? "附近没有掉落。" : string.Join("\n",
+                    nearby.Select(i => $"{i.Type.Name} x{i.Item.Item.StackSize}（{i.Type.Id}）")));
                 return;
             }
             if (action is "on" or "off" or "toggle")
                 profile = profile with { Enabled = action == "on" || action == "toggle" && !profile.Enabled };
-            else if (action == "radius" && args.Length == 2 && int.TryParse(args[1], out int radius) && radius is >= 1 and <= 100)
-                profile = profile with { Radius = radius };
+            else if (action is "gold" or "common" && args.Length == 2 && args[1] is "on" or "off")
+                profile = action == "gold" ? profile with { Gold = args[1] == "on" } : profile with { CommonCurrency = args[1] == "on" };
+            else if (action == "range" && args.Length == 2 && int.TryParse(args[1], out int range) && range is >= 5 and <= 100)
+                profile = profile with { Range = range };
             else if (action == "speed")
             {
                 if (args.Length != 2 || !double.TryParse(args[1], System.Globalization.NumberStyles.Float,
                     System.Globalization.CultureInfo.InvariantCulture, out double speed) || !double.IsFinite(speed) || speed is < .25 or > 10)
-                { await conn.Commands!.Reply("用法：/petloot speed <0.25-10>；1 是原速，2 是两倍速。"); return; }
+                { await player.Commands!.Reply("用法：/petloot speed <0.25-10>；1 是原速，2 是两倍速。"); return; }
                 profile = profile with { MovementSpeed = speed };
             }
             else if (action is "allow" or "block" or "remove" && args.Length > 1)
@@ -339,26 +266,26 @@ public sealed class PetLootMod : IMod
                 if (action == "allow" && args.Length > 2 && int.TryParse(args[^1], out int parsed)) { minimum = parsed; end--; }
                 string name = string.Join(" ", args.Skip(1).Take(end - 1)).Trim().Trim('"');
                 if (name.Length == 0 || minimum is < 1 or > 65535)
-                { await conn.Commands!.Reply("用法：/petloot allow <物品名或 metadata> [1-65535]。"); return; }
+                { await player.Commands!.Reply("用法：/petloot allow <物品名或 metadata> [1-65535]。"); return; }
                 var rules = new Dictionary<string, int>(profile.Rules, StringComparer.OrdinalIgnoreCase);
                 if (action == "remove") rules.Remove(name);
                 else rules[name] = action == "block" ? 0 : minimum;
                 profile = profile with { Rules = rules };
             }
             else if (action != "reset")
-            { await conn.Commands!.Reply("未知选项。用 /petloot 看当前设置和命令。"); return; }
+            { await player.Commands!.Reply("未知选项。用 /petloot 看当前设置和命令。"); return; }
 
-            await Release(conn, state); // 暂停或改过滤后不留下旧目标
+            await Release(player, state); // 暂停或改过滤后不留下旧目标
             lock (choicesGate)
             {
                 var profiles = new Dictionary<string, Profile>(choices.Profiles);
-                if (action == "reset") profiles.Remove(Key(conn)); else profiles[Key(conn)] = profile;
+                if (action == "reset") profiles.Remove(Key(player)); else profiles[Key(player)] = profile;
                 var next = choices with { Profiles = profiles };
                 mod.SaveSettings(next);
                 choices = next;
             }
-            await conn.Commands!.Reply(action == "reset" ? "宠物拾取：这个账号改回服务器默认。"
-                : $"已保存给账号 {Program.CharacterName(conn)}：{(profile.Enabled ? "开" : "关")}。用 /petloot 查看。");
+            await player.Commands!.Reply(action == "reset" ? "宠物拾取：这个角色改回服务器默认。"
+                : $"已保存给角色 {Program.CharacterName(player)}：{On(profile.Enabled)}。用 /petloot list 查看。");
         }
         finally { state.Gate.Release(); }
     }

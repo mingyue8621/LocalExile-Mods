@@ -5,7 +5,7 @@
   "author": "marshmellion",
   "version": "1.0.2",
   "compatibleClientVersions": [
-    "0.5.2-beta"
+    "0.6.0-beta"
   ],
   "kind": "feature",
   "depends": [
