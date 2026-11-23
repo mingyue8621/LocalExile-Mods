@@ -1,5 +1,11 @@
 {
   "version": 1,
+  "renamed": {
+    "radius": "range",
+    "currency": "commonCurrency",
+    "divinationCard": "divinationCards",
+    "mapFragment": "mapFragments"
+  },
   "settings": {
     "enabled": {
       "type": "bool",
@@ -7,74 +13,50 @@
       "label": "启用自动拾取",
       "description": "关闭后宠物什么也不捡。"
     },
-    "radius": {
-      "type": "integer",
-      "default": 50,
-      "min": 1,
-      "max": 100,
-      "label": "拾取半径",
-      "unit": "格",
-      "description": "宠物只捡这个范围内的掉落，可设 1 - 100 格。"
-    },
     "gold": {
       "type": "bool",
       "default": true,
       "label": "金币"
     },
-    "currency": {
+    "commonCurrency": {
       "type": "bool",
       "default": true,
-      "label": "通货"
+      "label": "常见通货",
+      "description": "混沌石、神圣石、点金石、链接石等 20 种常用通货；单项覆盖优先。"
     },
-    "divinationCard": {
+    "allCurrency": {
+      "type": "bool",
+      "default": false,
+      "label": "全部通货",
+      "description": "所有可堆叠通货。"
+    },
+    "divinationCards": {
       "type": "bool",
       "default": false,
       "label": "命运卡"
     },
-    "mapFragment": {
+    "mapFragments": {
       "type": "bool",
       "default": false,
       "label": "地图 / 碎片"
     },
-    "gem": {
-      "type": "bool",
-      "default": false,
-      "label": "技能石"
+    "range": {
+      "type": "integer",
+      "default": 60,
+      "min": 5,
+      "max": 100,
+      "label": "拾取半径",
+      "unit": "格",
+      "description": "宠物只捡这个范围内的掉落，可设 5 - 100 格。"
     },
-    "flask": {
-      "type": "bool",
-      "default": false,
-      "label": "药剂"
-    },
-    "questItem": {
-      "type": "bool",
-      "default": true,
-      "label": "任务物品"
-    },
-    "normal": {
-      "type": "bool",
-      "default": false,
-      "label": "普通装备"
-    },
-    "magic": {
-      "type": "bool",
-      "default": false,
-      "label": "魔法装备"
-    },
-    "rare": {
-      "type": "bool",
-      "default": false,
-      "label": "稀有装备"
-    },
-    "unique": {
-      "type": "bool",
-      "default": true,
-      "label": "传奇装备"
-    },
-    "other": {
-      "type": "bool",
-      "default": false,
-      "label": "其他"
+    "movementSpeed": {
+      "type": "number",
+      "default": 2,
+      "min": 0.25,
+      "max": 10,
+      "format": "multiplier",
+      "label": "宠物移动速度",
+      "description": "跟随、拾取与返回的速度倍率；1 是原速，2 是两倍速。"
     },
     "rules": {
       "type": "map",
@@ -107,19 +89,42 @@
             "default": true,
             "label": "宠物拾取金币"
           },
+          "commonCurrency": {
+            "type": "bool",
+            "default": true,
+            "label": "常见通货"
+          },
+          "allCurrency": {
+            "type": "bool",
+            "default": false,
+            "label": "全部通货"
+          },
+          "divinationCards": {
+            "type": "bool",
+            "default": false,
+            "label": "命运卡"
+          },
+          "mapFragments": {
+            "type": "bool",
+            "default": false,
+            "label": "地图 / 碎片"
+          },
           "range": {
             "type": "integer",
             "default": 60,
             "min": 5,
-            "max": 80,
+            "max": 100,
             "label": "拾取半径",
             "unit": "格"
           },
-          "commonCurrency": {
-            "type": "bool",
-            "default": true,
-            "label": "常用通货预设",
-            "description": "只包括 README 里列的那 20 种通货；单项覆盖优先。"
+          "movementSpeed": {
+            "type": "number",
+            "default": 2,
+            "min": 0.25,
+            "max": 10,
+            "format": "multiplier",
+            "label": "宠物移动速度",
+            "description": "跟随、拾取与返回的速度倍率；1 是原速，2 是两倍速。"
           },
           "rules": {
             "type": "map",
@@ -131,27 +136,9 @@
               "min": 0,
               "max": 65535
             }
-          },
-          "movementSpeed": {
-            "type": "number",
-            "default": 2,
-            "min": 0.25,
-            "max": 10,
-            "format": "multiplier",
-            "label": "宠物移动速度",
-            "description": "跟随、拾取与返回的速度倍率；1 是原速，2 是两倍速。"
           }
         }
       }
-    },
-    "movementSpeed": {
-      "type": "number",
-      "default": 2,
-      "min": 0.25,
-      "max": 10,
-      "format": "multiplier",
-      "label": "宠物移动速度",
-      "description": "跟随、拾取与返回的速度倍率；1 是原速，2 是两倍速。"
     }
   }
 }

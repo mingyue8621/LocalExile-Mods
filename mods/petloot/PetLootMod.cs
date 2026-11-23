@@ -42,7 +42,7 @@ public sealed class PetLootMod : IMod
         internal readonly SemaphoreSlim Gate = new(1, 1);
         internal readonly Dictionary<uint, double> RetryAfter = [];
         internal uint? Item, Pet;
-        internal double Seconds, Started;
+        internal double Seconds, Started, NextLogAt;
     }
 
     public void Load(IModContext context)
@@ -68,6 +68,10 @@ public sealed class PetLootMod : IMod
         GameEvents.Command(mod.Manifest.Id, "petloot",
             "/petloot [on|off|toggle|list|nearby|gold|common|range|speed|allow|block|remove|reset]", Command);
         mod.Log("宠物拾取已就绪：金币 / 通货 / 命运卡 / 地图碎片；/petloot 查看当前角色的设置。");
+        // The declared names must be the record's names, or a setting silently stays at its default.
+        mod.Log($"宠物拾取默认：{On(choices.Enabled)}；金币 {On(choices.Gold)}；常见通货 {On(choices.CommonCurrency)}；"
+            + $"全部通货 {On(choices.AllCurrency)}；命运卡 {On(choices.DivinationCards)}；地图碎片 {On(choices.MapFragments)}；"
+            + $"半径 {choices.Range} 格；速度 {choices.MovementSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture)}x");
     }
 
     // 账号 + 联盟 + 角色名：和 /petloot 里说的「这个角色」一致。
@@ -166,9 +170,10 @@ public sealed class PetLootMod : IMod
             foreach (uint old in state.RetryAfter.Where(e => e.Value <= state.Seconds).Select(e => e.Key).ToArray())
                 state.RetryAfter.Remove(old);
             var at = player.Walk.Position(player.Clock.Elapsed.TotalSeconds);
+            var inRange = Nearby(player, profile);
             Candidate? matching = null, nearest = null;
             double nearestDistance = double.PositiveInfinity;
-            foreach (var candidate in Nearby(player, profile))
+            foreach (var candidate in inRange)
             {
                 if (!Accept(candidate, profile) || state.RetryAfter.ContainsKey(candidate.Id)) continue;
                 if (candidate.Id == state.Item) { matching = candidate; break; }
@@ -176,7 +181,19 @@ public sealed class PetLootMod : IMod
                 if (distance < nearestDistance) { nearestDistance = distance; nearest = candidate; }
             }
             var drop = matching ?? nearest;
-            if (drop is null) { await Release(player, state); return; }
+            if (drop is null)
+            {
+                // Nothing eligible while something is on the ground: say what the filter let through and what it did not.
+                if (inRange.Length > 0 && state.Seconds >= state.NextLogAt)
+                {
+                    state.NextLogAt = state.Seconds + 30;
+                    mod.Log($"附近 {inRange.Length} 个掉落都没通过过滤（半径 {profile.Range}；金币 {On(profile.Gold)}；"
+                        + $"常见通货 {On(profile.CommonCurrency)}；全部通货 {On(profile.AllCurrency)}；"
+                        + $"命运卡 {On(profile.DivinationCards)}；碎片 {On(profile.MapFragments)}）："
+                        + string.Join("、", inRange.Take(5).Select(c => $"{c.Type.Name} x{c.Item.Item.StackSize}")));
+                }
+                await Release(player, state); return;
+            }
             var to = (X: drop.Item.GridX, Y: drop.Item.GridY);
             if (matching is null)
             {
