@@ -32,6 +32,11 @@ public sealed class PetLootMod : IMod
         "Orb of Fusing", "Chromatic Orb", "Jeweller's Orb", "Orb of Regret", "Orb of Scouring",
         "Regal Orb", "Blessed Orb", "Vaal Orb", "Gemcutter's Prism", "Glassblower's Bauble"
     };
+    // 6f08140 的通货分类：勾「全部通货」时这四类都捡（a82b2f0 只认 StackableCurrency，其余三类被漏掉）。
+    static readonly HashSet<string> CurrencyClasses = new(StringComparer.Ordinal)
+    {
+        "Currency", "StackableCurrency", "DelveSocketableCurrency", "DelveStackableSocketableCurrency",
+    };
     readonly object choicesGate = new();
     readonly ConditionalWeakTable<Player, RunState> states = new();
     IModContext mod = null!;
@@ -138,9 +143,9 @@ public sealed class PetLootMod : IMod
             && !profile.Rules.TryGetValue(drop.Type.Name, out minimum))
         {
             bool selected = gold || profile.CommonCurrency && Common.Contains(drop.Type.Name)
+                || profile.AllCurrency && CurrencyClasses.Contains(drop.Type.Class)
                 || drop.Type.Class switch
                 {
-                    "StackableCurrency" => profile.AllCurrency,
                     "DivinationCard" => profile.DivinationCards,
                     "MapFragment" => profile.MapFragments,
                     _ => false,

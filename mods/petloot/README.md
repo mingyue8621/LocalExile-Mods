@@ -18,11 +18,12 @@ pet speed on the next player tick, including a walk already in progress. Other e
 
 ## Filters
 
-Defaults: gold and 20 common currencies, within 60 cells. The preset includes Chaos, Divine, Exalted and Annulment
-Orbs, Mirrors, Alteration, Alchemy, Augmentation, Chance, Transmutation, Fusing, Chromatic, Jeweller's, Regret, Scouring,
-Regal, Blessed and Vaal Orbs, Gemcutter's Prisms and Glassblower's Baubles. Scrolls, shards, fragments, essences, cards
-and scarabs are left down unless enabled by category or explicitly allowed. Waypoint can enable all stackable currency,
-divination cards, and map fragments independently. Existing profiles keep the common-currency preset and saved overrides. Equipment, gems, quest items and hand-dropped items are never taken.
+Defaults: gold and every currency item, within 60 cells. Turning `allCurrency` off leaves only the 20-item common preset,
+which includes Chaos, Divine, Exalted and Annulment Orbs, Mirrors, Alteration, Alchemy, Augmentation, Chance, Transmutation,
+Fusing, Chromatic, Jeweller's, Regret, Scouring, Regal, Blessed and Vaal Orbs, Gemcutter's Prisms and Glassblower's Baubles.
+Cards and map fragments are left down unless enabled by category or explicitly allowed. Waypoint can enable divination cards
+and map fragments independently. Existing profiles keep the common-currency preset and saved overrides. Equipment, gems,
+quest items and hand-dropped items are never taken.
 
 An explicit rule overrides the preset: `0` blocks an item; a positive number is its minimum ground-stack size. Exact
 metadata ids take precedence over display names; names are matched case-insensitively, without substring matching.

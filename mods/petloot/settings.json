@@ -26,9 +26,9 @@
     },
     "allCurrency": {
       "type": "bool",
-      "default": false,
+      "default": true,
       "label": "全部通货",
-      "description": "所有可堆叠通货。"
+      "description": "所有通货类物品（通货、可堆叠通货、矿坑可镶嵌通货等）。关掉只捡上面的常见通货预设。"
     },
     "divinationCards": {
       "type": "bool",
@@ -96,7 +96,7 @@
           },
           "allCurrency": {
             "type": "bool",
-            "default": false,
+            "default": true,
             "label": "全部通货"
           },
           "divinationCards": {
