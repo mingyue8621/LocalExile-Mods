@@ -64,6 +64,7 @@ public sealed class CurrencyStackMod : IMod
         }
 
         var baseline = LoadBaseline(mod);
+        var matched = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         bool saved = false;
         int changed = 0, untouched = 0, combining = 0;
         var examples = new List<string>();
@@ -79,10 +80,16 @@ public sealed class CurrencyStackMod : IMod
                 saved = true;
             }
 
-            int wanted;
             // An override names a currency either by its metadata id or by the name a player sees ("Chaos Orb").
-            bool overridden = overrides.TryGetValue(type.Id, out int asked)
-                || (type.Name.Length > 0 && overrides.TryGetValue(type.Name, out asked));
+            int asked = 0;
+            bool overridden = overrides.TryGetValue(type.Id, out asked);
+            if (overridden) matched.Add(type.Id);
+            else if (type.Name.Length > 0 && overrides.TryGetValue(type.Name, out asked))
+            {
+                overridden = true;
+                matched.Add(type.Name);
+            }
+            int wanted;
             if (overridden) wanted = asked;
             else
             {
@@ -104,6 +111,9 @@ public sealed class CurrencyStackMod : IMod
         if (saved) SaveBaseline(mod, baseline);
         mod.Log($"上限 {target}：改动 {changed} 种通货，{untouched} 种保持原样，满堆自动合成的 {combining} 种不动"
             + (examples.Count > 0 ? "；例如 " + string.Join("、", examples) : ""));
+        // A misspelt override would otherwise do nothing without a word.
+        if (overrides.Keys.Where(key => !matched.Contains(key)).ToList() is [_, ..] missing)
+            mod.Log($"这些「单项覆盖」没对上任何通货，检查一下名字：{string.Join("、", missing)}");
         if (changed > 0) Rebuild(mod);
     }
 
