@@ -3,7 +3,7 @@
   "name": "通货堆叠",
   "description": "把每一种通货的堆叠上限提到 9999（可逐项调整），以后改数值只改这里的配置，不用再动服务端数据。",
   "author": "mingyue8621",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "compatibleClientVersions": [
     "0.8.132"
   ],
