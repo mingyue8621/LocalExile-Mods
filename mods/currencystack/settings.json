@@ -1,25 +1,4449 @@
 {
   "version": 1,
   "settings": {
-    "stackSize": {
+    "[DNT - UNUSED] Arcane Orders Runegraft": {
       "type": "integer",
       "default": 9999,
       "min": 2,
       "max": 9999,
-      "label": "通货堆叠上限",
-      "description": "每一种可堆叠通货在背包和仓库里最多叠多少个，上限 9999。原本就比这更高的（金币等）保持不动。"
+      "label": "[DNT - UNUSED] Arcane Orders Runegraft"
     },
-    "overrides": {
-      "type": "map",
-      "default": {},
-      "label": "单项覆盖",
-      "advanced": true,
-      "description": "按通货名单独指定上限，优先于上面的统一值，例如 \"Chaos Orb\": 5000。裂片这类「满堆自动合成」的通货默认不动，要改就在这里写名字。",
-      "value": {
-        "type": "integer",
-        "min": 2,
-        "max": 9999
-      }
+    "[DNT - UNUSED] Limiting Runegraft": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "[DNT - UNUSED] Limiting Runegraft"
+    },
+    "[DNT - UNUSED] Martial Orders Runegraft": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "[DNT - UNUSED] Martial Orders Runegraft"
+    },
+    "[DNT - UNUSED] Test Runegraft": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "[DNT - UNUSED] Test Runegraft"
+    },
+    "[DNT] UNUSED": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "[DNT] UNUSED"
+    },
+    "Aberrant Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Aberrant Fossil"
+    },
+    "Abrasive Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Abrasive Catalyst"
+    },
+    "Abyssal Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Abyssal Delirium Orb"
+    },
+    "Accelerating Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Accelerating Catalyst"
+    },
+    "Aetheric Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Aetheric Fossil"
+    },
+    "Albino Crab Claw": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Albino Crab Claw"
+    },
+    "Albino Rhoa Feather": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Albino Rhoa Feather"
+    },
+    "Alchemy Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Alchemy Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Alteration Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Alteration Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Amber Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Amber Oil"
+    },
+    "Amplifying Power Core": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Amplifying Power Core"
+    },
+    "Ancestral Tattoo of Bloodlines": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Ancestral Tattoo of Bloodlines"
+    },
+    "Ancient Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Ancient Orb"
+    },
+    "Ancient Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Ancient Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Annulment Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Annulment Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Apprentice Cartographer's Seal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Apprentice Cartographer's Seal"
+    },
+    "Armour Recombinator": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Armour Recombinator"
+    },
+    "Armourer's Scrap": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Armourer's Scrap"
+    },
+    "Armoursmith's Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Armoursmith's Delirium Orb"
+    },
+    "Astragali": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Astragali"
+    },
+    "Augmentation Implant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Augmentation Implant"
+    },
+    "Augmenting Power Core": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Augmenting Power Core"
+    },
+    "Awakened Sextant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Awakened Sextant"
+    },
+    "Awakener's Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Awakener's Orb"
+    },
+    "Azure Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Azure Oil"
+    },
+    "Bestiary Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Bestiary Orb"
+    },
+    "Binding Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Binding Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Black Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Black Oil"
+    },
+    "Blacksmith's Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blacksmith's Delirium Orb"
+    },
+    "Blacksmith's Whetstone": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blacksmith's Whetstone"
+    },
+    "Blessed Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blessed Orb"
+    },
+    "Blessing of Chayula": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blessing of Chayula"
+    },
+    "Blessing of Esh": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blessing of Esh"
+    },
+    "Blessing of Tul": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blessing of Tul"
+    },
+    "Blessing of Uul-Netol": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blessing of Uul-Netol"
+    },
+    "Blessing of Xoph": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blessing of Xoph"
+    },
+    "Blighted Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blighted Delirium Orb"
+    },
+    "Blighted Scouting Report": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Blighted Scouting Report"
+    },
+    "Bloodstained Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Bloodstained Fossil"
+    },
+    "Bound Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Bound Fossil"
+    },
+    "Bound Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Bound Rune"
+    },
+    "Bounty Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Bounty Rune"
+    },
+    "Brinehook's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Brinehook's Ducat"
+    },
+    "Broken Mirror of Kalandra": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Broken Mirror of Kalandra"
+    },
+    "Burial Medallion": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Burial Medallion"
+    },
+    "Cartographer's Chisel": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Cartographer's Chisel"
+    },
+    "Cartographer's Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Cartographer's Delirium Orb"
+    },
+    "Challenging Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Challenging Delirium Orb"
+    },
+    "Chaos Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Chaos Orb"
+    },
+    "Chaos Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Chaos Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Chaotic Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Chaotic Astrolabe"
+    },
+    "Chromatic Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Chromatic Orb"
+    },
+    "Clear Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Clear Oil"
+    },
+    "Coin of Desecration": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Coin of Desecration"
+    },
+    "Coin of Knowledge": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Coin of Knowledge"
+    },
+    "Coin of Power": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Coin of Power"
+    },
+    "Coin of Restoration": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Coin of Restoration"
+    },
+    "Coin of Skill": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Coin of Skill"
+    },
+    "Comprehensive Scouting Report": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Comprehensive Scouting Report"
+    },
+    "Corroded Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Corroded Fossil"
+    },
+    "Crescent Splinter": {
+      "type": "integer",
+      "default": 10,
+      "min": 2,
+      "max": 9999,
+      "label": "Crescent Splinter",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Crimson Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Crimson Oil"
+    },
+    "Crusader's Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Crusader's Exalted Orb"
+    },
+    "Crystallised Rancour": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Crystallised Rancour"
+    },
+    "Cyaxan's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Cyaxan's Ducat"
+    },
+    "Dead Man's Sulphur": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Dead Man's Sulphur",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Deafening Essence of Anger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Anger"
+    },
+    "Deafening Essence of Anguish": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Anguish"
+    },
+    "Deafening Essence of Contempt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Contempt"
+    },
+    "Deafening Essence of Doubt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Doubt"
+    },
+    "Deafening Essence of Dread": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Dread"
+    },
+    "Deafening Essence of Envy": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Envy"
+    },
+    "Deafening Essence of Fear": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Fear"
+    },
+    "Deafening Essence of Greed": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Greed"
+    },
+    "Deafening Essence of Hatred": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Hatred"
+    },
+    "Deafening Essence of Loathing": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Loathing"
+    },
+    "Deafening Essence of Misery": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Misery"
+    },
+    "Deafening Essence of Rage": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Rage"
+    },
+    "Deafening Essence of Scorn": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Scorn"
+    },
+    "Deafening Essence of Sorrow": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Sorrow"
+    },
+    "Deafening Essence of Spite": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Spite"
+    },
+    "Deafening Essence of Suffering": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Suffering"
+    },
+    "Deafening Essence of Torment": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Torment"
+    },
+    "Deafening Essence of Woe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Woe"
+    },
+    "Deafening Essence of Wrath": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Wrath"
+    },
+    "Deafening Essence of Zeal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deafening Essence of Zeal"
+    },
+    "Deceptive Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deceptive Astrolabe"
+    },
+    "Deft Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deft Fossil"
+    },
+    "Delirious Scouting Report": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Delirious Scouting Report"
+    },
+    "Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Delirium Orb"
+    },
+    "Dense Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Dense Fossil"
+    },
+    "Deregulation Scroll": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Deregulation Scroll"
+    },
+    "Dextral Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Dextral Catalyst"
+    },
+    "Divine Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Divine Orb"
+    },
+    "Diviner's Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Diviner's Delirium Orb"
+    },
+    "Djinn-Touched Vaal Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Djinn-Touched Vaal Orb"
+    },
+    "Elder's Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Elder's Exalted Orb"
+    },
+    "Eldritch Chaos Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Eldritch Chaos Orb"
+    },
+    "Eldritch Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Eldritch Exalted Orb"
+    },
+    "Eldritch Orb of Annulment": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Eldritch Orb of Annulment"
+    },
+    "Electroshock Scroll": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Electroshock Scroll"
+    },
+    "Elevated Sextant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Elevated Sextant"
+    },
+    "Empty Coffin": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Empty Coffin"
+    },
+    "Enchant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Enchant"
+    },
+    "Engineer's Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Engineer's Orb"
+    },
+    "Engineer's Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Engineer's Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Enkindling Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Enkindling Orb"
+    },
+    "Essence of Delirium": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Essence of Delirium"
+    },
+    "Essence of Desolation": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Essence of Desolation"
+    },
+    "Essence of Horror": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Essence of Horror"
+    },
+    "Essence of Hysteria": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Essence of Hysteria"
+    },
+    "Essence of Insanity": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Essence of Insanity"
+    },
+    "Eternal Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Eternal Orb"
+    },
+    "Exalted Implant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Exalted Implant"
+    },
+    "Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Exalted Orb"
+    },
+    "Exalted Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Exalted Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Exceptional Black Scythe Artifact": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Exceptional Black Scythe Artifact"
+    },
+    "Exceptional Broken Circle Artifact": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Exceptional Broken Circle Artifact"
+    },
+    "Exceptional Eldritch Ember": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Exceptional Eldritch Ember"
+    },
+    "Exceptional Eldritch Ichor": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Exceptional Eldritch Ichor"
+    },
+    "Exceptional Order Artifact": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Exceptional Order Artifact"
+    },
+    "Exceptional Sun Artifact": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Exceptional Sun Artifact"
+    },
+    "Exotic Coinage": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Exotic Coinage"
+    },
+    "Explorer's Scouting Report": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Explorer's Scouting Report"
+    },
+    "Faceted Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Faceted Fossil"
+    },
+    "Fading Reflecting Mist": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fading Reflecting Mist"
+    },
+    "Fertile Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fertile Catalyst"
+    },
+    "Fine Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fine Delirium Orb"
+    },
+    "Flesh of Xesht": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Flesh of Xesht"
+    },
+    "Forbidden Tattoo of the Duelist": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Forbidden Tattoo of the Duelist"
+    },
+    "Forbidden Tattoo of the Marauder": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Forbidden Tattoo of the Marauder"
+    },
+    "Forbidden Tattoo of the Ranger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Forbidden Tattoo of the Ranger"
+    },
+    "Forbidden Tattoo of the Scion": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Forbidden Tattoo of the Scion"
+    },
+    "Forbidden Tattoo of the Shadow": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Forbidden Tattoo of the Shadow"
+    },
+    "Forbidden Tattoo of the Templar": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Forbidden Tattoo of the Templar"
+    },
+    "Forbidden Tattoo of the Witch": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Forbidden Tattoo of the Witch"
+    },
+    "Fossilised Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fossilised Delirium Orb"
+    },
+    "Foulborn Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Foulborn Exalted Orb"
+    },
+    "Foulborn Orb of Augmentation": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Foulborn Orb of Augmentation"
+    },
+    "Foulborn Regal Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Foulborn Regal Orb"
+    },
+    "Fractured Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fractured Fossil"
+    },
+    "Fracturing Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fracturing Orb"
+    },
+    "Fracturing Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Fracturing Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Fragmentation Scroll": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fragmentation Scroll"
+    },
+    "Fragmented Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fragmented Delirium Orb"
+    },
+    "Frigid Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Frigid Fossil"
+    },
+    "Fruiting Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fruiting Astrolabe"
+    },
+    "Fundamental Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fundamental Fossil"
+    },
+    "Fungal Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Fungal Astrolabe"
+    },
+    "Gemcutter's Prism": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Gemcutter's Prism"
+    },
+    "Gemcutters Lens": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Gemcutters Lens"
+    },
+    "Gilded Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Gilded Fossil"
+    },
+    "Glassblower's Bauble": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Glassblower's Bauble"
+    },
+    "Glyphic Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Glyphic Fossil"
+    },
+    "Golden Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Golden Oil"
+    },
+    "Grand Black Scythe Artifact": {
+      "type": "integer",
+      "default": 25000,
+      "min": 2,
+      "max": 25000,
+      "label": "Grand Black Scythe Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Grand Broken Circle Artifact": {
+      "type": "integer",
+      "default": 25000,
+      "min": 2,
+      "max": 25000,
+      "label": "Grand Broken Circle Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Grand Eldritch Ember": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Grand Eldritch Ember"
+    },
+    "Grand Eldritch Ichor": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Grand Eldritch Ichor"
+    },
+    "Grand Order Artifact": {
+      "type": "integer",
+      "default": 25000,
+      "min": 2,
+      "max": 25000,
+      "label": "Grand Order Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Grand Sun Artifact": {
+      "type": "integer",
+      "default": 25000,
+      "min": 2,
+      "max": 25000,
+      "label": "Grand Sun Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Grasping Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Grasping Astrolabe"
+    },
+    "Greater Black Scythe Artifact": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Greater Black Scythe Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Greater Broken Circle Artifact": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Greater Broken Circle Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Greater Eldritch Ember": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Greater Eldritch Ember"
+    },
+    "Greater Eldritch Ichor": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Greater Eldritch Ichor"
+    },
+    "Greater Order Artifact": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Greater Order Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Greater Sun Artifact": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Greater Sun Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Haemocombustion Scroll": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Haemocombustion Scroll"
+    },
+    "Harbinger's Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Harbinger's Orb"
+    },
+    "Harbinger's Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Harbinger's Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Hinekora's Lock": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Hinekora's Lock"
+    },
+    "Hollow Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Hollow Fossil"
+    },
+    "Honoured Tattoo of the Barbarian": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Barbarian"
+    },
+    "Honoured Tattoo of the Berserker": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Berserker"
+    },
+    "Honoured Tattoo of the Dove": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Dove"
+    },
+    "Honoured Tattoo of the Flock": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Flock"
+    },
+    "Honoured Tattoo of the Flood": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Flood"
+    },
+    "Honoured Tattoo of the Hatungo": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Hatungo"
+    },
+    "Honoured Tattoo of the Hunter": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Hunter"
+    },
+    "Honoured Tattoo of the Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Makanga"
+    },
+    "Honoured Tattoo of the Mountain": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Mountain"
+    },
+    "Honoured Tattoo of the Oak": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Oak"
+    },
+    "Honoured Tattoo of the Pa": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Pa"
+    },
+    "Honoured Tattoo of the Pillager": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Pillager"
+    },
+    "Honoured Tattoo of the Sky": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Sky"
+    },
+    "Honoured Tattoo of the Storm": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Storm"
+    },
+    "Honoured Tattoo of the Tuatara": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Tuatara"
+    },
+    "Honoured Tattoo of the Turtle": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Turtle"
+    },
+    "Honoured Tattoo of the Warlord": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Warlord"
+    },
+    "Honoured Tattoo of the Wise": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Honoured Tattoo of the Wise"
+    },
+    "Horizon Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Horizon Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Hunter's Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Hunter's Exalted Orb"
+    },
+    "Imbued Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Imbued Catalyst"
+    },
+    "Imperial Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Imperial Delirium Orb"
+    },
+    "Imperial Enshrouding Crystal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Imperial Enshrouding Crystal"
+    },
+    "Indigo Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Indigo Oil"
+    },
+    "Influenced Scouting Report": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Influenced Scouting Report"
+    },
+    "Infused Engineer's Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Infused Engineer's Orb"
+    },
+    "Instilling Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Instilling Orb"
+    },
+    "Intrinsic Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Intrinsic Catalyst"
+    },
+    "Jagged Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Jagged Fossil"
+    },
+    "Jeweller's Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Jeweller's Delirium Orb"
+    },
+    "Jeweller's Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Jeweller's Orb"
+    },
+    "Jewellery Recombinator": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Jewellery Recombinator"
+    },
+    "Journey Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Journey Rune"
+    },
+    "Journey Tattoo of Makanui": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Journey Tattoo of Makanui"
+    },
+    "Journey Tattoo of the Body": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Journey Tattoo of the Body"
+    },
+    "Journey Tattoo of the Mind": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Journey Tattoo of the Mind"
+    },
+    "Journey Tattoo of the Soul": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Journey Tattoo of the Soul"
+    },
+    "Journeyman Cartographer's Seal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Journeyman Cartographer's Seal"
+    },
+    "Kalguuran Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Kalguuran Delirium Orb"
+    },
+    "Karui Enshrouding Crystal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Karui Enshrouding Crystal"
+    },
+    "Katakohi's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Katakohi's Ducat"
+    },
+    "Kishara's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Kishara's Ducat"
+    },
+    "Lesser Black Scythe Artifact": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Lesser Black Scythe Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Lesser Broken Circle Artifact": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Lesser Broken Circle Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Lesser Eldritch Ember": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lesser Eldritch Ember"
+    },
+    "Lesser Eldritch Ichor": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lesser Eldritch Ichor"
+    },
+    "Lesser Order Artifact": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Lesser Order Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Lesser Sun Artifact": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Lesser Sun Artifact",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Life Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Life Rune"
+    },
+    "Lightless Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lightless Astrolabe"
+    },
+    "Loyalty Tattoo of Ahuana": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Ahuana"
+    },
+    "Loyalty Tattoo of Akoya": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Akoya"
+    },
+    "Loyalty Tattoo of Ikiaho": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Ikiaho"
+    },
+    "Loyalty Tattoo of Kahuturoa": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Kahuturoa"
+    },
+    "Loyalty Tattoo of Kaom": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Kaom"
+    },
+    "Loyalty Tattoo of Kiloava": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Kiloava"
+    },
+    "Loyalty Tattoo of Maata": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Maata"
+    },
+    "Loyalty Tattoo of Rakiata": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Rakiata"
+    },
+    "Loyalty Tattoo of Tawhanuku": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Tawhanuku"
+    },
+    "Loyalty Tattoo of Utula": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Loyalty Tattoo of Utula"
+    },
+    "Lucent Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lucent Fossil"
+    },
+    "Lycia's Invocation of Acrobatics": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Acrobatics"
+    },
+    "Lycia's Invocation of Ancestral Bond": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Ancestral Bond"
+    },
+    "Lycia's Invocation of Arrow Dancing": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Arrow Dancing"
+    },
+    "Lycia's Invocation of Avatar of Fire": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Avatar of Fire"
+    },
+    "Lycia's Invocation of Blood Magic": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Blood Magic"
+    },
+    "Lycia's Invocation of Call to Arms": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Call to Arms"
+    },
+    "Lycia's Invocation of Conduit": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Conduit"
+    },
+    "Lycia's Invocation of Crimson Dance": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Crimson Dance"
+    },
+    "Lycia's Invocation of Divine Shield": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Divine Shield"
+    },
+    "Lycia's Invocation of Eldritch Battery": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Eldritch Battery"
+    },
+    "Lycia's Invocation of Elemental Equilibrium": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Elemental Equilibrium"
+    },
+    "Lycia's Invocation of Elemental Overload": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Elemental Overload"
+    },
+    "Lycia's Invocation of Eternal Youth": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Eternal Youth"
+    },
+    "Lycia's Invocation of Ghost Dance": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Ghost Dance"
+    },
+    "Lycia's Invocation of Ghost Reaver": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Ghost Reaver"
+    },
+    "Lycia's Invocation of Glancing Blows": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Glancing Blows"
+    },
+    "Lycia's Invocation of Hex Master": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Hex Master"
+    },
+    "Lycia's Invocation of Imbalanced Guard": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Imbalanced Guard"
+    },
+    "Lycia's Invocation of Iron Grip": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Iron Grip"
+    },
+    "Lycia's Invocation of Iron Reflexes": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Iron Reflexes"
+    },
+    "Lycia's Invocation of Iron Will": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Iron Will"
+    },
+    "Lycia's Invocation of Lethe Shade": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Lethe Shade"
+    },
+    "Lycia's Invocation of Magebane": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Magebane"
+    },
+    "Lycia's Invocation of Mind over Matter": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Mind over Matter"
+    },
+    "Lycia's Invocation of Minion Instability": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Minion Instability"
+    },
+    "Lycia's Invocation of Pain Attunement": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Pain Attunement"
+    },
+    "Lycia's Invocation of Perfect Agony": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Perfect Agony"
+    },
+    "Lycia's Invocation of Point Blank": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Point Blank"
+    },
+    "Lycia's Invocation of Precise Technique": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Precise Technique"
+    },
+    "Lycia's Invocation of Resolute Technique": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Resolute Technique"
+    },
+    "Lycia's Invocation of Runebinder": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Runebinder"
+    },
+    "Lycia's Invocation of Solipsism": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Solipsism"
+    },
+    "Lycia's Invocation of Supreme Ego": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Supreme Ego"
+    },
+    "Lycia's Invocation of the Agnostic": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of the Agnostic"
+    },
+    "Lycia's Invocation of the Impaler": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of the Impaler"
+    },
+    "Lycia's Invocation of Unwavering Stance": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Unwavering Stance"
+    },
+    "Lycia's Invocation of Vaal Pact": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Vaal Pact"
+    },
+    "Lycia's Invocation of Versatile Combatant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Versatile Combatant"
+    },
+    "Lycia's Invocation of Wicked Ward": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Wicked Ward"
+    },
+    "Lycia's Invocation of Wind Dancer": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Wind Dancer"
+    },
+    "Lycia's Invocation of Zealot's Oath": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Lycia's Invocation of Zealot's Oath"
+    },
+    "Maraketh Enshrouding Crystal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Maraketh Enshrouding Crystal"
+    },
+    "Master Cartographer's Seal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Master Cartographer's Seal"
+    },
+    "Maven's Chisel of Avarice": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Maven's Chisel of Avarice"
+    },
+    "Maven's Chisel of Divination": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Maven's Chisel of Divination"
+    },
+    "Maven's Chisel of Procurement": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Maven's Chisel of Procurement"
+    },
+    "Maven's Chisel of Proliferation": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Maven's Chisel of Proliferation"
+    },
+    "Maven's Chisel of Scarabs": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Maven's Chisel of Scarabs"
+    },
+    "Memory of Loneliness": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Memory of Loneliness"
+    },
+    "Memory of Reverence": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Memory of Reverence"
+    },
+    "Memory of Trauma": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Memory of Trauma"
+    },
+    "Merrick's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Merrick's Ducat"
+    },
+    "Metallic Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Metallic Fossil"
+    },
+    "Mirror of Kalandra": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Mirror of Kalandra"
+    },
+    "Mirror Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Mirror Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Mountain Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Mountain Rune"
+    },
+    "Muttering Essence of Anger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Muttering Essence of Anger"
+    },
+    "Muttering Essence of Contempt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Muttering Essence of Contempt"
+    },
+    "Muttering Essence of Fear": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Muttering Essence of Fear"
+    },
+    "Muttering Essence of Greed": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Muttering Essence of Greed"
+    },
+    "Muttering Essence of Hatred": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Muttering Essence of Hatred"
+    },
+    "Muttering Essence of Sorrow": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Muttering Essence of Sorrow"
+    },
+    "Muttering Essence of Torment": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Muttering Essence of Torment"
+    },
+    "Muttering Essence of Woe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Muttering Essence of Woe"
+    },
+    "Nameless Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Nameless Astrolabe"
+    },
+    "Necromancy Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Necromancy Net"
+    },
+    "Noxious Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Noxious Catalyst"
+    },
+    "Obscured Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Obscured Delirium Orb"
+    },
+    "Oil Extractor": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Oil Extractor"
+    },
+    "Opalescent Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Opalescent Oil"
+    },
+    "Operative's Scouting Report": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Operative's Scouting Report"
+    },
+    "Opulent Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Opulent Fossil"
+    },
+    "Orb of Alchemy": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Alchemy"
+    },
+    "Orb of Alteration": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Alteration"
+    },
+    "Orb of Annulment": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Annulment"
+    },
+    "Orb of Augmentation": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Augmentation"
+    },
+    "Orb of Binding": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Binding"
+    },
+    "Orb of Chance": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Chance"
+    },
+    "Orb of Conflict": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Conflict"
+    },
+    "Orb of Dominance": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Dominance"
+    },
+    "Orb of Fusing": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Fusing"
+    },
+    "Orb of Horizons": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Horizons"
+    },
+    "Orb of Intention": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Intention"
+    },
+    "Orb of Regret": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Regret"
+    },
+    "Orb of Remembrance": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Remembrance"
+    },
+    "Orb of Scouring": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Scouring"
+    },
+    "Orb of Transmutation": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Transmutation"
+    },
+    "Orb of Unmaking": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Unmaking"
+    },
+    "Orb of Unravelling": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Orb of Unravelling"
+    },
+    "Otherworldly Scouting Report": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Otherworldly Scouting Report"
+    },
+    "Perandus Coin": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Perandus Coin"
+    },
+    "Portal Scroll": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Portal Scroll"
+    },
+    "Power Core": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Power Core"
+    },
+    "Power Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Power Rune"
+    },
+    "Primal Crystallised Lifeforce": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Primal Crystallised Lifeforce",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Primal Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Primal Delirium Orb"
+    },
+    "Primal Wisps": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Primal Wisps",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Prime Regrading Lens": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Prime Regrading Lens"
+    },
+    "Prime Sextant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Prime Sextant"
+    },
+    "Prismatic Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Prismatic Catalyst"
+    },
+    "Prismatic Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Prismatic Fossil"
+    },
+    "Prismatic Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Prismatic Oil"
+    },
+    "Pristine Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Pristine Fossil"
+    },
+    "Prospecting Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Prospecting Astrolabe"
+    },
+    "Red Packet": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Red Packet"
+    },
+    "Redeemer's Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Redeemer's Exalted Orb"
+    },
+    "Reflecting Mist": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Reflecting Mist"
+    },
+    "Reflective Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Reflective Oil"
+    },
+    "Refracting Fog": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Refracting Fog"
+    },
+    "Regal Implant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Regal Implant"
+    },
+    "Regal Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Regal Orb"
+    },
+    "Regal Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Regal Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Reinforced Iron Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Reinforced Iron Net"
+    },
+    "Reinforced Rope Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Reinforced Rope Net"
+    },
+    "Reinforced Steel Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Reinforced Steel Net"
+    },
+    "Remnant of Corruption": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Remnant of Corruption"
+    },
+    "Ritual Splinter": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Ritual Splinter",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Ritual Vessel": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Ritual Vessel"
+    },
+    "River Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "River Rune"
+    },
+    "Rogue's Marker": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Rogue's Marker",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Rotmother's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Rotmother's Ducat"
+    },
+    "Runegraft of Bellows": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Bellows"
+    },
+    "Runegraft of Blasphemy": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Blasphemy"
+    },
+    "Runegraft of Connection": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Connection"
+    },
+    "Runegraft of Consecration": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Consecration"
+    },
+    "Runegraft of Fury": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Fury"
+    },
+    "Runegraft of Gemcraft": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Gemcraft"
+    },
+    "Runegraft of Loyalty": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Loyalty"
+    },
+    "Runegraft of Quaffing": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Quaffing"
+    },
+    "Runegraft of Rallying": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Rallying"
+    },
+    "Runegraft of Refraction": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Refraction"
+    },
+    "Runegraft of Restitching": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Restitching"
+    },
+    "Runegraft of Resurgence": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Resurgence"
+    },
+    "Runegraft of Rotblood": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Rotblood"
+    },
+    "Runegraft of Stability": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Stability"
+    },
+    "Runegraft of Suffering": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Suffering"
+    },
+    "Runegraft of the Agile": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Agile"
+    },
+    "Runegraft of the Angler": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Angler"
+    },
+    "Runegraft of the Bound": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Bound"
+    },
+    "Runegraft of the Combatant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Combatant"
+    },
+    "Runegraft of the Fortress": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Fortress"
+    },
+    "Runegraft of the Gauche": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Gauche"
+    },
+    "Runegraft of the Imbued": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Imbued"
+    },
+    "Runegraft of the Jeweller": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Jeweller"
+    },
+    "Runegraft of the Novamark": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Novamark"
+    },
+    "Runegraft of the River": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the River"
+    },
+    "Runegraft of the Sinistral": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Sinistral"
+    },
+    "Runegraft of the Soulwick": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Soulwick"
+    },
+    "Runegraft of the Spellbound": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Spellbound"
+    },
+    "Runegraft of the Warp": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Warp"
+    },
+    "Runegraft of the Witchmark": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of the Witchmark"
+    },
+    "Runegraft of Time": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Time"
+    },
+    "Runegraft of Treachery": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runegraft of Treachery"
+    },
+    "Runic Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Runic Astrolabe"
+    },
+    "Sacred Crystallised Lifeforce": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Sacred Crystallised Lifeforce"
+    },
+    "Sacred Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Sacred Orb"
+    },
+    "Sanctified Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Sanctified Fossil"
+    },
+    "Scorched Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Scorched Fossil"
+    },
+    "Scrap Metal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Scrap Metal"
+    },
+    "Screaming Essence of Anger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Anger"
+    },
+    "Screaming Essence of Anguish": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Anguish"
+    },
+    "Screaming Essence of Contempt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Contempt"
+    },
+    "Screaming Essence of Doubt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Doubt"
+    },
+    "Screaming Essence of Dread": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Dread"
+    },
+    "Screaming Essence of Envy": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Envy"
+    },
+    "Screaming Essence of Fear": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Fear"
+    },
+    "Screaming Essence of Greed": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Greed"
+    },
+    "Screaming Essence of Hatred": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Hatred"
+    },
+    "Screaming Essence of Loathing": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Loathing"
+    },
+    "Screaming Essence of Misery": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Misery"
+    },
+    "Screaming Essence of Rage": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Rage"
+    },
+    "Screaming Essence of Scorn": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Scorn"
+    },
+    "Screaming Essence of Sorrow": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Sorrow"
+    },
+    "Screaming Essence of Spite": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Spite"
+    },
+    "Screaming Essence of Suffering": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Suffering"
+    },
+    "Screaming Essence of Torment": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Torment"
+    },
+    "Screaming Essence of Woe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Woe"
+    },
+    "Screaming Essence of Wrath": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Wrath"
+    },
+    "Screaming Essence of Zeal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Screaming Essence of Zeal"
+    },
+    "Scroll Fragment": {
+      "type": "integer",
+      "default": 5,
+      "min": 2,
+      "max": 9999,
+      "label": "Scroll Fragment",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Scroll of Wisdom": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Scroll of Wisdom"
+    },
+    "Secondary Regrading Lens": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Secondary Regrading Lens"
+    },
+    "Sepia Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Sepia Oil"
+    },
+    "Serrated Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Serrated Fossil"
+    },
+    "Shaper's Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shaper's Exalted Orb"
+    },
+    "Shrieking Essence of Anger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Anger"
+    },
+    "Shrieking Essence of Anguish": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Anguish"
+    },
+    "Shrieking Essence of Contempt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Contempt"
+    },
+    "Shrieking Essence of Doubt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Doubt"
+    },
+    "Shrieking Essence of Dread": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Dread"
+    },
+    "Shrieking Essence of Envy": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Envy"
+    },
+    "Shrieking Essence of Fear": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Fear"
+    },
+    "Shrieking Essence of Greed": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Greed"
+    },
+    "Shrieking Essence of Hatred": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Hatred"
+    },
+    "Shrieking Essence of Loathing": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Loathing"
+    },
+    "Shrieking Essence of Misery": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Misery"
+    },
+    "Shrieking Essence of Rage": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Rage"
+    },
+    "Shrieking Essence of Scorn": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Scorn"
+    },
+    "Shrieking Essence of Sorrow": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Sorrow"
+    },
+    "Shrieking Essence of Spite": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Spite"
+    },
+    "Shrieking Essence of Suffering": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Suffering"
+    },
+    "Shrieking Essence of Torment": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Torment"
+    },
+    "Shrieking Essence of Woe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Woe"
+    },
+    "Shrieking Essence of Wrath": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Wrath"
+    },
+    "Shrieking Essence of Zeal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shrieking Essence of Zeal"
+    },
+    "Shuddering Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Shuddering Fossil"
+    },
+    "Silver Coin": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Silver Coin"
+    },
+    "Silver Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Silver Oil"
+    },
+    "Simple Iron Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Simple Iron Net"
+    },
+    "Simple Rope Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Simple Rope Net"
+    },
+    "Simple Sextant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Simple Sextant"
+    },
+    "Simple Steel Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Simple Steel Net"
+    },
+    "Simulacrum Splinter": {
+      "type": "integer",
+      "default": 300,
+      "min": 2,
+      "max": 9999,
+      "label": "Simulacrum Splinter",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Singular Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Singular Delirium Orb"
+    },
+    "Singular Scouting Report": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Singular Scouting Report"
+    },
+    "Sinistral Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Sinistral Catalyst"
+    },
+    "Skittering Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Skittering Delirium Orb"
+    },
+    "Specularity Scroll": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Specularity Scroll"
+    },
+    "Splinter of Chayula": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Splinter of Chayula",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Splinter of Esh": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Splinter of Esh",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Splinter of Tul": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Splinter of Tul",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Splinter of Uul-Netol": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Splinter of Uul-Netol",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Splinter of Xoph": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Splinter of Xoph",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Stacked Deck": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Stacked Deck"
+    },
+    "Strong Iron Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Strong Iron Net"
+    },
+    "Strong Rope Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Strong Rope Net"
+    },
+    "Strong Steel Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Strong Steel Net"
+    },
+    "Sun Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Sun Rune"
+    },
+    "Surveyor's Compass": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Surveyor's Compass"
+    },
+    "Tailoring Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tailoring Orb"
+    },
+    "Tainted Armourer's Scrap": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Armourer's Scrap"
+    },
+    "Tainted Blacksmith's Whetstone": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Blacksmith's Whetstone"
+    },
+    "Tainted Blessing": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Blessing"
+    },
+    "Tainted Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Catalyst"
+    },
+    "Tainted Chaos Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Chaos Orb"
+    },
+    "Tainted Chromatic Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Chromatic Orb"
+    },
+    "Tainted Divine Teardrop": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Divine Teardrop"
+    },
+    "Tainted Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Exalted Orb"
+    },
+    "Tainted Jeweller's Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Jeweller's Orb"
+    },
+    "Tainted Mythic Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Mythic Orb"
+    },
+    "Tainted Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Oil"
+    },
+    "Tainted Orb of Fusing": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tainted Orb of Fusing"
+    },
+    "Tangled Fossil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tangled Fossil"
+    },
+    "Tattoo of the Arohongui Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Arohongui Makanga"
+    },
+    "Tattoo of the Arohongui Moonwarden": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Arohongui Moonwarden"
+    },
+    "Tattoo of the Arohongui Scout": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Arohongui Scout"
+    },
+    "Tattoo of the Arohongui Shaman": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Arohongui Shaman"
+    },
+    "Tattoo of the Arohongui Warmonger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Arohongui Warmonger"
+    },
+    "Tattoo of the Arohongui Warrior": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Arohongui Warrior"
+    },
+    "Tattoo of the Hinekora Deathwarden": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Hinekora Deathwarden"
+    },
+    "Tattoo of the Hinekora Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Hinekora Makanga"
+    },
+    "Tattoo of the Hinekora Shaman": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Hinekora Shaman"
+    },
+    "Tattoo of the Hinekora Storyteller": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Hinekora Storyteller"
+    },
+    "Tattoo of the Hinekora Warmonger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Hinekora Warmonger"
+    },
+    "Tattoo of the Hinekora Warrior": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Hinekora Warrior"
+    },
+    "Tattoo of the Kitava Blood Drinker": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Kitava Blood Drinker"
+    },
+    "Tattoo of the Kitava Heart Eater": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Kitava Heart Eater"
+    },
+    "Tattoo of the Kitava Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Kitava Makanga"
+    },
+    "Tattoo of the Kitava Rebel": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Kitava Rebel"
+    },
+    "Tattoo of the Kitava Shaman": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Kitava Shaman"
+    },
+    "Tattoo of the Kitava Warrior": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Kitava Warrior"
+    },
+    "Tattoo of the Ngamahu Firewalker": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ngamahu Firewalker"
+    },
+    "Tattoo of the Ngamahu Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ngamahu Makanga"
+    },
+    "Tattoo of the Ngamahu Shaman": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ngamahu Shaman"
+    },
+    "Tattoo of the Ngamahu Warmonger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ngamahu Warmonger"
+    },
+    "Tattoo of the Ngamahu Warrior": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ngamahu Warrior"
+    },
+    "Tattoo of the Ngamahu Woodcarver": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ngamahu Woodcarver"
+    },
+    "Tattoo of the Ramako Archer": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ramako Archer"
+    },
+    "Tattoo of the Ramako Fleetfoot": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ramako Fleetfoot"
+    },
+    "Tattoo of the Ramako Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ramako Makanga"
+    },
+    "Tattoo of the Ramako Scout": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ramako Scout"
+    },
+    "Tattoo of the Ramako Shaman": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ramako Shaman"
+    },
+    "Tattoo of the Ramako Sniper": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Ramako Sniper"
+    },
+    "Tattoo of the Rongokurai Brute": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Rongokurai Brute"
+    },
+    "Tattoo of the Rongokurai Goliath": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Rongokurai Goliath"
+    },
+    "Tattoo of the Rongokurai Guard": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Rongokurai Guard"
+    },
+    "Tattoo of the Rongokurai Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Rongokurai Makanga"
+    },
+    "Tattoo of the Rongokurai Turtle": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Rongokurai Turtle"
+    },
+    "Tattoo of the Rongokurai Warrior": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Rongokurai Warrior"
+    },
+    "Tattoo of the Tasalio Bladedancer": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tasalio Bladedancer"
+    },
+    "Tattoo of the Tasalio Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tasalio Makanga"
+    },
+    "Tattoo of the Tasalio Scout": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tasalio Scout"
+    },
+    "Tattoo of the Tasalio Shaman": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tasalio Shaman"
+    },
+    "Tattoo of the Tasalio Tideshifter": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tasalio Tideshifter"
+    },
+    "Tattoo of the Tasalio Warrior": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tasalio Warrior"
+    },
+    "Tattoo of the Tawhoa Herbalist": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tawhoa Herbalist"
+    },
+    "Tattoo of the Tawhoa Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tawhoa Makanga"
+    },
+    "Tattoo of the Tawhoa Naturalist": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tawhoa Naturalist"
+    },
+    "Tattoo of the Tawhoa Scout": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tawhoa Scout"
+    },
+    "Tattoo of the Tawhoa Shaman": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tawhoa Shaman"
+    },
+    "Tattoo of the Tawhoa Warrior": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tawhoa Warrior"
+    },
+    "Tattoo of the Tukohama Brawler": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tukohama Brawler"
+    },
+    "Tattoo of the Tukohama Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tukohama Makanga"
+    },
+    "Tattoo of the Tukohama Shaman": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tukohama Shaman"
+    },
+    "Tattoo of the Tukohama Warcaller": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tukohama Warcaller"
+    },
+    "Tattoo of the Tukohama Warmonger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tukohama Warmonger"
+    },
+    "Tattoo of the Tukohama Warrior": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Tukohama Warrior"
+    },
+    "Tattoo of the Valako Makanga": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Valako Makanga"
+    },
+    "Tattoo of the Valako Scout": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Valako Scout"
+    },
+    "Tattoo of the Valako Shaman": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Valako Shaman"
+    },
+    "Tattoo of the Valako Shieldbearer": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Valako Shieldbearer"
+    },
+    "Tattoo of the Valako Stormrider": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Valako Stormrider"
+    },
+    "Tattoo of the Valako Warrior": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tattoo of the Valako Warrior"
+    },
+    "Teal Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Teal Oil"
+    },
+    "Telesia's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Telesia's Ducat"
+    },
+    "Tempering Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tempering Catalyst"
+    },
+    "Tempering Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tempering Orb"
+    },
+    "Templar Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Templar Astrolabe"
+    },
+    "Templar Enshrouding Crystal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Templar Enshrouding Crystal"
+    },
+    "Thaumaturge's Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Thaumaturge's Delirium Orb"
+    },
+    "Thaumaturgical Net": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Thaumaturgical Net"
+    },
+    "The Changeling's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "The Changeling's Ducat"
+    },
+    "The Genteel's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "The Genteel's Ducat"
+    },
+    "Time Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Time Rune"
+    },
+    "Time-light Scroll": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Time-light Scroll"
+    },
+    "Timeless Astrolabe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Timeless Astrolabe"
+    },
+    "Timeless Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Timeless Delirium Orb"
+    },
+    "Timeless Eternal Empire Splinter": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Timeless Eternal Empire Splinter",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Timeless Karui Splinter": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Timeless Karui Splinter",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Timeless Maraketh Splinter": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Timeless Maraketh Splinter",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Timeless Templar Splinter": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Timeless Templar Splinter",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Timeless Vaal Splinter": {
+      "type": "integer",
+      "default": 100,
+      "min": 2,
+      "max": 9999,
+      "label": "Timeless Vaal Splinter",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Transforming Power Core": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Transforming Power Core"
+    },
+    "Transmutation Shard": {
+      "type": "integer",
+      "default": 20,
+      "min": 2,
+      "max": 9999,
+      "label": "Transmutation Shard",
+      "description": "满堆会自动合成别的通货；抬高上限会同时抬高合成阈值。"
+    },
+    "Turbulent Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Turbulent Catalyst"
+    },
+    "Tzamoto's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Tzamoto's Ducat"
+    },
+    "Ukatoa's Ducat": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Ukatoa's Ducat"
+    },
+    "Unshaping Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Unshaping Orb"
+    },
+    "Unstable Catalyst": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Unstable Catalyst"
+    },
+    "Unstable Implant": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Unstable Implant"
+    },
+    "Vaal Enshrouding Crystal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vaal Enshrouding Crystal"
+    },
+    "Vaal Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vaal Orb"
+    },
+    "Vaal Scouting Report": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vaal Scouting Report"
+    },
+    "Valdo's Puzzle Box": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Valdo's Puzzle Box"
+    },
+    "Veiled Chaos Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Veiled Chaos Orb"
+    },
+    "Veiled Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Veiled Exalted Orb"
+    },
+    "Veiled Scarab": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Veiled Scarab"
+    },
+    "Verdant Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Verdant Oil"
+    },
+    "Vial of Awakening": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vial of Awakening"
+    },
+    "Vial of Consequence": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vial of Consequence"
+    },
+    "Vial of Dominance": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vial of Dominance"
+    },
+    "Vial of Fate": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vial of Fate"
+    },
+    "Vial of Sacrifice": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vial of Sacrifice"
+    },
+    "Vial of Summoning": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vial of Summoning"
+    },
+    "Vial of the Ghost": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vial of the Ghost"
+    },
+    "Vial of the Ritual": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vial of the Ritual"
+    },
+    "Vial of Transcendence": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Vial of Transcendence"
+    },
+    "Violet Oil": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Violet Oil"
+    },
+    "Vivid Crystallised Lifeforce": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Vivid Crystallised Lifeforce",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Vivid Wisps": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Vivid Wisps",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Volatile Vaal Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Volatile Vaal Orb"
+    },
+    "Wailing Essence of Anger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Anger"
+    },
+    "Wailing Essence of Anguish": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Anguish"
+    },
+    "Wailing Essence of Contempt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Contempt"
+    },
+    "Wailing Essence of Doubt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Doubt"
+    },
+    "Wailing Essence of Fear": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Fear"
+    },
+    "Wailing Essence of Greed": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Greed"
+    },
+    "Wailing Essence of Hatred": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Hatred"
+    },
+    "Wailing Essence of Loathing": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Loathing"
+    },
+    "Wailing Essence of Rage": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Rage"
+    },
+    "Wailing Essence of Sorrow": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Sorrow"
+    },
+    "Wailing Essence of Spite": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Spite"
+    },
+    "Wailing Essence of Suffering": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Suffering"
+    },
+    "Wailing Essence of Torment": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Torment"
+    },
+    "Wailing Essence of Woe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Woe"
+    },
+    "Wailing Essence of Wrath": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Wrath"
+    },
+    "Wailing Essence of Zeal": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Wailing Essence of Zeal"
+    },
+    "War Rune": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "War Rune"
+    },
+    "Warlord's Exalted Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Warlord's Exalted Orb"
+    },
+    "Weapon Recombinator": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weapon Recombinator"
+    },
+    "Weeping Essence of Anger": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Anger"
+    },
+    "Weeping Essence of Contempt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Contempt"
+    },
+    "Weeping Essence of Doubt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Doubt"
+    },
+    "Weeping Essence of Fear": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Fear"
+    },
+    "Weeping Essence of Greed": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Greed"
+    },
+    "Weeping Essence of Hatred": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Hatred"
+    },
+    "Weeping Essence of Rage": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Rage"
+    },
+    "Weeping Essence of Sorrow": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Sorrow"
+    },
+    "Weeping Essence of Suffering": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Suffering"
+    },
+    "Weeping Essence of Torment": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Torment"
+    },
+    "Weeping Essence of Woe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Woe"
+    },
+    "Weeping Essence of Wrath": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Weeping Essence of Wrath"
+    },
+    "Whispering Delirium Orb": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Whispering Delirium Orb"
+    },
+    "Whispering Essence of Contempt": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Whispering Essence of Contempt"
+    },
+    "Whispering Essence of Greed": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Whispering Essence of Greed"
+    },
+    "Whispering Essence of Hatred": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Whispering Essence of Hatred"
+    },
+    "Whispering Essence of Woe": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "Whispering Essence of Woe"
+    },
+    "Wild Crystallised Lifeforce": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Wild Crystallised Lifeforce",
+      "description": "原本上限就高于 9999，保留原值。"
+    },
+    "Wild Wisps": {
+      "type": "integer",
+      "default": 50000,
+      "min": 2,
+      "max": 50000,
+      "label": "Wild Wisps",
+      "description": "原本上限就高于 9999，保留原值。"
     }
   }
 }
