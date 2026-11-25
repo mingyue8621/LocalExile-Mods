@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- A project mod: the rest (references, output path, mod.json/settings.json copying) is in mods/Directory.Build.props. -->
+
+</Project>

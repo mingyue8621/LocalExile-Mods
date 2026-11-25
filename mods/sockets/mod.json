@@ -1,0 +1,12 @@
+{
+  "id": "sockets",
+  "name": "孔位控制",
+  "description": "手动决定掉落装备的孔数与连接：孔数、几连都能设成区间随机或固定值，还能选只保底、只封顶，以及孔的颜色。",
+  "author": "mingyue8621",
+  "version": "1.0.0",
+  "compatibleClientVersions": [
+    "0.8.126"
+  ],
+  "kind": "feature",
+  "depends": []
+}

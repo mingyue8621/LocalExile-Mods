@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "settings": {
+    "mode": {
+      "type": "choice",
+      "default": "replace",
+      "options": [
+        { "value": "replace", "label": "重排：在区间里随机" },
+        { "value": "raise", "label": "只保底：低于下限才提高" },
+        { "value": "cap", "label": "只封顶：高于上限才压低" },
+        { "value": "links", "label": "只改连接：孔数不动" }
+      ],
+      "label": "改动方式",
+      "description": "重排：每件装备都在「掉落孔数」区间里重新随机一次。只保底：游戏原本给的孔数低于下限时才抬到下限，原本更多就保留。只封顶：高于上限时才压低，原本更少就保留。只改连接：孔数和孔色都保持游戏原本的，只按「连接方式」重排连接。"
+    },
+    "sockets": {
+      "type": "range",
+      "of": "integer",
+      "default": [1, 6],
+      "min": 1,
+      "max": 6,
+      "label": "掉落孔数",
+      "description": "每件装备的孔数在这个区间里随机。两端填一样就是固定孔数：6 和 6 表示每件 6 孔，4 和 4 表示每件 4 孔。受装备类型和尺寸限制，1 格宽的长杖最多 3 孔，单手武器与盾最多 3 孔。"
+    },
+    "linkMode": {
+      "type": "choice",
+      "default": "range",
+      "options": [
+        { "value": "range", "label": "按区间随机" },
+        { "value": "retail", "label": "游戏原本的概率" },
+        { "value": "full", "label": "全连成一组" },
+        { "value": "none", "label": "全部断开" }
+      ],
+      "label": "连接方式",
+      "description": "按区间随机：用下面的「最多几连」。游戏原本的概率：按原版连结概率，受 drop_socket_link_scale 影响。全连成一组：所有孔连在一起，6 孔就是 6 连。全部断开：每个孔单独，没有连接。"
+    },
+    "links": {
+      "type": "range",
+      "of": "integer",
+      "default": [1, 6],
+      "min": 1,
+      "max": 6,
+      "label": "几连（最大一组）",
+      "when": { "linkMode": "range" },
+      "description": "连接里最大一组的孔数在这个区间里随机：填 4 就保证有一组 4 个孔连在一起。两端填一样就是固定几连，6 和 6 必定 6 连。超过实际孔数时按孔数算（3 孔设 6 连就是 3 连）。"
+    },
+    "rarities": {
+      "type": "choices",
+      "default": ["normal", "magic", "rare", "unique"],
+      "options": [
+        { "value": "normal", "label": "普通（白装）" },
+        { "value": "magic", "label": "魔法（蓝装）" },
+        { "value": "rare", "label": "稀有（黄装）" },
+        { "value": "unique", "label": "传奇（暗金）" }
+      ],
+      "label": "生效稀有度",
+      "description": "哪些稀有度的装备会被改动。默认四种全选；一个都不勾表示所有稀有度都改。"
+    },
+    "colours": {
+      "type": "choice",
+      "default": "attribute",
+      "options": [
+        { "value": "white", "label": "全白孔" },
+        { "value": "attribute", "label": "按属性随机（红绿蓝）" }
+      ],
+      "label": "孔的颜色",
+      "description": "全白孔：每个孔都是白色，任何颜色的宝石都能插。按属性随机：按装备的力量、敏捷、智慧需求随机出红绿蓝，和游戏原本的做法一致。"
+    }
+  }
+}
