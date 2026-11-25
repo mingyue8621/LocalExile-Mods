@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "settings": {
+    "stackSize": {
+      "type": "integer",
+      "default": 9999,
+      "min": 2,
+      "max": 9999,
+      "label": "通货堆叠上限",
+      "description": "每一种可堆叠通货在背包和仓库里最多叠多少个，上限 9999。原本就比这更高的（金币等）保持不动。"
+    },
+    "overrides": {
+      "type": "map",
+      "default": {},
+      "label": "单项覆盖",
+      "advanced": true,
+      "description": "按通货名单独指定上限，优先于上面的统一值，例如 \"Chaos Orb\": 5000。裂片这类「满堆自动合成」的通货默认不动，要改就在这里写名字。",
+      "value": {
+        "type": "integer",
+        "min": 2,
+        "max": 9999
+      }
+    }
+  }
+}
