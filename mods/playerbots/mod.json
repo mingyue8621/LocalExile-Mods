@@ -8,7 +8,7 @@
     "0.6.0-beta"
   ],
   "kind": "feature",
-  "leagues": "listed",
+  "leagues": "all",
   "depends": [
     "Game",
     "Social"

@@ -23,41 +23,56 @@ public sealed class PartyFollowerTests
         leader.Walk.Teleport(100, 100, 0);
         leader.Walk.Order(180, 100, 0);
         var ahead = BotPlay.ControlledFollowerPoint(bot, leader, arrival: true);
-        Assert.True(ahead.X > 110);
-        Assert.InRange(Math.Sqrt(Math.Pow(ahead.X - 100, 2) + Math.Pow(ahead.Y - 100, 2)), 12, 32);
-        bot.Walk.Teleport(201, 100, 0);
-        BotPlay.BodyOf(bot).NextAction = 1000;
-        Assert.True(BotPlay.KeepControlledFollowerNear(bot, leader, 0));
-        var returned = bot.Walk.Position(0);
-        Assert.True(Game.Dist(returned, (100, 100)) < 32);
-        Assert.Equal(.35, BotPlay.BodyOf(bot).NextAction);
-        bot.Walk.Teleport(180, 100, 0);
-        int action = bot.ActionCount;
-        Assert.True(BotPlay.KeepControlledFollowerNear(bot, leader, 0));
-        Assert.Equal((180, 100), bot.Walk.Position(0)); // Normal catch-up walks, rather than teleports.
-        Assert.True(bot.ActionCount > action);
-        Assert.True(bot.Walk.Destination.X > 110);
-        Assert.True(Game.Dist(bot.Walk.Destination, (100, 100)) < 32);
+        // Behind the leader, off the line it is walking down: a follower used to take a cell ahead of it, and five of them
+        // made a wall the player's own pathfinder had to walk round (live 2026-11-10).
+        Assert.True(ahead.X < 95);
+        // The trail radii rotate with the follower's rank (PeerId % 3 over [12, 16, 20]) and each cell is rounded, so a
+        // radius-20 spot lands up to about 20.7 cells out: the bound covers the rounding, not a follower walking further.
+        Assert.InRange(Math.Sqrt(Math.Pow(ahead.X - 100, 2) + Math.Pow(ahead.Y - 100, 2)), 6, 21);
+        var runner = runtime.PlayerOf(instance, wire);
+        runner.Walk.Teleport(201, 100, 0);
+        BotPlay.BodyOf(runner).NextAction = 1000;
+        Assert.True(BotPlay.KeepControlledFollowerNear(runner, leader, 0));
+        // A gap over the leash is closed on foot first: the order is a walk back toward the trail, not a jump beside the player.
+        Assert.Equal((201, 100), runner.Walk.Position(0));
+        Assert.True(Game.Dist(runner.Walk.Destination, (100, 100)) < 32);
+        Assert.Equal(1000, BotPlay.BodyOf(runner).NextAction);
+        // Too far to walk back at all, it comes back at once, and behind the leader.
+        var stranded = runtime.PlayerOf(instance, wire);
+        stranded.Walk.Teleport(300, 300, 0);
+        Assert.True(BotPlay.KeepControlledFollowerNear(stranded, leader, 0));
+        Assert.True(Game.Dist(stranded.Walk.Position(0), (100, 100)) < 32);
+        Assert.Equal(.35, BotPlay.BodyOf(stranded).NextAction);
+        var trailer = runtime.PlayerOf(instance, wire);
+        trailer.Walk.Teleport(180, 100, 0);
+        int action = trailer.ActionCount;
+        Assert.True(BotPlay.KeepControlledFollowerNear(trailer, leader, 0));
+        Assert.Equal((180, 100), trailer.Walk.Position(0)); // Normal catch-up walks, rather than teleports.
+        Assert.True(trailer.ActionCount > action);
+        Assert.True(trailer.Walk.Destination.X < 100);   // Back onto the trail behind the leader, not further ahead of it.
+        Assert.True(Game.Dist(trailer.Walk.Destination, (100, 100)) < 32);
         // A nearby swing/cast gets its contact before following resumes, rather than being cancelled every AI tick.
-        bot.Walk.Teleport(70, 100, 0);
-        bot.Walk.Order(70, 100, 0);
-        BotPlay.HoldControlledFollowerAttack(bot, 0, .75, 123);
-        action = bot.ActionCount;
-        Assert.True(BotPlay.KeepControlledFollowerNear(bot, leader, .2));
-        Assert.Equal(action, bot.ActionCount);
-        Assert.Equal((70, 100), bot.Walk.Destination);
-        Assert.True(BotPlay.KeepControlledFollowerNear(bot, leader, 1));
-        Assert.True(bot.ActionCount > action);
+        trailer.Walk.Teleport(70, 100, 0);
+        trailer.Walk.Order(70, 100, 0);
+        BotPlay.HoldControlledFollowerAttack(trailer, 0, .75, 123);
+        action = trailer.ActionCount;
+        Assert.True(BotPlay.KeepControlledFollowerNear(trailer, leader, .2));
+        Assert.Equal(action, trailer.ActionCount);
+        Assert.Equal((70, 100), trailer.Walk.Destination);
+        Assert.True(BotPlay.KeepControlledFollowerNear(trailer, leader, 1));
+        Assert.True(trailer.ActionCount > action);
         Assert.True(BotPlay.ControlledFollowAttackFits(20, 37, .75, ahead: -20));
         Assert.True(BotPlay.ControlledFollowAttackFits(30, 40, .75, ahead: 30));
-        Assert.False(BotPlay.ControlledFollowAttackFits(49, 37, .75));
+        Assert.True(BotPlay.ControlledFollowAttackFits(60, 37, .75));   // fights from further out now that it does at 80
+        Assert.False(BotPlay.ControlledFollowAttackFits(70, 0, .1));    // but not from so far that the player is gone
         Assert.False(BotPlay.ControlledFollowAttackFits(50, 70, 1));
         Assert.False(BotPlay.ControlledFollowAttackFits(0, 37, 3));
         var inFront = runtime.PlayerOf(instance, wire);
         inFront.Walk.Teleport(137, 100, 0);
         Assert.False(BotPlay.KeepControlledFollowerNear(inFront, leader, 0));
-        Assert.Equal(0, inFront.ActionCount);
-        Assert.Equal((137, 100), inFront.Walk.Destination);
+        // Ahead of the leader on its own route it steps aside and waits there, rather than standing in the corridor.
+        Assert.True(inFront.ActionCount > 0);
+        Assert.True(Math.Abs(inFront.Walk.Destination.Y - 100) >= 5);
 
         leader.Walk.Teleport(100, 100, 0);
         var idle = runtime.PlayerOf(instance, wire);
@@ -74,7 +89,9 @@ public sealed class PartyFollowerTests
             if (idle.ActionCount != action)
             {
                 adjustments++;
-                Assert.InRange(Game.Dist(before, idle.Walk.Destination), 3, 8);
+                // The step is drawn on a radius of 4–8 cells and then rounded to the grid, so a diagonal step can reach
+                // sqrt(8²+1²) ≈ 8.06: the bound allows that rounding, not a longer walk.
+                Assert.InRange(Game.Dist(before, idle.Walk.Destination), 3, 9);
                 Assert.True(Game.Dist(idle.Walk.Destination, (100, 100)) <= 60);
                 action = idle.ActionCount;
             }
@@ -98,13 +115,14 @@ public sealed class PartyFollowerTests
         delayed.Walk.SetSpeed(1, 0);
         Assert.True(BotPlay.KeepControlledFollowerNear(delayed, leader, 0));
         Assert.Equal((180, 100), delayed.Walk.Position(0));
+        // Slow but still closing: it keeps walking instead of blinking.
         Assert.True(BotPlay.KeepControlledFollowerNear(delayed, leader, 1.3));
-        Assert.True(Game.Dist(delayed.Walk.Position(1.3), (100, 100)) < 32);
+        Assert.True(Game.Dist(delayed.Walk.Position(1.3), (100, 100)) < 80);
         // Formation search cannot cross a disconnected wall into an apparently clear pocket.
         var isolated = new Player(new(1, "pocket", 300, 300, 100, 100,
             (x, y) => x <= 105 || x >= 115, []), 1, 1);
         Assert.True(BotPlay.ControlledFollowerPoint(isolated, leader, arrival: true).X <= 105);
-        await ControlledPlayerBuildChecks.VerifyReservationAttackSelection(runtime, wire);
+        ControlledPlayerBuildChecks.VerifyReservationAttackSelection(runtime, wire);
     }
 
     [Fact]

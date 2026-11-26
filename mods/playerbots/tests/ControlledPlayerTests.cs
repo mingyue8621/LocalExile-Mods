@@ -7,7 +7,7 @@ namespace GameServer.Gateway.Tests;
 
 internal static class ControlledPlayerBuildChecks
 {
-    internal static async Task VerifyReservationAttackSelection(PartyFollowerTests.Runtime runtime, PartyFollowerTests.Wire wire)
+    internal static void VerifyReservationAttackSelection(PartyFollowerTests.Runtime runtime, PartyFollowerTests.Wire wire)
     {
         var instance = new InstanceState();
         var leader = runtime.PlayerOf(instance, wire);
@@ -15,15 +15,9 @@ internal static class ControlledPlayerBuildChecks
         bot.Pools = new(25, 1000, 1000, 0, 0, Strength: 1000, Dexterity: 1000, Intelligence: 1000);
         bot.Character.Passives = [.. BotPlay.BuildControlledPlayer(CharacterClass.Witch, 25).Passives!];
         bot.LeagueModule = new(new League("test", "Standard", false, false), new HashSet<string>(["Game"]));
-        // Inspect the AI's submitted request without starting background player updates or a cast timer.
+        // Inspect the AI's own auto-attack scan without starting background player updates or a cast timer: a flask or a
+        // walk there would persist this character's items, and these are only ever held in memory here.
         bot.Connection.PlayerSent = false;
-        var selected = new List<ushort>();
-        using var requests = GameEvents.Packet(InstanceTransfer.UseSkillOnObjectId).Add("Game", (player, bytes) =>
-        {
-            if (!ReferenceEquals(player, bot)) return Task.FromResult(false);
-            selected.Add(InstanceTransfer.ReadUseSkillOnObject(bytes).SkillId);
-            return Task.FromResult(true);
-        });
         try
         {
             var items = Game.ItemsOf(bot);
@@ -34,17 +28,14 @@ internal static class ControlledPlayerBuildChecks
             var gems = Game.GemSkillEffects(bot).ToArray();
             Assert.Equal(new[] { "Herald of Ice", "Herald of Thunder", "Fireball" }, gems.Select(g => g.Name));
             Assert.All(gems, g => Assert.True(SkillHitPlan.ForSkill(Program.Skills, g.Effect, g.Level, g.Quality).CanHit));
-            instance.World.Area.Monsters[0x08000000] = new("follower target", new(110, 100, 0), 0, 0, 1000) { Hostile = true };
-            await BotPlay.StepControlledPlayer(bot, leader);
-            Assert.Equal(gems[2].Id, Assert.Single(selected));
+            // The two Heralds hit reactively, but their reservation is a toggle: a bot that "cast" one would switch it
+            // off. Only Fireball is left to attack with.
+            Assert.Equal(gems[2].Effect, Assert.Single(BotPlay.ControlledSkills(bot)).Effect);
 
-            // With only reactive reservation hits equipped, automatic combat leaves their toggles alone.
-            selected.Clear();
-            BotPlay.BodyOf(bot).NextAction = 0;
+            // With only the reactive reservation hits equipped, automatic combat leaves their toggles alone.
             var equipped = items.Items(PlayerInventories.Weapon1).Single();
             items.Change(PlayerInventories.Weapon1, equipped.Id, item => item with { Sockets = [.. item.Sockets.Take(2)] });
-            await BotPlay.StepControlledPlayer(bot, leader);
-            Assert.Empty(selected);
+            Assert.Empty(BotPlay.ControlledSkills(bot));
         }
         finally
         {
@@ -86,10 +77,46 @@ internal static class ControlledPlayerBuildChecks
                     var supported = Game.SupportedSkill(player, active.Id);
                     Assert.True(supported.RequirementsMet, $"{name}: {active.Name} requirements");
                     Assert.True(Game.SupportedHitFor(player, active.Id, suppress: false).MinTotal > 0, name);
-                    if (level >= 25) Assert.True(supported.Supports.Count == 2,
-                        $"{name}: {active.Name}, supports: {string.Join(", ", supported.Supports.Select(s => s.Effect.Id))}");
+                    // The link is as long as the weapon's sockets (ControlledBuilds.SocketsFor): six gems on a two-hander, a
+                    // bow or a staff, three on a one-hander. Some supports do not resolve for a given active gem, so the
+                    // count is a range — but a build that links two supports where six sockets stand is a quarter of its
+                    // damage (2026-11-10).
+                    if (level >= 25)
+                    {
+                        var weapon = Program.Items.ByHash(Game.ItemsOf(player).Items(PlayerInventories.Weapon1).First().Item.TypeHash)!;
+                        int most = BotPlay.SocketsFor(weapon) - 1;
+                        Assert.True(supported.Supports.Count >= 2 && supported.Supports.Count <= most,
+                            $"{name}: {active.Name} on {weapon.Class} ({most} supports at most), supports: " +
+                            $"{string.Join(", ", supported.Supports.Select(s => s.Effect.Id))}");
+                    }
                     var native = Game.PlayerForCreation(player);
                     Assert.Contains(native.Skills!, s => s.Id == active.Id);
+                    // The gear pass replaces every worn item. The weapon's gems have to survive it, and a weapon that lost
+                    // them (an older pass stripped them) gets the class's set back: a follower with no gem has no skill at
+                    // all and stood in every fight doing nothing (live 2026-11-09: "the party bots do not attack").
+                    var worn = Game.ItemsOf(player);
+                    var pieces = new[]
+                        {
+                            PlayerInventories.Weapon1, PlayerInventories.Offhand1, PlayerInventories.BodyArmour,
+                            PlayerInventories.Helmet, PlayerInventories.Gloves, PlayerInventories.Boots, PlayerInventories.Belt,
+                        }
+                        .SelectMany(row => worn.Items(row)).Select(held => Program.Items.ByHash(held.Item.TypeHash)!.Id).ToArray();
+                    var gear = BotHooks.Gear;
+                    BotHooks.Gear = _ => pieces;
+                    try
+                    {
+                        BotPlay.EquipControlledGear(player, level);
+                        Assert.Single(Game.GemSkillEffects(player));
+                        foreach (var held in worn.Items(PlayerInventories.Weapon1).ToList())
+                        {
+                            worn.Remove(PlayerInventories.Weapon1, held.Id);
+                            worn.Add(PlayerInventories.Weapon1, 0, 0, held.Item with { Sockets = [], Links = null });
+                        }
+                        Assert.Empty(Game.GemSkillEffects(player));
+                        BotPlay.EquipControlledGear(player, level);
+                        Assert.Single(Game.GemSkillEffects(player));
+                    }
+                    finally { BotHooks.Gear = gear; }
                 }
         }
         finally
