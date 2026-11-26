@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "settings": {
+    "chancePercent": {
+      "type": "number", "default": 2, "min": 0, "max": 100, "unit": "%",
+      "label": "圣林之心出现几率",
+      "description": "地图的圣林变成圣林之心的百分比几率（先算这个，再叠加地图自己的奥沙比几率词缀）。3.13 只说「非常稀有」，没公布数值。"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "settings": {
+    "mode": {
+      "type": "choice",
+      "default": "add",
+      "options": [
+        { "value": "add", "label": "放在她的进度页之后" },
+        { "value": "replace", "label": "取代她的进度页" }
+      ],
+      "label": "标签页布局",
+      "description": "「放在后面」是在她原本的进度页之后加上觉醒宝石、卓越宝石、地图、起源地图与传奇地图；「取代」则直接用完整的开发页布局（连自定义颜色页也一起）替掉它们。两种都不走正常进度解锁。"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "harvestheartofthegrove",
+  "name": "圣林之心",
+  "description": "3.13 的圣林之心：地图的圣林里偶尔不是作物，而是奥沙比的遭遇战。",
+  "author": "mrnamwen",
+  "version": "1.0.0",
+  "compatibleClientVersions": [
+    "0.6.0-beta"
+  ],
+  "kind": "feature",
+  "leagues": "listed",
+  "depends": [
+    "Game",
+    "Harvest"
+  ]
+}

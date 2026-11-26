@@ -1,0 +1,15 @@
+{
+  "id": "nessadevelopmenttabs",
+  "name": "奈莎开发页",
+  "description": "在列出这个模组的联赛里，奈莎会卖觉醒宝石、卓越宝石、地图、起源地图与传奇地图。",
+  "author": "evrydayjunglist",
+  "version": "1.0.0",
+  "compatibleClientVersions": [
+    "0.6.0-beta"
+  ],
+  "kind": "feature",
+  "leagues": "listed",
+  "depends": [
+    "Game"
+  ]
+}
