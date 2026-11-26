@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "settings": {
+    "mcpEnabled": {
+      "type": "bool", "default": false, "label": "外部 AI 控制（MCP）",
+      "description": "给玩家队伍里的机器人开一个需鉴权的本地回环 MCP 接口。", "applies": "restart"
+    },
+    "mcpPort": {
+      "type": "integer", "default": 6194, "min": 1024, "max": 65535,
+      "label": "MCP 端口", "description": "外部 AI 客户端连接的本地回环 HTTP 端口。", "applies": "restart"
+    },
+    "mcpLeaseSeconds": {
+      "type": "integer", "default": 30, "min": 15, "max": 120,
+      "label": "外部控制时长", "description": "外部接管多久没人续期就交还给普通 AI。",
+      "format": "duration", "unit": "s", "applies": "restart"
+    },
+    "maxBots": {
+      "type": "integer", "default": 100, "min": 0, "max": 1000,
+      "label": "机器人数上限",
+      "description": "所有城镇加起来的机器人最多这么多个。"
+    },
+    "firstSpawnSeconds": {
+      "type": "integer", "default": 60, "min": 0, "max": 86400, "format": "duration", "unit": "s",
+      "label": "首个机器人延迟",
+      "description": "网关启动多久后创建第一个机器人。"
+    },
+    "spawnIntervalSeconds": {
+      "type": "integer", "default": 60, "min": 1, "max": 86400, "format": "duration", "unit": "s",
+      "label": "新增间隔",
+      "description": "没到上限时，每隔这么久新增一个机器人。"
+    },
+    "league": {
+      "type": "text", "default": "Standard", "minLength": 1,
+      "label": "联赛",
+      "description": "机器人角色所在的联赛。",
+      "applies": "restart"
+    },
+    "questMinutes": {
+      "type": "range", "of": "integer", "default": [2, 6], "min": 1, "max": 120, "unit": "min",
+      "label": "任务时长",
+      "description": "看不见的任务要跑多久：在这个区间里随机。"
+    },
+    "townActivities": {
+      "type": "range", "of": "integer", "default": [2, 4], "min": 1, "max": 20,
+      "label": "城镇活动数",
+      "description": "一次进城逛几个地方。"
+    },
+    "idleSeconds": {
+      "type": "range", "of": "integer", "default": [8, 75], "min": 1, "max": 3600, "format": "duration", "unit": "s",
+      "label": "每处停留",
+      "description": "机器人在城镇每个地方站多久。"
+    },
+    "deathChancePerQuest": {
+      "type": "number", "default": 0.15, "min": 0, "max": 1, "format": "percent",
+      "label": "任务死亡概率",
+      "description": "死一次就会重新做这个任务。"
+    },
+    "statusSeconds": {
+      "type": "integer", "default": 10, "min": 1, "max": 3600, "format": "duration", "unit": "s",
+      "label": "状态文件间隔",
+      "description": "多久重写一次 data/mods/playerbots/logs/status.txt 与 data/mods/playerbots/bots.json。",
+      "advanced": true
+    }
+  }
+}

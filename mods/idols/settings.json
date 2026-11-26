@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "settings": {
+    "enableAtlasTree": {
+      "type": "bool",
+      "default": false,
+      "label": "保留异界天赋树",
+      "description": "关闭时与先祖菲西亚一致：神像取代异界天赋树，客户端会把它藏起来。开启则天赋树与神像并存可用。"
+    },
+    "dropRate": {
+      "type": "number", "default": 1, "min": 0, "max": 100, "format": "multiplier",
+      "label": "神像掉率",
+      "description": "地图里怪物掉神像的倍率。0 表示不掉。"
+    }
+  }
+}

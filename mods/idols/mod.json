@@ -1,0 +1,15 @@
+{
+  "id": "idols",
+  "name": "神像",
+  "description": "先祖菲西亚的神像：躺在神像仓里的物品带着地图词缀，会作用于你打开的每一张地图。",
+  "author": "mrnamwen",
+  "version": "1.0.0",
+  "compatibleClientVersions": [
+    "0.6.0-beta"
+  ],
+  "kind": "feature",
+  "leagues": "listed",
+  "depends": [
+    "Game"
+  ]
+}

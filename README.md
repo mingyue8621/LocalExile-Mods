@@ -56,7 +56,11 @@ works with. The maintainers publish the releases of the mods in this repository.
 | [pob](mods/pob/) | preview and import character builds through an external converter; requires LocalExile #639 |
 | [itemrarity](mods/itemrarity/) | 10× the chance of magic, rare and unique equipment |
 | [harvestheartofthegrove](mods/harvestheartofthegrove/) | the 3.13 Heart of the Grove: now and then a map's Sacred Grove holds Oshabi's encounter instead of crops; a league's mod |
+| [idols](mods/idols/) | Legacy of Phrecia's Idols: items with map modifiers for every map you open, the 41 unique ones too; a league's mod |
 | [nessadevelopmenttabs](mods/nessadevelopmenttabs/) | Nessa sells Awakened and Exceptional Gems and Maps of every kind; a league's mod |
+| [phreciaascendancies](mods/phreciaascendancies/) | Legacy of Phrecia's alternate ascendancy classes and the Phrecia league; a league's mod |
+| [playerbots](mods/playerbots/) | server-driven characters that play the campaign, visit the towns and join a party; a league's mod |
+| [survivors](mods/survivors/) | the Survivors league: survive the horde, skills cast themselves, an upgrade each run level; a league's mod |
 | [excitingitems](mods/excitingitems/) | rare drop surprises: unique modifiers as extra implicits, empowered modifiers and a fractured extra modifier, all configurable |
 | [lootfilter](mods/lootfilter/) | three ready-made item filters (Jianxin, Yile, Wenzi) converted to this server's 3.29 client data, chosen in the settings |
 

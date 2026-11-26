@@ -15,7 +15,7 @@ owned). A mod can also be a league's own content ([A league's mod](#a-leagues-mo
 - **The current game is never a mod.** A GGG-like server needs zero mods; what GGG's servers do in the game version
   LocalExile targets is a module in LocalExile (`Modules/Core/`).
 - **What is not the current game is a mod here:** a league or system from another version of the game (a past league,
-  an event's rules) and a custom mode or system. LocalExile's `Modules/Legacy/` and `Modules/Custom/` are moving here.
+  an event's rules) and a custom league or system. What LocalExile's `Modules/Legacy/` and `Modules/Custom/` held is here.
 - **A mod asks LocalExile only for general hooks.** A mod uses LocalExile's server as a module does (the Gateway, Core
   and the Game module). When it needs the framework to hand it something new, that LocalExile pull request adds a hook
   or event any mod could use; the feature's logic, settings and defaults stay here, in the mod. An API shaped for this

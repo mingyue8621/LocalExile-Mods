@@ -1,0 +1,15 @@
+{
+  "id": "phreciaascendancies",
+  "name": "菲西亚升华",
+  "description": "先祖菲西亚的替换升华职业与菲西亚联赛（同时还需要神像模组）。",
+  "author": "shimonshi",
+  "version": "1.0.0",
+  "compatibleClientVersions": [
+    "0.6.0-beta"
+  ],
+  "kind": "feature",
+  "leagues": "listed",
+  "depends": [
+    "Game"
+  ]
+}

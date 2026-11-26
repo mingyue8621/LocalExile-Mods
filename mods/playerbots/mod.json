@@ -1,0 +1,16 @@
+{
+  "id": "playerbots",
+  "name": "玩家机器人",
+  "description": "服务端操控的机器人玩家：自己推剧情、在城镇里走动，也能加入玩家队伍，让服务器看起来有人。",
+  "author": "nikolos89",
+  "version": "1.1.0",
+  "compatibleClientVersions": [
+    "0.6.0-beta"
+  ],
+  "kind": "feature",
+  "leagues": "listed",
+  "depends": [
+    "Game",
+    "Social"
+  ]
+}
