@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- A project mod: references, output path and mod.json/settings.json copying come from mods/Directory.Build.props.
+       Its own files: the titles' frames under overlay/titles. The overlay's program is built, never committed: a built
+       file in a mod's folder is what tools/build-index.ps1 refuses, and a release carries it instead. -->
+  <!-- icon.png: the launcher shows it beside the mod's name in its list. -->
+  <ItemGroup>
+    <None Update="overlay\**" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="icon.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- The overlay's sources are tools/titleoverlay; it is built into the mod's own output beside overlay/titles, so the
+       mod's output (and the release zip of it) holds TitleOverlay.exe and its runtime files. Its own restore: the outer
+       build's does not reach a project started from a target. -->
+  <Target Name="BuildTitleOverlay" BeforeTargets="Build"
+          Condition="Exists('$(MSBuildThisFileDirectory)..\..\tools\titleoverlay\TitleOverlay.csproj')">
+    <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\tools\titleoverlay\TitleOverlay.csproj" Targets="Restore;Build"
+             Properties="Configuration=$(Configuration);OutputPath=$(OutputPath)overlay\;AppendTargetFrameworkToOutputPath=false" />
+  </Target>
+
+  <!-- The server's own assemblies are referenced, not shipped: a copy in the mod's folder would load as a type of its own
+       (LocalExile's modding guide, "Writing one"). The Game module brings Data and Storage along by reference. -->
+  <Target Name="StripServerAssemblies" AfterTargets="Build">
+    <ItemGroup>
+      <ShippedServerAssembly Include="$(OutputPath)GameServer.*.dll;$(OutputPath)GameServer.*.pdb" />
+    </ItemGroup>
+    <Delete Files="@(ShippedServerAssembly)" />
+  </Target>
+
+</Project>

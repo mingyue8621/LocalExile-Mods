@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "settings": {
+    "enabled": {
+      "type": "bool",
+      "default": true,
+      "label": "显示称号",
+      "description": "关掉就收起头顶的称号，服务端不用重启。"
+    },
+    "autoByAscendancy": {
+      "type": "bool",
+      "default": true,
+      "label": "按升华自动配称号",
+      "description": "开着时进游戏按角色的升华自动挑称号：没升华是「初入江湖」，每个升华分支各有专属称号，升华满 4 次（8 点）升格为「剑光寒十九州」。关掉才用下面手选的称号。对应表在 data/mods/playertitle/ascendancy-titles.json，可以直接改。"
+    },
+    "title": {
+      "type": "choice",
+      "default": "sfx_19911",
+      "options": [
+        { "value": "sfx_19901", "label": "初入江湖" },
+        { "value": "sfx_19902", "label": "小有名气" },
+        { "value": "sfx_19903", "label": "武林新秀" },
+        { "value": "sfx_19904", "label": "门派翘楚" },
+        { "value": "sfx_19905", "label": "登堂入室" },
+        { "value": "sfx_19906", "label": "宗门魁首" },
+        { "value": "sfx_19907", "label": "武林高手" },
+        { "value": "sfx_19908", "label": "人中龙凤" },
+        { "value": "sfx_19909", "label": "名震一方" },
+        { "value": "sfx_19910", "label": "英雄豪杰" },
+        { "value": "sfx_19911", "label": "九州大侠" },
+        { "value": "sfx_19912", "label": "一代宗师" },
+        { "value": "sfx_19913", "label": "武学泰斗" },
+        { "value": "sfx_19914", "label": "叱咤风云" },
+        { "value": "sfx_19915", "label": "威震海内" },
+        { "value": "sfx_19916", "label": "傲视群雄" },
+        { "value": "sfx_19917", "label": "武林盟主" },
+        { "value": "sfx_19918", "label": "傲骨天成" },
+        { "value": "sfx_19919", "label": "独步天下" },
+        { "value": "sfx_19920", "label": "震古烁今" },
+        { "value": "sfx_19921", "label": "一击定乾坤" },
+        { "value": "sfx_19922", "label": "除魔卫道" },
+        { "value": "sfx_19923", "label": "剑光寒十九州" },
+        { "value": "sfx_19924", "label": "每日特惠" }
+      ],
+      "label": "称号",
+      "description": "手动指定称号。上面「按升华自动配称号」开着时不生效（游戏里 /title 可以临时换，下次进游戏按升华恢复）。"
+    },
+    "customTitle": {
+      "type": "text",
+      "default": "",
+      "maxLength": 64,
+      "label": "自定义称号目录名",
+      "advanced": true,
+      "description": "填了就用它，忽略上面的下拉。对应 overlay/titles/ 下的文件夹名，新做的称号素材不用改模组。"
+    },
+    "scale": {
+      "type": "number",
+      "default": 1,
+      "min": 0.4,
+      "max": 2.5,
+      "step": 0.05,
+      "label": "大小",
+      "description": "1 是素材原始像素（220×100 上下）。游戏里按 Ctrl+Alt+加号/减号 也能调。"
+    },
+    "offsetX": {
+      "type": "integer",
+      "default": 0,
+      "min": -600,
+      "max": 600,
+      "label": "左右微调",
+      "description": "相对画面正中左右平移的像素，正数往右。游戏里 Ctrl+Alt+方向键 也能调。"
+    },
+    "offsetY": {
+      "type": "integer",
+      "default": -200,
+      "min": -600,
+      "max": 600,
+      "label": "上下微调",
+      "description": "称号底边相对画面中心的像素，负数是往上。默认 -200：角色在画面正中，血条（头顶）约在中心上方 200 像素。"
+    },
+    "opacity": {
+      "type": "integer",
+      "default": 100,
+      "min": 20,
+      "max": 100,
+      "label": "不透明度",
+      "unit": "%",
+      "description": "100 是不透明；调低让称号更淡，不挡画面。"
+    },
+    "frameMs": {
+      "type": "integer",
+      "default": 40,
+      "min": 20,
+      "max": 200,
+      "label": "每帧毫秒",
+      "advanced": true,
+      "description": "序列帧的播放速度，40 是素材本来的速度；调大放慢。"
+    },
+    "followWindow": {
+      "type": "bool",
+      "default": true,
+      "label": "只在游戏在前台时显示",
+      "description": "开着时切出去（浏览器、桌面）称号自动收起，不会浮在别的窗口上。关掉就常驻在画面正中的位置。"
+    }
+  }
+}
