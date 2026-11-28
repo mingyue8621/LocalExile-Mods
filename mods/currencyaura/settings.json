@@ -4,35 +4,35 @@
     "enabled": {
       "type": "bool",
       "default": true,
-      "label": "Auto-loot on",
-      "description": "Pick up currency near you by itself. /currencyaura on|off switches it in game."
+      "label": "自动拾取",
+      "description": "自动把身边的通货捡起来。游戏内可用 /currencyaura on|off 开关。"
     },
     "radius": {
       "type": "integer",
       "default": 25,
       "min": 5,
       "max": 100,
-      "label": "Pickup radius",
-      "unit": "cells",
-      "description": "How close an item must be to be picked up. Gold's own auto-loot reaches 15 cells."
+      "label": "拾取半径",
+      "unit": "格",
+      "description": "物品要多近才会被捡起。金币自身的自动拾取范围是 15 格。"
     },
     "cards": {
       "type": "bool",
       "default": true,
-      "label": "Divination cards",
-      "description": "Also pick up divination cards."
+      "label": "命运卡",
+      "description": "同时拾取命运卡。"
     },
     "scarabs": {
       "type": "bool",
       "default": true,
-      "label": "Scarabs",
-      "description": "Also pick up scarabs."
+      "label": "圣甲虫",
+      "description": "同时拾取圣甲虫。"
     },
     "skip": {
       "type": "list",
       "default": [],
-      "label": "Never pick up",
-      "description": "Exact item names (or metadata ids) left on the ground, e.g. Scroll Fragment.",
+      "label": "永不拾取",
+      "description": "写在这里的精确物品名（或 metadata id）会一直留在地上，例如 Scroll Fragment。",
       "item": { "type": "text" }
     }
   }

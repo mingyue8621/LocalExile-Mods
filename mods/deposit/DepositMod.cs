@@ -5,7 +5,7 @@ public sealed class DepositMod : IMod
 {
     public sealed record Choices(List<string> Keep, List<string> Tabs);
     const int Reach = 30;    // cells from the stash
-    const string Usage = "/deposit [keep|keep add <item>|keep remove <item>] (at your stash: currency, cards, essences ... go to their special tabs)";
+    const string Usage = "/deposit [keep|keep add <物品>|keep remove <物品>]（站在仓库旁：通货、命运卡、精华…会进对应的特殊仓库页）";
 
     // Settings' tab kinds → StashRules tab types.
     static readonly Dictionary<string, byte[]> Kinds = new(StringComparer.OrdinalIgnoreCase)
@@ -41,22 +41,22 @@ public sealed class DepositMod : IMod
                 c = c with { Keep = keep };
                 mod.SaveSettings(c);
             }
-            await player.Commands!.Reply(c.Keep.Count == 0 ? "/deposit keeps nothing." : "/deposit keeps: " + string.Join(", ", c.Keep) + ".");
+            await player.Commands!.Reply(c.Keep.Count == 0 ? "/deposit 不保留任何物品。" : "/deposit 保留：" + string.Join("、", c.Keep) + "。");
             return;
         }
-        if (args.Length > 0) { await player.Commands!.Reply("Use " + Usage + "."); return; }
+        if (args.Length > 0) { await player.Commands!.Reply("用法：" + Usage); return; }
         if (!mod.Lifetime.IsActive || player.Closed || player.LeavingArea || player.PlayerLife == 0) return;
-        if (!Program.ModulesFor(player).Contains("Game")) { await player.Commands!.Reply("/deposit needs the Game module."); return; }
+        if (!Program.ModulesFor(player).Contains("Game")) { await player.Commands!.Reply("/deposit 需要 Game 模块。"); return; }
         var (x, y) = player.Walk.Position(Game.AreaTime(player));
         if (player.StashObject == 0 || player.GuildStashOpen
             || Math.Abs(x - player.StashAt.X) > Reach || Math.Abs(y - player.StashAt.Y) > Reach)
         {
-            await player.Commands!.Reply("Stand at your stash to use /deposit.");
+            await player.Commands!.Reply("站在自己的仓库旁才能用 /deposit。");
             return;
         }
         var catalog = Game.ItemsFor(player);
         var rules = catalog.Stash;
-        if (!rules.Loaded) { await player.Commands!.Reply("/deposit: the stash rules are not loaded."); return; }
+        if (!rules.Loaded) { await player.Commands!.Reply("/deposit：仓库规则还没载入。"); return; }
         var types = c.Tabs.SelectMany(k => Kinds.GetValueOrDefault(k) ?? []).ToHashSet();
         var keepSet = c.Keep.ToHashSet(StringComparer.OrdinalIgnoreCase);
         var stash = Game.PersonalStashOf(player);
@@ -78,7 +78,7 @@ public sealed class DepositMod : IMod
             if (done.LeftInInventory is null) moved++; else stayed++;
         }
         Console.WriteLine($"[gateway] {player.Connection.Remote} /deposit: {moved} deposited, {stayed} didn't fit");
-        await player.Commands!.Reply(moved + stayed == 0 ? "Nothing to deposit."
-            : $"Deposited {moved} stack(s)" + (stayed > 0 ? $", {stayed} didn't fit." : "."));
+        await player.Commands!.Reply(moved + stayed == 0 ? "没有可存入的物品。"
+            : $"已存入 {moved} 组" + (stayed > 0 ? $"，{stayed} 组没放下。" : "。"));
     }
 }

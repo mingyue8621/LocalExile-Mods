@@ -1,7 +1,7 @@
 {
   "id": "deposit",
-  "name": "Deposit All",
-  "description": "/deposit at your stash empties currency, fragments, divination cards, essences, gems and flasks from your inventory into their special tabs in one go. Choose which tabs it fills and which items it keeps; gear always stays.",
+  "name": "一键存入",
+  "description": "站在仓库旁用 /deposit，一次把背包里的通货、碎片、命运卡、精华、宝石和药剂送进对应的特殊仓库页。可以选填哪些页、留哪些物品；装备永远留在背包里。",
   "author": "EveryDayEngineering",
   "version": "1.0.0",
   "compatibleClientVersions": ["0.6.0-beta", "0.6.1-beta"],

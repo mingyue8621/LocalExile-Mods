@@ -4,23 +4,23 @@
     "keep": {
       "type": "list",
       "default": ["Portal Scroll", "Scroll of Wisdom"],
-      "label": "Items to keep",
-      "description": "Exact item names (or metadata ids) /deposit leaves in your inventory. /deposit keep add|remove <item> edits it in game.",
+      "label": "保留物品",
+      "description": "/deposit 会留在背包里的精确物品名（或 metadata id）。游戏内可用 /deposit keep add|remove <物品> 修改。",
       "item": { "type": "text" }
     },
     "tabs": {
       "type": "choices",
       "default": ["currency", "fragments", "cards", "essences", "gems", "flasks", "league"],
-      "label": "Tabs to fill",
-      "description": "Which special stash tabs /deposit sends items to. Items for a tab left out stay in your inventory.",
+      "label": "要填的仓库页",
+      "description": "/deposit 把物品送进哪些特殊仓库页；没勾选的页对应的物品会留在背包里。",
       "options": [
-        { "value": "currency", "label": "Currency" },
-        { "value": "fragments", "label": "Fragments (incl. scarabs)" },
-        { "value": "cards", "label": "Divination cards" },
-        { "value": "essences", "label": "Essences" },
-        { "value": "gems", "label": "Gems" },
-        { "value": "flasks", "label": "Flasks" },
-        { "value": "league", "label": "League tabs (Delve, Blight, Delirium, Ultimatum)" }
+        { "value": "currency", "label": "通货" },
+        { "value": "fragments", "label": "碎片（含圣甲虫）" },
+        { "value": "cards", "label": "命运卡" },
+        { "value": "essences", "label": "精华" },
+        { "value": "gems", "label": "宝石" },
+        { "value": "flasks", "label": "药剂" },
+        { "value": "league", "label": "赛季仓库页（矿坑、菌潮、迷雾、最后通牒）" }
       ]
     }
   }

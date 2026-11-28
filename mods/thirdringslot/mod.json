@@ -1,7 +1,7 @@
 {
   "id": "thirdringslot",
-  "name": "Third Ring Slot",
-  "description": "Gives every character the third ring slot, the stat The Unseen Hand ascendancy passive grants.",
+  "name": "第三戒指位",
+  "description": "给每个角色开放第三个戒指位，也就是「无形之手」升华天赋原本给出的那个属性。",
   "author": "Qblolz",
   "version": "1.0.0",
   "compatibleClientVersions": [

@@ -5,7 +5,7 @@
 public sealed class CurrencyAuraMod : IMod
 {
     public sealed record Choices(bool Enabled, int Radius, bool Cards, bool Scarabs, List<string> Skip);
-    const string Usage = "/currencyaura [on|off|radius <5-100>|cards on|off|scarabs on|off|skip <item>|unskip <item>]";
+    const string Usage = "/currencyaura [on|off|radius <5-100 格>|cards on|off|scarabs on|off|skip <物品>|unskip <物品>]";
     IModContext mod = null!;
     volatile Choices choices = null!;
 
@@ -64,10 +64,10 @@ public sealed class CurrencyAuraMod : IMod
             "skip" or "unskip" when args.Length > 1 => c with { Skip = Edit(c.Skip, string.Join(" ", args.Skip(1)).Trim().Trim('"'), action == "skip") },
             _ => null,
         };
-        if (next is null) { await player.Commands!.Reply("Use " + Usage + "."); return; }
-        await player.Commands!.Reply($"Currency Aura: {(next.Enabled ? "on" : "off")}, radius {next.Radius} cells, " +
-            $"cards {(next.Cards ? "on" : "off")}, scarabs {(next.Scarabs ? "on" : "off")}. " +
-            $"Skipped: {(next.Skip.Count == 0 ? "none" : string.Join(", ", next.Skip))}.");
+        if (next is null) { await player.Commands!.Reply("用法：" + Usage); return; }
+        await player.Commands!.Reply($"通货拾取：{(next.Enabled ? "开" : "关")}，半径 {next.Radius} 格，" +
+            $"命运卡 {(next.Cards ? "开" : "关")}，圣甲虫 {(next.Scarabs ? "开" : "关")}。" +
+            $"永不拾取：{(next.Skip.Count == 0 ? "无" : string.Join("、", next.Skip))}。");
         if (next != c) { choices = next; mod.SaveSettings(next); }
     }
 

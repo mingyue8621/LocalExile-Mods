@@ -49,21 +49,21 @@ public sealed class StateControlMod : IMod
     }
 
     ChatCommands AddCommands(ChatCommands commands, Player conn) => commands
-        .Add("save_character", "/save_character (State Control: keep this character as it is now: level, passives, items, quests)", async _ =>
+        .Add("save_character", "/save_character（状态控制：把这个角色当前的样子存下来：等级、天赋、物品、任务）", async _ =>
         {
-            if (conn.Character.Id is not { } id || Accounts.GetCharacter(id) is not { } record) { await conn.Commands!.Reply("State Control: this character has no account record."); return; }
+            if (conn.Character.Id is not { } id || Accounts.GetCharacter(id) is not { } record) { await conn.Commands!.Reply("状态控制：这个角色没有账号记录。"); return; }
             // What waits in memory (experience, moved items) is written first: the state is the save as it is now.
             Program.SaveUnsavedProgressNow("save state");
             string? why = Saves.Atomically(() =>
             {
-                if (CharacterSaves.Load(record.Name) is not { } save) return "it has no save yet";
+                if (CharacterSaves.Load(record.Name) is not { } save) return "它还没有存档";
                 Saves.Db.SetMeta(CharacterKey + id.ToString("N"), JsonSerializer.Serialize(new CharacterState(Accounts.GetCharacter(id) ?? record, save, DateTimeOffset.UtcNow), Json));
                 return null;
             });
             _log($"{record.Name}: {(why is null ? "state saved" : "not saved: " + why)}");
-            await conn.Commands!.Reply(why is null ? $"State Control: {record.Name} saved. /load_saves puts it back." : $"State Control: not saved: {why}.");
+            await conn.Commands!.Reply(why is null ? $"状态控制：{record.Name} 已保存。用 /load_saves 放回去。" : $"状态控制：没有保存：{why}。");
         })
-        .Add("save_stash", "/save_stash (State Control: keep every tab of this league's stash as it is now)", async _ =>
+        .Add("save_stash", "/save_stash（状态控制：把这个联赛仓库每一页当前的内容都存下来）", async _ =>
         {
             string key = StashOf(conn);
             int items = Saves.Atomically(() =>
@@ -74,9 +74,9 @@ public sealed class StateControlMod : IMod
                 return Count(state);
             });
             _log($"stash {key}: {(items < 0 ? "nothing to save" : $"{items} item(s) saved")}");
-            await conn.Commands!.Reply(items < 0 ? "State Control: the stash has not been opened yet: nothing to save." : $"State Control: stash saved ({items} item(s)). /load_saves puts it back.");
+            await conn.Commands!.Reply(items < 0 ? "状态控制：仓库还没打开过，没有可保存的内容。" : $"状态控制：仓库已保存（{items} 件物品）。用 /load_saves 放回去。");
         })
-        .Add("load_saves", "/load_saves [undo] (State Control: put back the saved stash and every saved character of this account; this character is loaded by returning you to character selection. undo: the stash as it was before the last /load_saves, /clear_stash or /remove_tab)", async args =>
+        .Add("load_saves", "/load_saves [undo]（状态控制：把存过的仓库和这个账号存过的所有角色都放回去；当前这个角色会被送回选人界面再载入。undo：回到上一次 /load_saves、/clear_stash 或 /remove_tab 之前的仓库）", async args =>
         {
             string key = StashOf(conn);
             if (args.Length > 0 && args[0].Equals("undo", StringComparison.OrdinalIgnoreCase))
@@ -84,38 +84,38 @@ public sealed class StateControlMod : IMod
                 int? undone = LoadStash(key, UndoKey + key, keepUndo: false);
                 if (undone is not null) await ShowStashAgain(conn);
                 await conn.Commands!.Reply(undone is not null
-                    ? $"State Control: the stash is as it was before ({undone} item(s))."
-                    : "State Control: nothing to undo.");
+                    ? $"状态控制：仓库已回到之前的状态（{undone} 件物品）。"
+                    : "状态控制：没有可撤销的内容。");
                 return;
             }
-            if (conn.Character.Id is not { } id || Accounts.GetCharacter(id) is not { } record) { await conn.Commands!.Reply("State Control: this character has no account record."); return; }
+            if (conn.Character.Id is not { } id || Accounts.GetCharacter(id) is not { } record) { await conn.Commands!.Reply("状态控制：这个角色没有账号记录。"); return; }
             var told = new List<string>();
             int? items = LoadStash(key, StashKey + key, keepUndo: true);
-            if (items is not null) told.Add($"stash ({items} item(s))");
+            if (items is not null) told.Add($"仓库（{items} 件物品）");
             bool leaving = false;
             foreach (var other in Accounts.CharactersOf(record.AccountId))
             {
                 if (Saves.Db.GetMeta(CharacterKey + other.Id.ToString("N")) is not { } text || JsonSerializer.Deserialize<CharacterState>(text, Json) is not { } state) continue;
                 if (other.Id == id) { _pending[id] = (state, DateTimeOffset.UtcNow); leaving = true; told.Add(other.Name); }
-                else if (Program.InGame.Keys.Any(c => c.Character.Id == other.Id && !c.Closed)) told.Add($"{other.Name} (in game elsewhere: not loaded)");
-                else told.Add(Restore(state) is { } why ? $"{other.Name} (not loaded: {why})" : other.Name);
+                else if (Program.InGame.Keys.Any(c => c.Character.Id == other.Id && !c.Closed)) told.Add($"{other.Name}（正在别处游戏中：未载入）");
+                else told.Add(Restore(state) is { } why ? $"{other.Name}（未载入：{why}）" : other.Name);
             }
-            if (told.Count == 0) { await conn.Commands!.Reply("State Control: nothing is saved yet (/save_character, /save_stash)."); return; }
+            if (told.Count == 0) { await conn.Commands!.Reply("状态控制：还没有存过任何东西（/save_character、/save_stash）。"); return; }
             _log($"{record.Name}: loading {string.Join(", ", told)}");
             if (!leaving)
             {
                 if (items is not null) await ShowStashAgain(conn);
-                await conn.Commands!.Reply($"State Control: loaded {string.Join(", ", told)}.");
+                await conn.Commands!.Reply($"状态控制：已载入 {string.Join("、", told)}。");
                 return;
             }
             // This character's own state waits for its connection's last save: the connection ends now, and is not
             // waited for here, where it would wait for this very command.
-            _ = Program.EndAsync(conn, "save states loaded", $"State Control: loaded {string.Join(", ", told)}. Select your character again.");
+            _ = Program.EndAsync(conn, "save states loaded", $"状态控制：已载入 {string.Join("、", told)}。请重新选择角色。");
         })
-        .Add("clear_stash", "/clear_stash confirm (State Control: empty every tab of this league's stash; /load_saves undo puts it back)", async args =>
+        .Add("clear_stash", "/clear_stash confirm（状态控制：清空这个联赛仓库的所有页；/load_saves undo 可以放回去）", async args =>
         {
             if (args.Length == 0 || !args[0].Equals("confirm", StringComparison.OrdinalIgnoreCase))
-            { await conn.Commands!.Reply("State Control: /clear_stash confirm empties every stash tab of this league. /load_saves undo puts the items back."); return; }
+            { await conn.Commands!.Reply("状态控制：/clear_stash confirm 会清空这个联赛的所有仓库页；/load_saves undo 会把物品放回去。"); return; }
             string key = StashOf(conn);
             int removed = Saves.Atomically(() =>
             {
@@ -127,9 +127,9 @@ public sealed class StateControlMod : IMod
             });
             _log($"stash {key}: {(removed < 0 ? "nothing to clear" : $"{removed} item(s) cleared")}");
             if (removed >= 0) await ShowStashAgain(conn);
-            await conn.Commands!.Reply(removed < 0 ? "State Control: the stash has not been opened yet." : $"State Control: {removed} item(s) removed from the stash; /load_saves undo puts them back.");
+            await conn.Commands!.Reply(removed < 0 ? "状态控制：仓库还没打开过。" : $"状态控制：已从仓库移除 {removed} 件物品；/load_saves undo 可以放回去。");
         })
-        .Add("fill_stash", "/fill_stash [amount] (State Control: put every item its special stash tabs hold into them: currency, fragments, essences, cards, uniques, gems, flasks and the rest)", async args =>
+        .Add("fill_stash", "/fill_stash [数量]（状态控制：给每个特殊仓库页塞满它自己装的东西：通货、碎片、精华、命运卡、传奇、宝石、药剂等等）", async args =>
         {
             int amount = args.Length > 0 && int.TryParse(args[0], out int wanted) && wanted > 0 ? wanted : _choices.FillAmount;
             if (Game.ItemsFor(conn).Error is { } error) { await conn.Commands!.Reply(error); return; }
@@ -139,46 +139,46 @@ public sealed class StateControlMod : IMod
             lines.AddRange(FillUniqueTabs(conn));
             // The tabs it added (gems, uniques) are in the client's tab list only once the list goes out again.
             await Game.SendTabListAgain(conn, InstanceStash.Personal);
-            await conn.Commands!.Reply(lines.Count == 0 ? "State Control: the stash has no special tabs." : $"State Control: {string.Join("; ", lines)}.");
+            await conn.Commands!.Reply(lines.Count == 0 ? "状态控制：仓库里没有特殊仓库页。" : $"状态控制：{string.Join("；", lines)}。");
         })
-        .Add("add_tab", "/add_tab <type> [count] [name] (State Control: add stash tabs of any type: " + string.Join(", ", TabTypes.Keys) + "; /add_tab list shows them)", async args =>
+        .Add("add_tab", "/add_tab <类型> [数量] [名字]（状态控制：加任意类型的仓库页：" + string.Join(", ", TabTypes.Keys) + "；/add_tab list 列出全部类型）", async args =>
         {
             if (args.Length == 0 || args[0].Equals("list", StringComparison.OrdinalIgnoreCase) || !TabTypes.TryGetValue(args[0], out var type))
             {
-                await conn.Commands!.Reply((args.Length == 0 || args[0].Equals("list", StringComparison.OrdinalIgnoreCase) ? "" : $"State Control: no tab type \"{args[0]}\". ") +
-                    $"/add_tab <type> [count] [name], types: {string.Join(", ", TabTypes.Keys)}. Folders are made in the stash: a tab's settings, Folder, Create New Folder.");
+                await conn.Commands!.Reply((args.Length == 0 || args[0].Equals("list", StringComparison.OrdinalIgnoreCase) ? "" : $"状态控制：没有 \"{args[0]}\" 这种仓库页类型。") +
+                    $"/add_tab <类型> [数量] [名字]，可选类型：{string.Join("、", TabTypes.Keys)}。文件夹在仓库里建：某一页的设置 → 文件夹 → 新建文件夹。");
                 return;
             }
             int count = 1, nameAt = 1;
             if (args.Length > 1 && int.TryParse(args[1], out int n)) { count = n; nameAt = 2; }
-            if (count is < 1 or > 50) { await conn.Commands!.Reply("State Control: /add_tab adds 1 to 50 tabs at a time."); return; }
+            if (count is < 1 or > 50) { await conn.Commands!.Reply("状态控制：/add_tab 一次加 1 到 50 页。"); return; }
             string name = args.Length > nameAt ? string.Join(' ', args[nameAt..]).Trim() : "";
-            if (name.Length > 64) { await conn.Commands!.Reply("State Control: a tab name is at most 64 characters."); return; }
+            if (name.Length > 64) { await conn.Commands!.Reply("状态控制：仓库页名字最多 64 个字符。"); return; }
             var stash = Game.PersonalStashOf(conn);
             var (r, g, b) = type.Colour;
             IReadOnlyList<int> added;
             try { added = stash.AddTabs(type.Id, count, name.Length > 0 ? name : type.Name, r, g, b); }
-            catch (Exception e) when (e is InvalidOperationException or ArgumentException) { await conn.Commands!.Reply($"State Control: no tab added: {e.Message}."); return; }
+            catch (Exception e) when (e is InvalidOperationException or ArgumentException) { await conn.Commands!.Reply($"状态控制：没有加成功：{e.Message}。"); return; }
             // One tab with a name of its own keeps it as typed (a premium kind can be renamed; the rest keep "name 1").
             if (count == 1 && name.Length > 0) stash.Rename(added[0], name);
             var names = added.Select(stash.NameOf).ToList();
             // A Map or Unique tab's pages are made when the stash is read: read it again.
             if (type.Id is StashRules.Map or StashRules.Unique) AccountStash.Forget(StashOf(conn));
             await Game.SendTabListAgain(conn, InstanceStash.Personal);
-            await conn.Commands!.Reply($"State Control: added {string.Join(", ", names)} ({type.Name}){(StashRules.NotShown(type.Id) ? "; the server does not show this kind's items yet" : "")}.");
+            await conn.Commands!.Reply($"状态控制：已添加 {string.Join("、", names)}（{type.Name}）{(StashRules.NotShown(type.Id) ? "；服务器暂时还不会显示这类物品" : "")}。");
         })
-        .Add("remove_tab", "/remove_tab <name> | all confirm (State Control: remove the stash tabs of that name, or every tab, with what is in them; /load_saves undo puts them back)", async args =>
+        .Add("remove_tab", "/remove_tab <名字> | all confirm（状态控制：删掉这个名字的仓库页，或者所有页，连同里面的东西；/load_saves undo 可以放回去）", async args =>
         {
             if (args.Length == 0)
-            { await conn.Commands!.Reply("State Control: /remove_tab <name> removes the tabs of that name with their items; /remove_tab all confirm removes every tab. /load_saves undo puts them back."); return; }
+            { await conn.Commands!.Reply("状态控制：/remove_tab <名字> 删掉该名字的页和里面的物品；/remove_tab all confirm 删掉所有页。/load_saves undo 可以放回去。"); return; }
             bool all = args[0].Equals("all", StringComparison.OrdinalIgnoreCase);
             if (all && !(args.Length > 1 && args[1].Equals("confirm", StringComparison.OrdinalIgnoreCase)))
-            { await conn.Commands!.Reply("State Control: /remove_tab all confirm removes every tab of this league's stash with its items, and leaves one empty tab. /load_saves undo puts them back."); return; }
+            { await conn.Commands!.Reply("状态控制：/remove_tab all confirm 会删掉这个联赛仓库的所有页和里面的物品，只留一个空页。/load_saves undo 可以放回去。"); return; }
             string name = string.Join(' ', args).Trim();
             string key = StashOf(conn);
             var stash = Game.PersonalStashOf(conn);
             var tabs = Enumerable.Range(0, stash.Count).Where(t => stash.IsShownTab(t) && (all || stash.NameOf(t).Equals(name, StringComparison.OrdinalIgnoreCase))).ToList();
-            if (tabs.Count == 0) { await conn.Commands!.Reply($"State Control: no stash tab is named \"{name}\"."); return; }
+            if (tabs.Count == 0) { await conn.Commands!.Reply($"状态控制：没有叫 \"{name}\" 的仓库页。"); return; }
             if (ReadStash(key) is { } before) Saves.Db.SetMeta(UndoKey + key, JsonSerializer.Serialize(before, Json));
             var names = new List<string>();
             int items = 0;
@@ -190,25 +190,25 @@ public sealed class StateControlMod : IMod
             }
             // The panel is never left without a tab.
             if (stash.VisibleCount == 0 || Enumerable.Range(0, stash.Count).All(t => !stash.IsShownTab(t) || stash.TabType(t) == StashRules.Folder))
-                stash.Rename(stash.AddTabs(1, 1, "Stash", 0x7c, 0x54, 0x36)[0], "Stash");
+                stash.Rename(stash.AddTabs(1, 1, "仓库", 0x7c, 0x54, 0x36)[0], "仓库");
             await Game.SendTabListAgain(conn, InstanceStash.Personal);
             _log($"stash {key}: removed {names.Count} tab(s), {items} item(s)");
-            await conn.Commands!.Reply($"State Control: removed {(all ? $"all {names.Count} tabs" : string.Join(", ", names))} ({items} item(s)). /load_saves undo puts them back.");
+            await conn.Commands!.Reply($"状态控制：已删除 {(all ? $"全部 {names.Count} 页" : string.Join("、", names))}（{items} 件物品）。/load_saves undo 可以放回去。");
         })
-        .Add("make_characters", "/make_characters [campaign] (State Control: one level 100 character of every ascendancy on this account, with the quests' passive points and its ascendancy points; campaign: at the end of the story, with every waypoint)", async args =>
+        .Add("make_characters", "/make_characters [campaign]（状态控制：给这个账号的每个升华各造一个 100 级角色，带任务天赋点和升华点；campaign：直接站在剧情末尾，传送点全开）", async args =>
         {
             bool campaign = args.Length > 0 && args[0].Equals("campaign", StringComparison.OrdinalIgnoreCase);
-            if (conn.Character.Id is not { } id || Accounts.GetCharacter(id) is not { } record) { await conn.Commands!.Reply("State Control: this character has no account record."); return; }
+            if (conn.Character.Id is not { } id || Accounts.GetCharacter(id) is not { } record) { await conn.Commands!.Reply("状态控制：这个角色没有账号记录。"); return; }
             var choices = Game.Ascendancies.Definitions.Where(d => d.Identity.Family == AscendancyFamily.Normal).ToList();
             int have = Accounts.CharactersOf(record.AccountId).Count;
             if (have + choices.Count > MostCharacters)
-            { await conn.Commands!.Reply($"State Control: {choices.Count} characters are made, one for each ascendancy, and an account holds {MostCharacters}: this one has {have}. Delete {have + choices.Count - MostCharacters} first."); return; }
+            { await conn.Commands!.Reply($"状态控制：每个升华各造一个角色，共 {choices.Count} 个，而一个账号最多 {MostCharacters} 个，这个账号已经有 {have} 个。请先删掉 {have + choices.Count - MostCharacters} 个。"); return; }
             var made = new List<string>();
             foreach (var choice in choices)
                 if (Enum.IsDefined((CharacterClass)choice.BaseClass))
                     made.Add(MakeCharacter(record, (CharacterClass)choice.BaseClass, choice, campaign, Game.ItemsFor(conn)));
             _log($"{record.Name}: made {string.Join(", ", made)}{(campaign ? " (campaign)" : "")}");
-            await conn.Commands!.Reply($"State Control: made {string.Join(", ", made)}: level 100{(campaign ? ", at the end of the story" : "")}. They are in the character selection.");
+            await conn.Commands!.Reply($"状态控制：已创建 {string.Join("、", made)}：100 级{(campaign ? "，站在剧情末尾" : "")}。它们已经在角色选择界面里。");
         });
 
     // ---- characters ----
@@ -219,9 +219,9 @@ public sealed class StateControlMod : IMod
         string? why = Saves.Atomically(() =>
         {
             var accounts = Accounts;
-            if (accounts.GetCharacter(state.Record.Id) is not { } now) return "the character no longer exists";
-            if (now.AccountId != state.Record.AccountId || now.League != state.Record.League) return "it has moved to another account or league";
-            if (now.HardcoreDeath is not null) return "it died in Hardcore";
+            if (accounts.GetCharacter(state.Record.Id) is not { } now) return "角色已经不存在了";
+            if (now.AccountId != state.Record.AccountId || now.League != state.Record.League) return "它已经换到别的账号或联赛";
+            if (now.HardcoreDeath is not null) return "它已经在硬核模式里死亡";
             // The name is the save's key: a renamed character keeps its new name and gets the state under it.
             CharacterSaves.Write(now.Name, state.Save);
             accounts.UpdateCharacter(now with { Class = state.Record.Class, Level = state.Record.Level, AreaId = state.Record.AreaId, LastTown = state.Record.LastTown });
@@ -340,18 +340,18 @@ public sealed class StateControlMod : IMod
     /// <summary>The tab kinds /add_tab makes: a StashType row (AccountStash.Types), the name new tabs get, and a colour.</summary>
     static readonly Dictionary<string, (byte Id, string Name, (byte, byte, byte) Colour)> TabTypes = new(StringComparer.OrdinalIgnoreCase)
     {
-        ["normal"] = (0, "Normal", (0x7c, 0x54, 0x36)), ["premium"] = (1, "Premium", (0x7c, 0x54, 0x36)), ["quad"] = (7, "Quad", (0x7c, 0x54, 0x36)),
-        ["currency"] = (StashRules.Currency, "Currency", (0xaa, 0x9e, 0x82)), ["map"] = (StashRules.Map, "Map", (0x60, 0x60, 0x60)),
-        ["fragment"] = (StashRules.Fragment, "Fragment", (0xc8, 0xc8, 0xc8)), ["essence"] = (StashRules.Essence, "Essence", (0x9a, 0x6a, 0xc8)),
-        ["divination"] = (6, "Divination", (0x0e, 0xba, 0xff)), ["unique"] = (StashRules.Unique, "Unique", (0xaf, 0x60, 0x25)),
-        ["delve"] = (StashRules.Delve, "Delve", (0x6a, 0x80, 0x9a)), ["blight"] = (StashRules.Blight, "Blight", (0x3a, 0x8a, 0x3a)),
-        ["ultimatum"] = (14, "Ultimatum", (0xaa, 0x30, 0x30)), ["delirium"] = (15, "Delirium", (0xd8, 0xd8, 0xd8)),
-        ["flask"] = (17, "Flask", (0x6a, 0x9a, 0xc8)), ["gem"] = (StashRules.Gem, "Gem", (0x1a, 0xa2, 0x9b)), ["breach"] = (22, "Breach", (0x9a, 0x4a, 0xc8)),
+        ["normal"] = (0, "普通", (0x7c, 0x54, 0x36)), ["premium"] = (1, "高级", (0x7c, 0x54, 0x36)), ["quad"] = (7, "四倍", (0x7c, 0x54, 0x36)),
+        ["currency"] = (StashRules.Currency, "通货", (0xaa, 0x9e, 0x82)), ["map"] = (StashRules.Map, "地图", (0x60, 0x60, 0x60)),
+        ["fragment"] = (StashRules.Fragment, "碎片", (0xc8, 0xc8, 0xc8)), ["essence"] = (StashRules.Essence, "精华", (0x9a, 0x6a, 0xc8)),
+        ["divination"] = (6, "命运卡", (0x0e, 0xba, 0xff)), ["unique"] = (StashRules.Unique, "传奇", (0xaf, 0x60, 0x25)),
+        ["delve"] = (StashRules.Delve, "矿坑", (0x6a, 0x80, 0x9a)), ["blight"] = (StashRules.Blight, "菌潮", (0x3a, 0x8a, 0x3a)),
+        ["ultimatum"] = (14, "最后通牒", (0xaa, 0x30, 0x30)), ["delirium"] = (15, "迷雾", (0xd8, 0xd8, 0xd8)),
+        ["flask"] = (17, "药剂", (0x6a, 0x9a, 0xc8)), ["gem"] = (StashRules.Gem, "宝石", (0x1a, 0xa2, 0x9b)), ["breach"] = (22, "裂隙", (0x9a, 0x4a, 0xc8)),
     };
 
     /// <summary>The unique tabs /fill_stash keeps: the account's own, rolled as they come, and two it adds with every
     /// value at its worst and at its best.</summary>
-    static readonly (string Name, int Roll)[] UniqueTabs = [("", 0), ("Unique worst rolls", -1), ("Unique best rolls", 1)];
+    static readonly (string Name, int Roll)[] UniqueTabs = [("", 0), ("传奇最低变量", -1), ("传奇最高变量", 1)];
 
     static List<string> FillUniqueTabs(Player conn)
     {
@@ -382,11 +382,11 @@ public sealed class StateControlMod : IMod
                     foreach (int page in stash.UniqueChildren(parent))
                         foreach (var held in stash.Inventory(page).Items.ToList())
                             stash.Change(page, held.Id, item => Rolled(item, roll, uniques, mods));
-                told.Add($"{stash.NameOf(parent)}: {fill.Added} unique(s){(fill.Skipped.Count > 0 ? $", {fill.Skipped.Count} the server cannot make" : "")}");
+                told.Add($"{stash.NameOf(parent)}：{fill.Added} 件传奇{(fill.Skipped.Count > 0 ? $"，{fill.Skipped.Count} 件服务器造不出来" : "")}");
             }
             catch (Exception e) when (e is ArgumentException or InvalidOperationException or KeyNotFoundException) { told.Add($"{stash.NameOf(parent)}: {e.Message}"); }
         }
-        told.Add("enter another area to see the unique tabs");
+        told.Add("换个区域就能看到传奇仓库页");
         return told;
     }
 
@@ -435,10 +435,10 @@ public sealed class StateControlMod : IMod
     /// <summary>The gem tabs /fill_stash keeps: every gem of a colour as it drops, and again at level 20 with 20% quality.</summary>
     static readonly (string Name, int Colour, bool Levelled, byte R, byte G, byte B)[] GemTabs =
     [
-        ("Red gems", 1, false, 0xc8, 0x3c, 0x3c), ("Red gems 20/20", 1, true, 0xc8, 0x3c, 0x3c),
-        ("Green gems", 2, false, 0x3c, 0xb4, 0x50), ("Green gems 20/20", 2, true, 0x3c, 0xb4, 0x50),
-        ("Blue gems", 3, false, 0x3c, 0x78, 0xc8), ("Blue gems 20/20", 3, true, 0x3c, 0x78, 0xc8),
-        ("White gems", 4, false, 0xc8, 0xc8, 0xc8), ("White gems 20/20", 4, true, 0xc8, 0xc8, 0xc8),
+        ("红色宝石", 1, false, 0xc8, 0x3c, 0x3c), ("红色宝石 20/20", 1, true, 0xc8, 0x3c, 0x3c),
+        ("绿色宝石", 2, false, 0x3c, 0xb4, 0x50), ("绿色宝石 20/20", 2, true, 0x3c, 0xb4, 0x50),
+        ("蓝色宝石", 3, false, 0x3c, 0x78, 0xc8), ("蓝色宝石 20/20", 3, true, 0x3c, 0x78, 0xc8),
+        ("白色宝石", 4, false, 0xc8, 0xc8, 0xc8), ("白色宝石 20/20", 4, true, 0xc8, 0xc8, 0xc8),
     ];
 
     /// <summary>Fills one special tab with what it holds, by the stash's own rules, and shows the change.</summary>
@@ -452,7 +452,7 @@ public sealed class StateControlMod : IMod
         {
             if (stash.FillFlasks(tab, Game.ItemsFor(conn), Game.ShapeOf, out string why) is not { } flasks) { told.Add($"{name}: {why}"); return told; }
             if (flasks.Added.Count > 0) await Game.SendTabChange(conn, stash, tab, [], flasks.Added, $"0x00bf stash tab {tab}: /fill_stash, {flasks.Added.Count} flask(s)");
-            told.Add($"{name}: {flasks.Added.Count} flask(s)");
+            told.Add($"{name}：{flasks.Added.Count} 瓶药剂");
         }
         else if (type == StashRules.Unique) { }   // the unique tabs are filled together (FillUniqueTabs)
         else if (type == StashRules.Gem && GemTabs.Any(g => g.Name == name)) { }   // filled with the first gem tab, below
@@ -471,7 +471,7 @@ public sealed class StateControlMod : IMod
                 });
                 if (stash.FillCells(at, wanted, i => $"{i.TypeHash:x8}:{i.GemVariant}", Game.ShapeOf, out string gemWhy) is not { } put) { told.Add($"{tabName}: {gemWhy}"); continue; }
                 if (!added && put.Added.Count > 0) await Game.SendTabChange(conn, stash, at, [], put.Added, $"0x00bf stash tab {at}: /fill_stash, {put.Added.Count} gem(s)");
-                told.Add($"{tabName}: {put.Added.Count} gem(s){(put.Skipped > 0 ? $", {put.Skipped} found no room" : "")}{(added ? " (a new tab: enter another area to see it)" : "")}");
+                told.Add($"{tabName}：{put.Added.Count} 颗宝石{(put.Skipped > 0 ? $"，{put.Skipped} 颗没地方放" : "")}{(added ? "（新建的页：换个区域才看得到）" : "")}");
             }
             return told;
         }
@@ -485,7 +485,7 @@ public sealed class StateControlMod : IMod
             if (type == StashRules.Divination)
                 now = [.. stash.Inventory(tab).Items.Select(i => i.Item.StackSize == amount ? null : stash.Change(tab, i.Id, card => card with { StackSize = (ushort)Math.Min(amount, StashRules.SlotStack) })).OfType<InventoryItem>()];
             if (now.Count > 0) await Game.SendTabChange(conn, stash, tab, [.. fill.Changed.Select(i => i.Id)], now, $"0x00bf stash tab {tab}: /fill_stash {amount}, {now.Count} slot(s)");
-            told.Add($"{name}: {now.Count} kind(s)");
+            told.Add($"{name}：{now.Count} 种");
         }
         return told;
     }

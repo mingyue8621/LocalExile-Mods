@@ -1,7 +1,7 @@
 {
   "id": "equipmentfusion",
-  "name": "Equipment Fusion",
-  "description": "Adds non-weapon skin-transfer donor attributes and independently calculated defences automatically.",
+  "name": "装备融合",
+  "description": "为非武器装备自动套用皮肤转移来源的属性，并单独计算它自己的防御值。",
   "author": "JJ ouyang",
   "version": "2.0.3",
   "compatibleClientVersions": ["0.6.0-beta", "0.6.1-beta"],

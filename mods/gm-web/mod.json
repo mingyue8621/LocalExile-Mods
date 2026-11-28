@@ -1,7 +1,7 @@
 {
   "id": "gm-web",
-  "name": "GM Web Tool",
-  "description": "Serves the GM commands page at http://127.0.0.1:6111/ (loopback only): pick a command in the browser and it runs in game.",
+  "name": "GM 网页工具",
+  "description": "在本机 http://127.0.0.1:6111/ 提供 GM 命令页面（只允许本机访问）：在浏览器里点一条命令，游戏内直接执行。",
   "author": "cjjlovedsn",
   "version": "1.0.0",
   "compatibleClientVersions": [

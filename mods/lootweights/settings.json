@@ -3,44 +3,44 @@
   "settings": {
     "quantity": {
       "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier",
-      "label": "Item quantity", "description": "How many times as many items every kill drops."
+      "label": "物品数量", "description": "每次击杀掉落物品数量的倍数。"
     },
     "rarity": {
       "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier",
-      "label": "Item rarity", "description": "How many times as often dropped equipment is magic, rare or unique."
+      "label": "物品稀有度", "description": "掉落装备变成魔法、稀有或传奇的概率倍数。"
     },
     "gold": {
       "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier",
-      "label": "Gold", "description": "How many times as much gold every kill drops."
+      "label": "金币", "description": "每次击杀掉落金币数量的倍数。"
     },
     "maps": {
       "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier",
-      "label": "Map drop chance", "description": "How many times as often a kill drops a map."
+      "label": "地图掉落率", "description": "击杀掉落地图的概率倍数。"
     },
     "kinds": {
       "type": "group",
-      "label": "Item kinds",
-      "description": "How often each kind is chosen for a dropped item, against the others. 0 stops that kind dropping.",
+      "label": "物品种类",
+      "description": "一件掉落物品被选成各类的相对概率。设成 0 该类就完全不掉。",
       "settings": {
-        "currency": { "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier", "label": "Currency" },
-        "gems": { "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier", "label": "Gems" },
-        "flasks": { "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier", "label": "Flasks" },
-        "equipment": { "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier", "label": "Equipment" }
+        "currency": { "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier", "label": "通货" },
+        "gems": { "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier", "label": "宝石" },
+        "flasks": { "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier", "label": "药剂" },
+        "equipment": { "type": "number", "default": 1, "min": 0, "max": 100, "step": 0.01, "format": "multiplier", "label": "装备" }
       }
     },
     "mapExtras": {
       "type": "group",
-      "label": "Cards and scarabs in maps",
-      "description": "How many times as often a map kill rolls its base divination card and scarab drop. The map's own modifiers add to it.",
+      "label": "地图里的命运卡与圣甲虫",
+      "description": "地图内击杀触发基础命运卡与圣甲虫掉落的倍数，地图自身的词缀会在此基础上再加成。",
       "settings": {
-        "cards": { "type": "number", "default": 1, "min": 0, "max": 1000, "step": 0.01, "format": "multiplier", "label": "Divination cards" },
-        "scarabs": { "type": "number", "default": 1, "min": 0, "max": 1000, "step": 0.01, "format": "multiplier", "label": "Scarabs" }
+        "cards": { "type": "number", "default": 1, "min": 0, "max": 1000, "step": 0.01, "format": "multiplier", "label": "命运卡" },
+        "scarabs": { "type": "number", "default": 1, "min": 0, "max": 1000, "step": 0.01, "format": "multiplier", "label": "圣甲虫" }
       }
     },
     "items": {
       "type": "map",
-      "label": "Single items",
-      "description": "How many times as likely one currency, divination card or scarab is against the others of its kind. 0 stops it dropping. Other items are ignored.",
+      "label": "单独物品",
+      "description": "某一种通货、命运卡或圣甲虫相对同类其它物品的掉落概率倍数。设成 0 它就不再掉落；无关物品会被忽略。",
       "source": "item",
       "default": {},
       "maxItems": 200,

@@ -3,13 +3,13 @@
   "settings": {
     "fillAmount": {
       "type": "integer", "default": 1000, "min": 1, "max": 50000,
-      "label": "Fill amount",
-      "description": "How many of each item /fill_stash puts in a slot of a special tab (currency, fragments, essences and the like), up to the slot's own limit."
+      "label": "填充数量",
+      "description": "/fill_stash 往特殊仓库页的一个格子里放多少个同类物品（通货、碎片、精华之类），最多不超过该格自身的上限。"
     },
     "questPassivePoints": {
       "type": "integer", "default": 24, "min": 0, "max": 200,
-      "label": "Quest passive points",
-      "description": "The passive skill points /make_characters gives a new character for the campaign's quests: 22 from quests and 2 for killing all three bandits."
+      "label": "任务天赋点",
+      "description": "/make_characters 为剧情任务给新角色的天赋点：任务本身 22 点，加杀掉三个盗贼的 2 点。"
     }
   }
 }

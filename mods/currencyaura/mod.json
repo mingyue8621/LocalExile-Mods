@@ -1,7 +1,7 @@
 {
   "id": "currencyaura",
-  "name": "Currency Aura",
-  "description": "Auto-loots currency near you while you play, like gold: orbs, scrolls, essences, fossils, oils, splinters, and optionally divination cards and scarabs. Adjustable radius and a never-pick-up list; gear, flasks and gems always stay.",
+  "name": "通货拾取",
+  "description": "在游戏过程中自动拾取身边的通货，跟金币一样：宝珠、卷轴、精华、化石、油、裂片，命运卡与圣甲虫也可以选。半径可调，还能设永不拾取名单；装备、药剂和宝石永远留在地上。",
   "author": "EveryDayEngineering",
   "version": "1.0.0",
   "compatibleClientVersions": ["0.6.0-beta", "0.6.1-beta"],

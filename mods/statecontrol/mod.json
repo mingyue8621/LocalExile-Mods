@@ -1,7 +1,7 @@
 {
   "id": "statecontrol",
-  "name": "State Control",
-  "description": "Chat commands for testing and practice: save and load characters and the stash (/save_character, /save_stash, /load_saves), empty, fill, add or remove stash tabs (/clear_stash, /fill_stash, /add_tab, /remove_tab) and make a level 100 character of every ascendancy (/make_characters).",
+  "name": "状态控制",
+  "description": "一组用于测试和练习的聊天命令：保存与载入角色和仓库（/save_character、/save_stash、/load_saves），清空、填满、增加或删除仓库页（/clear_stash、/fill_stash、/add_tab、/remove_tab），以及一键生成每个升华的 100 级角色（/make_characters）。",
   "author": "marshmellion",
   "version": "1.0.0",
   "compatibleClientVersions": [

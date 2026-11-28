@@ -1,7 +1,7 @@
 {
   "id": "lootweights",
-  "name": "Loot Weights",
-  "description": "Tune drop quantity, rarity, gold, maps, item kinds, map cards and scarabs, and single currencies, cards and scarabs.",
+  "name": "掉落权重",
+  "description": "调整掉落数量、稀有度、金币、地图、物品种类、地图里的命运卡与圣甲虫，以及单种通货、命运卡和圣甲虫的权重。",
   "author": "nestyy1337",
   "version": "1.0.0",
   "compatibleClientVersions": ["0.6.1-beta"],
