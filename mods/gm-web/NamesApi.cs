@@ -16,6 +16,18 @@ static class NamesApi
 {
     static byte[]? _cache;
 
+    /// <summary>The mod's own folder (from <see cref="GmWebMod.Load"/>): the assembly is loaded from a private copy
+    /// elsewhere, so <c>Assembly.Location</c> never points at the files the mod shipped.</summary>
+    internal static string? Folder;
+
+    /// <summary>Points the name tables at the mod's folder and drops the built response, so a reloaded mod picks up
+    /// a replaced zh.json.gz.</summary>
+    internal static void Configure(string folder)
+    {
+        Folder = folder;
+        _cache = null;
+    }
+
     internal static async Task Handle(NetworkStream stream, string method)
     {
         if (method != "GET") { await GmWebMod.Write(stream, 404, "text/plain", "not found"u8.ToArray()); return; }
@@ -67,7 +79,7 @@ static class NamesApi
         var names = new ChineseNames();
         try
         {
-            string folder = Path.GetDirectoryName(typeof(NamesApi).Assembly.Location) ?? "";
+            string folder = Folder ?? Path.GetDirectoryName(typeof(NamesApi).Assembly.Location) ?? "";
             string path = Path.Combine(folder, "zh.json.gz");
             if (!File.Exists(path)) return names;
             using var file = File.OpenRead(path);

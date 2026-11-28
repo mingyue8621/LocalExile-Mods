@@ -30,6 +30,7 @@ public sealed class GmWebMod : IMod, IDisposable
     public void Load(IModContext mod)
     {
         _folder = mod.Folder;
+        NamesApi.Configure(mod.Folder);
         _stopping = new();
         var listener = new TcpListener(System.Net.IPAddress.Loopback, Port);
         try { listener.Start(); }
