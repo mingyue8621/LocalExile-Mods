@@ -5,6 +5,8 @@
 
   <ItemGroup>
     <None Include="gm.html" CopyToOutputDirectory="PreserveNewest" />
+    <!-- 中文名表：/names 用它把区域、怪物、物品显示成中文（缺文件时页面仍可用，只是英文）。 -->
+    <None Include="zh.json.gz" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
